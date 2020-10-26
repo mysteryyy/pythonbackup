@@ -20,43 +20,51 @@ import scipy.optimize as opt
 #from julia import  Main
 from scipy.integrate import quad,dblquad
 from pybayes.pdfs import CPdf
+from scipy.special import  gamma
 #Main.include("try3.jl")
-pos=int(input("enter stock pos:"))
+pos=int(input("enter stock pos: "))
+lb = int(input("enter no of returns: "))
 k=pd.read_pickle('/home/sahil/projdir/dailydata.pkl')
-k1=k[k.Symbol==k.Symbol.unique()[pos]].iloc[1000:1100]
-k1['dayret']=1*((k1.Close-k1.Open)/(k1.Open))*100
+k1=k[k.Symbol==k.Symbol.unique()[pos]].iloc[-lb:]
+k1['dayret'] = np.log(k1.Close/k1.Open)
+#k1['dayret']=-1*((k1.Close-k1.Open)/(k1.Open))*100
 k1['lowrange']=((k1.Open-k1.Low)/(k1.Open))*100
 def optimizer(x):
-    def pdf(x,xmean,*args):
-        z,beta,q=args
+    def pdf(x,*args):
+        xmean,beta,q=args
         ser=x
-        pd =(1/z)*(1+beta*(q-1)*(x-xmean)**2)**(-1/(q-1))
+        cq=(2*(np.pi**.5)*gamma(1/(q-1)))/((3-q)*((1-q)**.5)*gamma((3-q)/(2-2*q)))
+        pd =(beta**0.5/cq)*(1-beta*(1-q)*(x-xmean)**2)**(1/(1-q))
         return pd
      
-    def lnpdf(z,beta,q,x,xmean):
+    def lnpdf(xmean,beta,q,x):
         ser=x
-        pd = ser.apply(lambda x:(1/z)*(1+beta*(q-1)*(x-xmean)**2)**(-1/(q-1)))
+        pd = ser.apply(lambda x:pdf(x,xmean,beta,q))
         logpdf = np.sum(np.log(pd))
         return logpdf
     def crit(params,*args):
-        z,beta,q=params
-        x,xmean=args
-        logpdf=lnpdf(z,beta,q,x,xmean)
+        xmean,beta,q=params
+        x=args
+        logpdf=lnpdf(xmean,beta,q,x)
         return -logpdf
-    res=opt.minimize(crit,[1.11,4.95,1.65],args=(x,x.mean()))
+    res=opt.minimize(crit,[0,5,1.65],args=(x,))
     return res
 def pdf(x,xmean,*args):
         z,beta,q=args
         ser=x
         pd = -(1/z)*(1+beta*(q-1)*(x-xmean)**2)**(-1/(q-1))
         return pd
-res=optimizer(k1.dayret)
+def pdf1(params,*args):
+        z,beta,q=params
+        x,xmean=args
+        #zf = lambda x,beta,q:(1-(1-q)*beta*x**2)**(1/(1-q))
+        #z=quad(zf,-np.inf,np.inf,args=(beta,q))[0]
+        pd =(1/z)*(1-beta*(1-q)*(x-xmean)**2)**(1/(1-q))
+        return -np.sum(np.log(pd))
+
+res=opt.minimize(pdf1,[1.1,5, 2.95],args=(k1.dayret,k1.dayret.mean()))
 k2=k1[k1.dayret>0]
-res1=optimizer(k2.lowrange)
-z,beta,q=res.x
-z1,beta1,q1=res1.x
-val1=str(nolds.dfa(k1.Close)**-1)
-lim=int(input("enter limits: "))
+im=int(input("enter limits: "))
 def pdfret(x,xm,sl,z,beta,q):
     global lim
     return -(1/z)*(1+beta*(q-1)*(x-xm)**2)**(-1/(q-1))
