@@ -3,7 +3,7 @@ import nolds
 from datetime import date, timedelta
 from numpy.lib.stride_tricks import as_strided
 import matplotlib.pyplot as plt
-from  matplotlib import pyplot as plt1
+from matplotlib import pyplot as plt1
 from scipy.stats import norm
 import pandas as pd
 import numpy as np
@@ -15,11 +15,11 @@ import pdb
 from mle import *
 #import julia
 import scipy.optimize as opt
-#from julia.api import Julia
+from julia.api import Julia
 #j=julia.Julia(compiled_modules=False)
-#from julia import  Main
+#from julia import  Man
 from scipy.integrate import quad,dblquad
-from pybayes.pdfs import CPdf
+#from pybayes.pdfs import CPdf
 from scipy.special import  gamma
 #Main.include("try3.jl")
 pos=int(input("enter stock pos: "))
@@ -44,7 +44,7 @@ def optimizer(x):
         return logpdf
     def crit(params,*args):
         xmean,beta,q=params
-        x=args
+        x=args[0]
         logpdf=lnpdf(xmean,beta,q,x)
         return -logpdf
     res=opt.minimize(crit,[0,5,1.65],args=(x,))
@@ -61,23 +61,24 @@ def pdf1(params,*args):
         #z=quad(zf,-np.inf,np.inf,args=(beta,q))[0]
         pd =(1/z)*(1-beta*(1-q)*(x-xmean)**2)**(1/(1-q))
         return -np.sum(np.log(pd))
-
-res=opt.minimize(pdf1,[1.1,5, 2.95],args=(k1.dayret,k1.dayret.mean()))
+res=optimizer(k1.dayret)
+#res=opt.minimize(pdf1,[1.1,5, 2.95],args=(k1.dayret,k1.dayret.mean()))
 k2=k1[k1.dayret>0]
-im=int(input("enter limits: "))
-def pdfret(x,xm,sl,z,beta,q):
+z,beta,q=res.x[0],res.x[1],res.x[2]
+lim=int(input("enter limits: "))
+def pdfret(x,xm,t,sl,z,beta,q):
+
+    val2=np.float(1/nolds.dfa(k1.Close))
     global lim
-    return -(1/z)*(1+beta*(q-1)*(x-xm)**2)**(-1/(q-1))
-l=quad(lambda x:pdfret(x,k1.dayret.mean(),-0.3,z,beta,q),-lim,lim)[0]
+    return -(1/z)*(t**val2)*(1+beta*(q-1)*((x-xm)*(t**val2))**2)**(-1/(q-1))
+l=quad(lambda x:pdfret(x,k1.dayret.mean(),1,-0.3,z,beta,q),-lim,lim)[0]
 def scaledpdfret(x,t,xm,sl,z,beta,q):
     global k1
     val1=1/(nolds.dfa(k1.Close))
     return -(1/z)*(1+beta*(q-1)*(x/(t**val1)-xm/(t**val1))**2)**(-1/(q-1))
 def stoploss(x,xm,sl,z,beta,q,k1):
-   global val1
-   val2=np.float(val1)
-   sl1 = quad(lambda x:pdfret(x,xm,sl,z,beta,q),-lim,sl)[0] 
-   sl2=dblquad(lambda x,t:pdfret(x*t**val2,xm*t**val2,sl,z,beta,q)/l,-lim
+   #sl1 = quad(lambda x:pdfret(x,xm,t,sl,z,beta,q),-lim,sl)[0] 
+   sl2=dblquad(lambda x,t:pdfret(x,xm,t,sl,z,beta,q)/l,-lim
            ,sl,lambda t:1,lambda t:np.inf)[0]
 
    return quad(lambda x:x*pdfret(x,xm,sl,*res.x),sl,lim)[0]/l+sl*sl2
@@ -85,13 +86,13 @@ vals = [stoploss(k1.dayret.values,k1.dayret.mean(),i,z,beta,q,k1) for i in np.ar
 print(vals)
 res = optimizer(k1.dayret)     
 pd1 = pdf(k1.dayret,k1.dayret.mean(),*res.x)
-pd2 = pdf(k1.lowrange,k1.lowrange.mean(),*res1.x)
+#pd2 = pdf(k1.lowrange,k1.lowrange.mean(),*res1.x)
 df=pd.DataFrame()
 df2=pd.DataFrame()
 df['returns']=k1.dayret
 df2['lowrange']=k2.lowrange
-df['prob2']=pd2
-df2['prob2']=pd2
+#df['prob2']=pd2
+#df2['prob2']=pd2
 df['prob']=pd1
 df['prob1']=norm().pdf(df.returns)
 df = df.sort_values(by='returns')
