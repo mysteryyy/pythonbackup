@@ -26,9 +26,9 @@ l=0
 #    print(s)
 #    print(str(i)+" c")
 al=1.4
-nu=4
-s=1.1+.9
-u=-.2
+nu=2.42
+s=1.88
+u=0
 def t_dist(x,nu,s):
 
    return ((s**-1)*gamma((nu+1)/2)/((nu**.5)*np.pi**.5*gamma(nu/2)))*(1+(x/s)**2/nu)**(-(nu+1)/2)
