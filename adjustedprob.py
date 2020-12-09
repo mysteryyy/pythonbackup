@@ -7,7 +7,7 @@ from scipy.special import gamma
 from scipy.integrate import dblquad,tplquad,quad
 import numpy as np
 from numpy.random import normal,uniform
-al=.62
+al=.55
 nu=6.52
 s=1.72
 u=0.02
@@ -22,8 +22,8 @@ def slprobcalc(sl,al,t1):
     print(str(t1) + " done")
     return slprob
 
-scaledprobs = [slprobcalc(-4,.6,i) for i in range(1,300)]
-print(dblquad(lambda x,t1:(t1**(al))*t_dist((x-u)*(t1**(al)),nu,s),-lim,-4,lambda t1:1,lambda t1:30)[1])
+scaledprobs = [slprobcalc(-2,al,i) for i in range(1,300)]
+print(dblquad(lambda x,t1:(t1**(al))*t_dist((x-u)*(t1**(al)),nu,s),-lim,-4,lambda t1:1,lambda t1:30)[0])
 
-#plt.plot(scaledprobs)
-#plt.show()
+plt.plot(scaledprobs)
+plt.show()
