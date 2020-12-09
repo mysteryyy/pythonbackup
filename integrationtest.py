@@ -25,8 +25,8 @@ l=0
 #        continue
 #    print(s)
 #    print(str(i)+" c")
-al=.77
-nu=2.52
+al=.52
+nu=8.52
 s=1.72
 u=0.02
 lim=20
@@ -39,7 +39,7 @@ def slprobcalc(sl,al):
     slprob= dblquad(lambda x,t1:t_dist((x-u/t1**(1/al)),nu,s/(t1**(1/al))),sl,-lim,lambda t:1,lambda t:500)[0]
     return slprob
 def utility(sl):
-   slprob= dblquad(lambda x,t1:(t1**(1/al))*t_dist((x-u)*(t1**(1/al)),nu,s),sl,-lim,lambda t:1,lambda t:500)[0]
+   slprob= dblquad(lambda x,t1:(t1**(al))*t_dist((x-u)*(t1**(al)),nu,s),-lim,sl,lambda t1:1,lambda t1:500)[0]
    #slprob=0
    #for i in range(1000):
    #  al = np.random.uniform(1.2,1.8)
@@ -47,7 +47,7 @@ def utility(sl):
    print(str(sl)+" alpha done")
    #slprob = slprob*.6/1000
    return sl*slprob+(1-slprob)*quad(lambda x:x*t_dist((x-u),nu,s),sl,lim)[0]
-slrange = np.arange(-5,-0.1,0.1)
+slrange = np.arange(-8,-0.1,0.1)
 uts = [utility(i) for i in slrange]
 plt.plot(slrange,uts)
 plt.show()
