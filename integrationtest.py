@@ -26,20 +26,20 @@ l=0
 #    print(s)
 #    print(str(i)+" c")
 al=1.4
-nu=4.52
+nu=2.52
 s=1.72
-u=0
-lim=20
+u=0.2
+lim=5
 def t_dist(x,nu,s):
 
    return ((s**-1)*gamma((nu+1)/2)/((nu**.5)*np.pi**.5*gamma(nu/2)))*(1+(x/s)**2/nu)**(-(nu+1)/2)
 
 def slprobcalc(sl,al):
     
-    slprob= dblquad(lambda x,t1:(t1**al)*t_dist((x-u)*t1**al,nu,s),sl,-lim,lambda t:1,lambda t:500)[0]
+    slprob= dblquad(lambda x,t1:(t1**-(1/al))*t_dist((x-u)*t1**(1/al),nu,s),sl,-lim,lambda t:1,lambda t:500)[0]
     return slprob
 def utility(sl):
-   slprob= dblquad(lambda x,t1:(t1**al)*t_dist((x-u)*t1**al,nu,s),sl,-lim,lambda t:1,lambda t:500)[0]
+   slprob= dblquad(lambda x,t1:(t1**-(1/al))*t_dist((x-u)*t1**(1/al),nu,s),sl,-lim,lambda t:1,lambda t:500)[0]
    #slprob=0
    #for i in range(1000):
    #  al = np.random.uniform(1.2,1.8)
