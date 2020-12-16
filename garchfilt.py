@@ -25,7 +25,7 @@ from arch import arch_model
 import pyflux as pf
 import sys
 import investpy
-k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2018',to_date='16/12/2018')
+k1=investpy.search_quotes(text='TATASTEEL',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2020',to_date='16/12/2020')
 if path.exists("/home/sahil/pythonbackup/todays_stock.pkl"):
  os.remove("/home/sahil/pythonbackup/todays_stock.pkl")
 else:
