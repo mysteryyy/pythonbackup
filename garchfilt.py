@@ -25,10 +25,12 @@ from arch import arch_model
 import pyflux as pf
 import sys
 import investpy
-
-k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2020',to_date='07/12/2020')
-
-k1=pd.read_pickle("todays_stock1.pkl")
+k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2018',to_date='16/12/2018')
+if path.exists("/home/sahil/pythonbackup/todays_stock.pkl"):
+ os.remove("/home/sahil/pythonbackup/todays_stock.pkl")
+else:
+ k1.to_pickle("todays_stock.pkl")
+ 
 k1['dayret'] = ((k1.Close/k1.Open)-1)*100
 #k1['dayret'] = k1.Close.pct_change()*100
 k1 = k1.dropna()
