@@ -26,6 +26,14 @@ import pyflux as pf
 import sys
 import investpy
 
-#k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2019',to_date='07/12/2020')
+k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2020',to_date='07/12/2020')
 
-k1.to_pickle("todays_stock1.pkl")
+k1=pd.read_pickle("todays_stock1.pkl")
+k1['dayret'] = ((k1.Close/k1.Open)-1)*100
+#k1['dayret'] = k1.Close.pct_change()*100
+k1 = k1.dropna()
+print("long term hold ret")
+print(((k1.Close[-1]/k1.Open[0])-1)*100)
+print("intraday hold ret")
+print((((k1.Close/k1.Open)-1)*100).sum())
+
