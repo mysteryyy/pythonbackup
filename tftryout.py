@@ -20,9 +20,11 @@ def _make_val_and_grad_fn(value_fn):
   @functools.wraps(value_fn)
   def val_and_grad(x):
     return tfp.math.value_and_gradient(value_fn, x)
+  
   return val_and_grad
-print('gradient ',tfp.math.value_and_gradient(jds,[1,2,3]))
-import numpy as np
+def logp(x,y,z):
+    return jds.log_prob(x,y,z)
+print('gradient ',tfp.math.value_and_gradient(logp,[1,2,3]))
 x = tf.Variable(0.1)
 beta = tf.Variable(1.36)
 q = tf.Variable(2.1)
