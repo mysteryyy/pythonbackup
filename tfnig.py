@@ -24,7 +24,7 @@ def nig(mean,scale1,alpha,beta):
     pd = tfd.JointDistributionSequential([
          tfd.Independent(tfd.InverseGaussian(scale1,(alpha**2-beta**2)**.5)),
          lambda mix:tfd.Normal(loc=mean+beta*mix,scale=mix)])
-    return pd.log_prob(pd.sample())
+    return pd.log_prob(pd.sample()),pd
 def logp(x,y,z):
     X = tf.constant(z) 
     u=0
