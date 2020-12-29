@@ -20,11 +20,15 @@ def _make_val_and_grad_fn(value_fn):
     return tfp.math.value_and_gradient(value_fn, x)
   
   return val_and_grad
-scale = tf.Variable(dtype=np.float32)
-alpha = tf.Variable(dtype=np.float32)
-beta = tf.Variable(dtype=np.float32)
-ig = tfd.InverseGaussian()
-mean = tfd.JointDistributionSequential()
+mean=0
+scale1 = 1.2 
+alpha = 12
+beta = .7
+extra = (alpha**2-beta**2)**.5
+ig = tfd.InverseGaussian(scale1,(alpha**2-beta**2)**.5)
+pd = tfd.JointDistributionSequential(
+     tfd.InverseGaussian(loc=scale1,concentration=extra),
+     lambda mix:tfd.Normal(loc=mean+beta*mix,scale=mix))
 def logp(x,y,z):
     X = tf.constant(z) 
     u=0
