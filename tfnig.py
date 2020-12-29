@@ -23,12 +23,13 @@ def _make_val_and_grad_fn(value_fn):
 mean=0
 scale1 = 1.2 
 alpha = 12
-beta = .7
+beta = -.7
 extra = (alpha**2-beta**2)**.5
 ig = tfd.InverseGaussian(scale1,(alpha**2-beta**2)**.5)
-pd = tfd.JointDistributionSequential(
-     tfd.InverseGaussian(loc=scale1,concentration=extra),
-     lambda mix:tfd.Normal(loc=mean+tfd.bijectrors.Scale(beta).forward(mix),scale=tfd.Normal(loc=mean+tfd.bijectrors.Scale(1.).forward(mix))))
+mix = tfd.InverseGaussian(scale1,(alpha**2-beta**2)**.5)
+pd = tfd.JointDistributionSequential([
+     
+    tfd.Normal(loc=mean+beta*mix,scale=mix)])
 def logp(x,y,z):
     X = tf.constant(z) 
     u=0
