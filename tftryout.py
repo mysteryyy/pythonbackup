@@ -22,6 +22,7 @@ def _make_val_and_grad_fn(value_fn):
   return val_and_grad
 def logp(x,y,z):
     X = z 
+    u=0
     jds = tfd.JointDistributionSequential([
     tfd.Normal(loc=x, scale=1.),   # m
     tfd.Normal(loc=y, scale=1.),   # b
