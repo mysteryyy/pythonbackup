@@ -16,6 +16,8 @@ def gen_sample_ret():
     alpha = wald.rvs(loc=alpha_mean,scale=alpha_conc)
     beta = norm.rvs(loc=beta_mean,scale=beta_var)
     scale = np.random.exponential(scale=scale_rate)
+    scale=scale/720
     mean = halfnorm.rvs(loc=.1,scale=.08)
+    mean = mean/720
     ret = norminvgauss.rvs(alpha,beta,mean,scale) 
     return ret
