@@ -18,7 +18,7 @@ def gen_sample_ret(period,size):
     beta = norm.rvs(loc=beta_mean,scale=beta_var)
     scale = np.random.exponential(scale=scale_rate)
     scale=scale/period
-    mean = halfnorm.rvs(loc=.1,scale=.08)
+    mean = halfnorm.rvs(loc=.1,scale=.1)
     mean = mean/period
     ret = norminvgauss.rvs(alpha,beta,mean,scale,size=size) 
     return ret
@@ -69,6 +69,22 @@ def slutil(sl,tp,days):
 
 slutil(-2,4,100)
 
+trigs=[]
+rets=[]
+stino=[]
+
+for i in np.arange(0,5,0.1):
+    tp=i
+    for j in np.arange(-5,0,.1):
+        sl=j
+        dayrets=pd.Series(slutil(sl,tp,1000))
+        sortino=dayrets.mean()/(dayrets[dayrets<0].std())
+        totret=dayrets.sum()
+        trigs.append((sl,tp))
+        stino.append(sortino)
+        rets.append(totret)
+
+        
 
 
 
