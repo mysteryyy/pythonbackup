@@ -20,7 +20,11 @@ def gen_sample_ret(period,size):
     scale=scale/period
     mean = halfnorm.rvs(loc=.1,scale=.1)
     mean = mean/period
-    ret = norminvgauss.rvs(alpha,beta,mean,scale,size=size) 
+    try:
+      ret = norminvgauss.rvs(alpha,beta,mean,scale,size=size) 
+    except Exception as e:
+      
+      ret = norminvgauss.rvs(alpha,beta,mean,scale,size=size) 
     return ret
 
 def hlc(period):
@@ -35,7 +39,10 @@ def slutil(sl,tp,days):
     finaldayret=[]
     for _ in range(days):
         dayret=0
-        dayrets=pd.Series(gen_sample_ret(720,720))
+        try:
+          dayrets=pd.Series(gen_sample_ret(720,720))
+        except Exception as e:
+          dayrets=pd.Series(gen_sample_ret(720,720))
         print(dayrets.sum())
         cumsum=np.cumsum(dayrets)
         h = cumsum.max()
@@ -73,9 +80,9 @@ trigs=[]
 rets=[]
 stino=[]
 
-for i in np.arange(0,5,0.1):
+for i in np.arange(0.1,5,0.1):
     tp=i
-    for j in np.arange(-5,0,.1):
+    for j in np.arange(-5,-0.1,.1):
         sl=j
         dayrets=pd.Series(slutil(sl,tp,1000))
         sortino=dayrets.mean()/(dayrets[dayrets<0].std())
@@ -83,6 +90,12 @@ for i in np.arange(0,5,0.1):
         trigs.append((sl,tp))
         stino.append(sortino)
         rets.append(totret)
+results=pd.DataFrame(columns=['trigs','returns','sortino'])
+results['trigs'] = trigs
+results['returns'] = rets
+results['sortino'] = stino
+print(results)
+
 
         
 
