@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import pandas as pd
 import vegas
 from scipy.integrate import nquad
 from scipy.stats import t,norm,wald,expon,norminvgauss,halfnorm
@@ -29,18 +30,37 @@ sum=0
 def slutil(sl,tp,days):
     assert sl<0
     assert tp>0
-    dayrets=[]
 
+    hit=False
+    finaldayret=[]
     for _ in range(days):
-        sumtot=0
-        hit=False
         dayret=0
         dayrets=pd.Series(gen_sample_ret(720,720))
+        print(dayrets.sum())
         cumsum=np.cumsum(dayrets)
+        h = cumsum.max()
+        l = cumsum.min()
+        if(cumsum[cumsum==h].index<cumsum[cumsum==l].index):
+            if(h>tp):
+                dayret=tp
+                hit=True
+            if(l<sl):
+                dayret=sl
+                hit=True
+        else:
+            if(l<sl):
+                dayret=sl
+                hit=True
+        if(hit==False):
+            dayret=dayrets.sum()
+        print(hit)
+        finaldayret.append(dayret)
+                
 
-        return dayrets
 
+    return finaldayret
 
+slutil(-2,4,100)
 
 
 
@@ -50,5 +70,4 @@ def slutil(sl,tp,days):
 
 
         
-    print(sum)
 
