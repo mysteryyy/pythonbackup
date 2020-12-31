@@ -27,9 +27,37 @@ def hlc(period):
     return np.cumsum(rets).max(),np.cumsum(rets).min(),rets.sum()
 sum=0
 def slutil(sl,tp,days):
+    assert sl<0
+    assert tp>0
+    dayrets=[]
+
     for _ in range(days):
         sumtot=0
-        rets = gen_sample_ret(720)
+        hit=False
+        dayret=0
+        for _ in range(720):
+         ret = gen_sample_ret(720,1)[0]
+         sumtot=sumtot+ret
+         if(sumtot<sl):
+             dayret=sl
+             hit=True
+         elif(sumtot>tp):
+             dayret=tp
+             hit=True
+        if(~hit):
+            dayret=sumtot
+        dayrets.append(dayret)
+    return dayrets
+
+
+
+
+
+
+
+
+
+
         
     print(sum)
 
