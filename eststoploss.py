@@ -35,24 +35,10 @@ def slutil(sl,tp,days):
         sumtot=0
         hit=False
         dayret=0
-        for _ in range(720):
-         try:
-          ret = gen_sample_ret(720,1)[0]
-         except Exception as e:
-          ret = gen_sample_ret(720,1)[0]
-         sumtot=sumtot+ret
-         if(sumtot<sl):
-             dayret=sl
-             hit=True
-             break
-         elif(sumtot>tp):
-             dayret=tp
-             hit=True
-             break
-        if(hit!=True):
-            dayret=sumtot
-        dayrets.append(dayret)
-    return dayrets
+        dayrets=pd.Series(gen_sample_ret(720,720))
+        cumsum=np.cumsum(dayrets)
+
+        return dayrets
 
 
 
