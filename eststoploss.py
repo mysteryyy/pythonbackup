@@ -36,15 +36,20 @@ def slutil(sl,tp,days):
         hit=False
         dayret=0
         for _ in range(720):
-         ret = gen_sample_ret(720,1)[0]
+         try:
+          ret = gen_sample_ret(720,1)[0]
+         except Exception as e:
+          ret = gen_sample_ret(720,1)[0]
          sumtot=sumtot+ret
          if(sumtot<sl):
              dayret=sl
              hit=True
+             break
          elif(sumtot>tp):
              dayret=tp
              hit=True
-        if(~hit):
+             break
+        if(hit!=True):
             dayret=sumtot
         dayrets.append(dayret)
     return dayrets
