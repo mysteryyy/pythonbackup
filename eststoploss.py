@@ -43,18 +43,25 @@ def slutil(sl,tp,days):
         if(cumsum[cumsum==h].index<cumsum[cumsum==l].index):
             if(h>tp):
                 dayret=tp
+                finaldayret.append(dayret)
                 hit=True
-            if(l<sl):
+            elif(l<sl):
                 dayret=sl
+                finaldayret.append(dayret)
                 hit=True
         else:
             if(l<sl):
                 dayret=sl
+                finaldayret.append(dayret)
+                hit=True
+            elif(h>tp):
+                dayret=tp
+                finaldayret.append(dayret)
                 hit=True
         if(hit==False):
             dayret=dayrets.sum()
+            finaldayret.append(dayret)
         print(hit)
-        finaldayret.append(dayret)
                 
 
 
