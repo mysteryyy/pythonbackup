@@ -40,7 +40,7 @@ k1 = k1.dropna()
 k1 = k1.iloc[-300*3:]
 #mod =arch_model(k1.dayret,vol='GARCH',p=2,o=2,q=7,dist='StudentsT')
 #model = pf.EGARCH(np.array(k1.dayret.dropna()),p=1,q=1)
-model = pf.GAS(ar=2, sc=2,data=np.array(k1.dayret.dropna()), family=pf.t())
+model = pf.GAS(ar=1, sc=1,data=np.array(k1.dayret.dropna()), family=pf.skewt())
 #model.add_leverage()
 #result=model.fit(method='BBVI', iterations=500, optimizer='ADAM')
 result=model.fit()
