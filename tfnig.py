@@ -19,7 +19,7 @@ alpha=12.3
 beta=0.2
 mean=0.0
 pd = tfd.JointDistributionSequential([
-         tfd.Independent(tfd.InverseGaussian(scale1,(alpha**2-beta**2)**.5)),
+         tfd.Independent(tfd.InverseGaussian(scale1,(alpha**2-beta**2)**.5),reinterpreted_batch_ndims=0),
          lambda mix:tfd.Normal(loc=mean+beta*mix,scale=mix)])
 
 def _make_val_and_grad_fn(value_fn):
