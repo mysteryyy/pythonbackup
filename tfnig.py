@@ -18,6 +18,7 @@ scale1=1.2
 alpha=12.3
 beta=0.2
 mean=0.0
+x=tf.Variable(2.2)
 pd = tfd.JointDistributionSequential([
          tfd.Independent(tfd.InverseGaussian(scale1,(alpha**2-beta**2)**.5),reinterpreted_batch_ndims=0),
          lambda mix:tfd.Normal(loc=mean+beta*mix,scale=mix)])
@@ -32,7 +33,7 @@ def nig(mean,scale1,alpha,beta):
     pd = tfd.JointDistributionSequential([
          tfd.Independent(tfd.InverseGaussian(scale1,(alpha**2-beta**2)**.5)),
          lambda mix:tfd.Normal(loc=mean+beta*mix,scale=mix)])
-    return pd.log_prob(pd.sample())
+    return pd.log_prob([pd.sample()[0],x])
 def logp(x,y,z):
     X = tf.constant(z) 
     u=0
@@ -45,5 +46,5 @@ def logp(x,y,z):
    
     return jds.log_prob(x,y,z)
 #print('gradient ',tfp.math.value_and_gradient(logp,[1.5,2.4,2.1],use_gradient_tape=True))
-grad=tfp.math.value_and_gradient(nig,[0,1.5,2.4,2.1])
+grad=tfp.math.value_and_gradient(nig,[0,1.2,1.1,5.2])
 print(grad)
