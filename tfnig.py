@@ -14,6 +14,14 @@ from tensorflow_probability.python.internal import prefer_static as ps
 from tensorflow_probability.python.internal import tensorshape_util
 tf.enable_v2_behavior()
 X = tf.constant(1.0)
+scale1=1.2
+alpha=12.3
+beta=0.2
+mean=0.0
+pd = tfd.JointDistributionSequential([
+         tfd.Independent(tfd.InverseGaussian(scale1,(alpha**2-beta**2)**.5)),
+         lambda mix:tfd.Normal(loc=mean+beta*mix,scale=mix)])
+
 def _make_val_and_grad_fn(value_fn):
   @functools.wraps(value_fn)
   def val_and_grad(x):
@@ -24,7 +32,7 @@ def nig(mean,scale1,alpha,beta):
     pd = tfd.JointDistributionSequential([
          tfd.Independent(tfd.InverseGaussian(scale1,(alpha**2-beta**2)**.5)),
          lambda mix:tfd.Normal(loc=mean+beta*mix,scale=mix)])
-    return pd.log_prob(pd.sample()),pd
+    return pd.log_prob(pd.sample())
 def logp(x,y,z):
     X = tf.constant(z) 
     u=0
@@ -36,5 +44,6 @@ def logp(x,y,z):
 ])
    
     return jds.log_prob(x,y,z)
-print('gradient ',tfp.math.value_and_gradient(logp,[1.5,2.4,2.1],use_gradient_tape=True))
-grad=tfp.math.value_and_gradient(logp,[1.5,2.4,2.1])
+#print('gradient ',tfp.math.value_and_gradient(logp,[1.5,2.4,2.1],use_gradient_tape=True))
+grad=tfp.math.value_and_gradient(nig,[0,1.5,2.4,2.1])
+print(grad)
