@@ -32,7 +32,17 @@ import investpy
 #k1=k[k.Symbol==k.Symbol.unique()[pos]].iloc[-lb:]
 k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2019',to_date='07/12/2020')
 #k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2019',to_date='07/12/2020')
-k1.to_pickle("todays_stock1.pkl")
+k1['retlog'] = np.log(k1.Close/k1.Open)*100
+k1['ret'] = (k1.Close/k1.Open-1)*100
+filename = "/home/sahil/pythonbackup/todays_stock1.pkl"
+if os.path.exists(filename):
+    os.remove(filename)
+    k1.to_pickle(filename)
+    print("saved")
+else:
+    k1.to_pickle(filename)
+
+#k1.to_pickle("todays_stock1.pkl")
 #k1 = pd.read_pickle("todays_stock.pkl")
 k1['dayret'] = ((k1.Close/k1.Open)-1)*100
 #k1['dayret'] = k1.Close.pct_change()*100
