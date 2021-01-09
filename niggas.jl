@@ -9,7 +9,6 @@ using Flux.Tracker: update!
 using PyCall
 using DataFrames
 using Debugger
-sp pyimport("scipy.stats")
 model=Model(Ipopt.Optimizer)
 model=Model()
 set_optimizer(model, Ipopt.Optimizer);
@@ -81,14 +80,18 @@ function grads(x)
 end
 loglikbestfit=sum(nigpdf1.(train))
 loglike=0
-function gas(lam1,lam2,lam3,lam4)
-	for(i,j) in enumerate(train)
+function gas(lams,data)
+	lam1=lams[1]
+	lam2=lams[2]
+	lam3=lams[3]
+	lam4=lams[4]
+	for(i,j) in enumerate(data)
 		global loglike
 		try
 			loglike=loglike+nigpdf1(j)
 			grad_scale=Tracker.data(grads(j)[scale])
 			update!(scale,lam1*grad_scale)
-			grad_beta=Tracker.data(grads(j)[beta]
+			grad_beta=Tracker.data(grads(j)[beta])
 			update!(beta,lam2*grad_beta)
 			grad_alpha=Tracker.data(grads[j][alpha])
 			update!(alpha,lam3*grad_alpha)
