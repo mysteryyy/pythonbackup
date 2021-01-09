@@ -9,6 +9,7 @@ using Flux.Tracker: update!
 using PyCall
 using DataFrames
 using Debugger
+sp pyimport("scipy.stats")
 model=Model(Ipopt.Optimizer)
 model=Model()
 set_optimizer(model, Ipopt.Optimizer);
