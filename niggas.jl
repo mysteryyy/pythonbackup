@@ -71,20 +71,22 @@ function grads(x)
 end
 loglikbestfit=sum(nigpdf1.(test))
 loglike=0
-for(i,j) in enumerate(test)
-	global loglike
-	try
-	        loglike=loglike+nigpdf1(j)
-		update!(scale,lam*grads(j)[scale])
-		update!(beta,lam*grads(j)[beta])
-		update!(alpha,lam*grads(j)[alpha])
-		update!(mean,lam*grads(j)[mean])
-	catch err
-		continue
-	end
+function gas()
+	for(i,j) in enumerate(test)
+		global loglike
+		try
+			loglike=loglike+nigpdf1(j)
+			update!(scale,lam*grads(j)[scale])
+			update!(beta,lam*grads(j)[beta])
+			update!(alpha,lam*grads(j)[alpha])
+			update!(mean,lam*grads(j)[mean])
+		catch err
+			continue
+		end
 
-	println(scale)
-end
+		println(scale)
+	end
+	return loglike
 
 
 
