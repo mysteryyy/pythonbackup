@@ -54,21 +54,28 @@ train_len=Int(round(.5*length(ret)))
 train=ret[1:train_len]
 test=ret[train_len:Int(round(0.8*end))]
 params = sp.norminvgauss.fit(train)
-alpha = zeros(length(test)+1)
-beta = zeros(length(test)+1)
-mean = zeros(length(test)+1)
-scale = zeros(length(test)+1)
-alpha[1]=params[1]
-beta[1]=params[2]
-mean[1]=params[3]
-scale[1]=params[4]
+alpha,beta,mean,scale=params
+#alpha=param(12.2)
+#beta=param(-.2)
+#mean=param(0.0)
+#scale=param(3.4)
+alpha=param(alpha)
+beta=param(beta)
+mean=param(mean)
+scale=param(scale)
 lam=0.1
-for(i,j) in enumerate(train)
-    mean[i+1]=mean[i]+lam*mean_grad(alpha[i],beta[i],mean[i],scale[i],train[i])
-    scale[i+1]=scale[i]+lam*scale_grad(alpha[i],beta[i],mean[i+1],scale[i],train[i])
-    beta[i+1]=beta[i]+lam*beta_grad(alpha[i],beta[i],mean[i+1],scale[i+1],train[i])
-    alpha[i+1]=alpha[i]+lam*alpha_grad(alpha[i],beta[i+1],mean[i+1],scale[i+1],train[i])
+function grads(x)
+	grad = Tracker.gradient(()->nigpdf1(x),Flux.params(alpha,beta,mean,scale))
+	return grad
 end
+for(i,j) in enumerate(train)
+    
+	update!(mean,lam*grads(j)[mean])
+	update!(scale,lam*grads(j)[scale])
+	update!(beta,lam*grads(j)[beta])
+	update!(alpha,lam*grads(j)[alpha])
+	println(scale)
+    end
 
 
 
