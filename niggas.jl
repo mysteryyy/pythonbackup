@@ -14,32 +14,32 @@ function nigpdf1(alpha,beta,mean,scale,x)
 end
 
 function alpha_grad(alpha,beta,mean,scale,x)
-	grad = Tracker.gradient(alpha1->nigpdf1(alpha1,beta,mean,scale),alpha)[1]
+	grad = Tracker.gradient(alpha1->nigpdf1(alpha1,beta,mean,scale),param(alpha))[1]
         return grad
 end
 function beta_grad(alpha,beta,mean,scale,x)
-	grad = Tracker.gradient(beta1->nigpdf1(alpha,beta1,mean,scale),beta)[1]
+	grad = Tracker.gradient(beta1->nigpdf1(alpha,beta1,mean,scale),param(beta))[1]
         return grad
 end
 function scale_grad(alpha,beta,mean,scale,x)
-	grad = Tracker.gradient(scale1->nigpdf1(alpha,beta,mean,scale1),scale)[1]
+	grad = Tracker.gradient(scale1->nigpdf1(alpha,beta,mean,scale1),param(scale))[1]
         return grad
 
 end
 
 
 function mean_grad(alpha,beta,mean,scale,x)
-	grad = Tracker.gradient(mean1->nigpdf1(alpha,beta,mean1,scale),mean)[1]
+	grad = Tracker.gradient(mean1->nigpdf1(alpha,beta,mean1,scale),param(mean))[1]
         return grad
 
 end
 sp = pyimport("scipy.stats")
 pd = pyimport("pandas")
 investpy=pyimport("investpy")
-k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2017',to_date='07/12/2020')
+#k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2017',to_date='07/12/2020')
 
-#file_dir="/home/sahil/pythonbackup"
-#k = pd.read_pickle(string(file_dir,"/todays_stock1.pkl"))
+file_dir="/home/sahil/pythonbackup"
+k = pd.read_pickle(string(file_dir,"/todays_stock1.pkl"))
 function pd_to_df(df_pd)
     df= DataFrame()
     for col in df_pd.columns
@@ -47,7 +47,7 @@ function pd_to_df(df_pd)
     end
     df
 end
-k = pd_to_df(k1)
+k = pd_to_df(k)
 ret=k.ret
 train_len=Int(round(.5*length(ret)))
 train=ret[1:train_len]
