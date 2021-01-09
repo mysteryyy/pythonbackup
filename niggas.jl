@@ -75,10 +75,10 @@ for(i,j) in enumerate(test)
 	global loglike
 	try
 	        loglike=loglike+nigpdf1(j)
-		update!(mean,lam*grads(j)[mean])
 		update!(scale,lam*grads(j)[scale])
 		update!(beta,lam*grads(j)[beta])
 		update!(alpha,lam*grads(j)[alpha])
+		update!(mean,lam*grads(j)[mean])
 	catch err
 		continue
 	end
