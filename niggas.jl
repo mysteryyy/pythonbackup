@@ -5,6 +5,7 @@ using Flux.Tracker
 using Flux.Tracker: update!
 using PyCall
 using DataFrames
+using Debugger
 
 function nigpdf1(x)
           extra = (alpha^2-beta^2)^.5
@@ -68,14 +69,22 @@ function grads(x)
 	grad = Tracker.gradient(()->nigpdf1(x),Flux.params(alpha,beta,mean,scale))
 	return grad
 end
+loglikbestfit=sum(nigpdf1.(train))
+loglike=0
 for(i,j) in enumerate(train)
-    
-	update!(mean,lam*grads(j)[mean])
-	update!(scale,lam*grads(j)[scale])
-	update!(beta,lam*grads(j)[beta])
-	update!(alpha,lam*grads(j)[alpha])
+	global loglike
+	loglike=loglike+nigpdf1(j)
+	try
+		update!(mean,lam*grads(j)[mean])
+		update!(scale,lam*grads(j)[scale])
+		update!(beta,lam*grads(j)[beta])
+		update!(alpha,lam*grads(j)[alpha])
+	catch err
+		continue
+	end
+
 	println(scale)
-    end
+end
 
 
 
