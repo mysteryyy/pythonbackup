@@ -1,4 +1,6 @@
 using SpecialFunctions
+using JuMP
+using GLPK
 using Distributions
 using Zygote
 using Flux.Tracker
@@ -6,7 +8,9 @@ using Flux.Tracker: update!
 using PyCall
 using DataFrames
 using Debugger
-
+model=Model(GLPK.Optimizer)
+model=Model()
+set_optimizer(model, GLPK.Optimizer);
 function nigpdf1(x)
           extra = (alpha^2-beta^2)^.5
           num = alpha*scale*besselk(1,alpha*(scale^2 + (x-mean)^2)^.5)*exp(extra*scale+beta*(x-mean))
@@ -65,21 +69,25 @@ beta=param(beta)
 mean=param(mean)
 scale=param(scale)
 lam=0.1
+@variable(model,0 <= lam_scale <= 2)
+@variable(model,0 <= lam_beta <= 2)
+@variable(model,0 <= lam_alpha <= 2)
+@variable(model,0 <= lam_mean <= 2)
 function grads(x)
 	grad = Tracker.gradient(()->nigpdf1(x),Flux.params(alpha,beta,mean,scale))
 	return grad
 end
-loglikbestfit=sum(nigpdf1.(test))
+loglikbestfit=sum(nigpdf1.(train))
 loglike=0
 function gas()
-	for(i,j) in enumerate(test)
+	for(i,j) in enumerate(train)
 		global loglike
 		try
 			loglike=loglike+nigpdf1(j)
-			update!(scale,lam*grads(j)[scale])
-			update!(beta,lam*grads(j)[beta])
-			update!(alpha,lam*grads(j)[alpha])
-			update!(mean,lam*grads(j)[mean])
+			update!(scale,lam_scale*grads(j)[scale])
+			update!(beta,lam_beta*grads(j)[beta])
+			update!(alpha,lam_alpha*grads(j)[alpha])
+			update!(mean,lam_mean*grads(j)[mean])
 		catch err
 			continue
 		end
@@ -87,6 +95,7 @@ function gas()
 		println(scale)
 	end
 	return loglike
+end
 
-
-
+@objective(model,Max,gas())
+optimize!(model)
