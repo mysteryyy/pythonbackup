@@ -2,15 +2,16 @@ using SpecialFunctions
 using Distributions
 using Zygote
 using Flux.Tracker
+using Flux.Tracker: update!
 using PyCall
 using DataFrames
 
-function nigpdf1(alpha,beta,mean,scale,x)
+function nigpdf1(x)
           extra = (alpha^2-beta^2)^.5
           num = alpha*scale*besselk(1,alpha*(scale^2 + (x-mean)^2)^.5)*exp(extra*scale+beta*(x-mean))
           den = pi*(scale^2 + (x-mean)^2)^.5
           pdf = num/den
-          return pdf
+	  return log(pdf)
 end
 
 function alpha_grad(alpha,beta,mean,scale,x)
