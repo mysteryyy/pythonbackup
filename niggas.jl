@@ -1,4 +1,5 @@
 using SpecialFunctions
+using Ipopt
 using JuMP
 using GLPK
 using Distributions
@@ -8,9 +9,9 @@ using Flux.Tracker: update!
 using PyCall
 using DataFrames
 using Debugger
-model=Model(GLPK.Optimizer)
+model=Model(Ipopt.Optimizer)
 model=Model()
-set_optimizer(model, GLPK.Optimizer);
+set_optimizer(model, Ipopt.Optimizer);
 function nigpdf1(x)
           extra = (alpha^2-beta^2)^.5
           num = alpha*scale*besselk(1,alpha*(scale^2 + (x-mean)^2)^.5)*exp(extra*scale+beta*(x-mean))
@@ -79,15 +80,19 @@ function grads(x)
 end
 loglikbestfit=sum(nigpdf1.(train))
 loglike=0
-function gas()
+function gas(lam1,lam2,lam3,lam4)
 	for(i,j) in enumerate(train)
 		global loglike
 		try
 			loglike=loglike+nigpdf1(j)
-			update!(scale,lam_scale*grads(j)[scale])
-			update!(beta,lam_beta*grads(j)[beta])
-			update!(alpha,lam_alpha*grads(j)[alpha])
-			update!(mean,lam_mean*grads(j)[mean])
+			grad_scale=grads(j)[scale]
+			update!(scale,lam1*grad_scale)
+			grad_beta=grads(j)[beta]
+			update!(beta,lam2*grad_beta)
+			grad_alpha=grads[j][alpha]
+			update!(alpha,lam3*grad_alpha)
+			grad_mean=Tracker.data(grads(j)[mean])
+			update!(mean,lam4*grad_mean)
 		catch err
 			continue
 		end
@@ -96,6 +101,6 @@ function gas()
 	end
 	return loglike
 end
-
-@objective(model,Max,gas())
+register(model,:gas,4,gas,autodiff=true)
+@objective(model,Max,gas(lam_scale,lam_beta,lam_alpha,lam_mean))
 optimize!(model)
