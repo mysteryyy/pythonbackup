@@ -22,30 +22,37 @@ function beta_grad(alpha,beta,mean,scale,x)
         return grad
 end
 function scale_grad(alpha,beta,mean,scale,x)
-	grad = Tracker.gradient(scale1->nigpdf1(alpha,beta,mean,scale1),scale1)[1]
+	grad = Tracker.gradient(scale1->nigpdf1(alpha,beta,mean,scale1),scale)[1]
         return grad
 
 end
 
 
 function mean_grad(alpha,beta,mean,scale,x)
-	grad = Tracker.gradient(mean1->nigpdf1(alpha,beta,mean1,scale1),mean)[1]
+	grad = Tracker.gradient(mean1->nigpdf1(alpha,beta,mean1,scale),mean)[1]
         return grad
 
 end
 sp = pyimport("scipy.stats")
 pd = pyimport("pandas")
 investpy=pyimport("investpy")
-k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2019',to_date='07/12/2020')
+k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2017',to_date='07/12/2020')
 
 #file_dir="/home/sahil/pythonbackup"
 #k = pd.read_pickle(string(file_dir,"/todays_stock1.pkl"))
-k=DataFrame(k1)
-ret=Array(k.ret)
+function pd_to_df(df_pd)
+    df= DataFrame()
+    for col in df_pd.columns
+        df[!, col] = getproperty(df_pd, col).values
+    end
+    df
+end
+k = pd_to_df(k1)
+ret=k.ret
 train_len=Int(round(.5*length(ret)))
 train=ret[1:train_len]
 test=ret[train_len:Int(round(0.8*end))]
-params = sp.wald.fit(train)
+params = sp.norminvgauss.fit(train)
 alpha = zeros(length(test)+1)
 beta = zeros(length(test)+1)
 mean = zeros(length(test)+1)
