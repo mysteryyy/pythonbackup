@@ -35,9 +35,12 @@ function mean_grad(alpha,beta,mean,scale,x)
 end
 sp = pyimport("scipy.stats")
 pd = pyimport("pandas")
-file_dir="/home/sahil/pythonbackup"
-k = pd.read_pickle(file_dir+"/todays_stock1.pkl")
-k=DataFrame(k)
+investpy=pyimport("investpy")
+k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2019',to_date='07/12/2020')
+
+#file_dir="/home/sahil/pythonbackup"
+#k = pd.read_pickle(string(file_dir,"/todays_stock1.pkl"))
+k=DataFrame(k1)
 ret=Array(k.ret)
 train_len=Int(round(.5*length(ret)))
 train=ret[1:train_len]
