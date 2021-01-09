@@ -88,7 +88,7 @@ function gas(lams,data)
 	lam4=lams[4]
 	for(i,j) in enumerate(data)
 		global loglike
-		try:
+		try
 			loglike=loglike+nigpdf1(j)
 			grad_scale=Tracker.data(grads(j)[scale])
 			
@@ -100,6 +100,7 @@ function gas(lams,data)
 			grad_mean=Tracker.data(grads(j)[mean])
 			if(alpha<0)
 				loglike=loglike-1000
+			end
 			update!(mean,lam4*grads(j)[mean])
 			println(err)
 		catch err

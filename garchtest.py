@@ -30,7 +30,7 @@ import investpy
 #lb = int(input("enter no of returns: "))
 #k=pd.read_pickle('/home/sahil/projdir/dailydata.pkl')
 #k1=k[k.Symbol==k.Symbol.unique()[pos]].iloc[-lb:]
-k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2019',to_date='07/12/2020')
+k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2014',to_date='07/12/2020')
 #k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2019',to_date='07/12/2020')
 k1['retlog'] = np.log(k1.Close/k1.Open)*100
 k1['ret'] = (k1.Close/k1.Open-1)*100
