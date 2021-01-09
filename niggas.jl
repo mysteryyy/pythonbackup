@@ -88,29 +88,37 @@ function gas(lams,data)
 	lam4=lams[4]
 	for(i,j) in enumerate(data)
 		global loglike
-		try
+		try:
 			loglike=loglike+nigpdf1(j)
 			grad_scale=Tracker.data(grads(j)[scale])
+			
 			update!(scale,lam1*grads(j)[scale])
 			grad_beta=Tracker.data(grads(j)[beta])
 			update!(beta,lam2*grads(j)[beta])
 			grad_alpha=Tracker.data(grads[j][alpha])
 			update!(alpha,lam3*grads(j)[alpha])
 			grad_mean=Tracker.data(grads(j)[mean])
+			if(alpha<0)
+				loglike=loglike-1000
 			update!(mean,lam4*grads(j)[mean])
-		catch err
 			println(err)
-			continue
+		catch err
+			loglike = loglike-1000
+		        continue
 		end
 
 		println(scale)
 	end
-	return loglike
+	return -loglike
 end
-function trial(a,b,c,d)
-
-	return a^2+b^3-c-d
+function trial(a)
+        a = a[1]
+	b = a[2]
+	c=  a[3]
+	d=  a[4]
+	return a[1]^2+a[2]^3-a[3]-a[4]
 end
-register(model,:gas,4,gas,autodiff=true)
-@NLobjective(model,Max,gas(lam_scale,lam_beta,lam_alpha,lam_mean,train))
-optimize!(model)
+#register(model,:gas,4,gas,autodiff=true)
+#@NLobjective(model,Max,gas(lam_scale,lam_beta,lam_alpha,lam_mean,train))
+#optimize!(model)
+println(optimize(lamg->gas(lamg,test),[.1,.1,.1,.1]))
