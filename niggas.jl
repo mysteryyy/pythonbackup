@@ -99,6 +99,7 @@ function gas(lams,data)
 			grad_mean=Tracker.data(grads(j)[mean])
 			update!(mean,lam4*grads(j)[mean])
 		catch err
+			println(err)
 			continue
 		end
 
@@ -111,5 +112,5 @@ function trial(a,b,c,d)
 	return a^2+b^3-c-d
 end
 register(model,:gas,4,gas,autodiff=true)
-@NLobjective(model,Max,gas(lam_scale,lam_beta,lam_alpha,lam_mean))
+@NLobjective(model,Max,gas(lam_scale,lam_beta,lam_alpha,lam_mean,train))
 optimize!(model)
