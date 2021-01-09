@@ -69,12 +69,12 @@ function grads(x)
 	grad = Tracker.gradient(()->nigpdf1(x),Flux.params(alpha,beta,mean,scale))
 	return grad
 end
-loglikbestfit=sum(nigpdf1.(train))
+loglikbestfit=sum(nigpdf1.(test))
 loglike=0
-for(i,j) in enumerate(train)
+for(i,j) in enumerate(test)
 	global loglike
-	loglike=loglike+nigpdf1(j)
 	try
+	        loglike=loglike+nigpdf1(j)
 		update!(mean,lam*grads(j)[mean])
 		update!(scale,lam*grads(j)[scale])
 		update!(beta,lam*grads(j)[beta])
