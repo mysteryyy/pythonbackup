@@ -4,6 +4,7 @@ using JuMP
 using GLPK
 using Distributions
 using Zygote
+using Flux
 using Flux.Tracker
 using Flux.Tracker: update!
 using PyCall
@@ -90,13 +91,13 @@ function gas(lams,data)
 		try
 			loglike=loglike+nigpdf1(j)
 			grad_scale=Tracker.data(grads(j)[scale])
-			update!(scale,lam1*grad_scale)
+			update!(scale,lam1*grads(j)[scale])
 			grad_beta=Tracker.data(grads(j)[beta])
-			update!(beta,lam2*grad_beta)
+			update!(beta,lam2*grads(j)[beta])
 			grad_alpha=Tracker.data(grads[j][alpha])
-			update!(alpha,lam3*grad_alpha)
+			update!(alpha,lam3*grads(j)[alpha])
 			grad_mean=Tracker.data(grads(j)[mean])
-			update!(mean,lam4*grad_mean)
+			update!(mean,lam4*grads(j)[mean])
 		catch err
 			continue
 		end
