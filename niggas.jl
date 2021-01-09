@@ -21,6 +21,20 @@ function nigpdf1(x)
 	  return log(pdf)
 end
 
+function nigpdf2(params)
+	  alpha=params[1]
+	  beta=params[2]
+	  mean=params[3]
+	  scale=params[4]
+	  x = params[5]
+          extra = (alpha^2-beta^2)^.5
+          num = alpha*scale*besselk(1,alpha*(scale^2 + (x-mean)^2)^.5)*exp(extra*scale+beta*(x-mean))
+          den = pi*(scale^2 + (x-mean)^2)^.5
+          pdf = num/den
+	  return log(pdf)
+end
+
+
 function alpha_grad(alpha,beta,mean,scale,x)
 	grad = Tracker.gradient(alpha1->nigpdf1(alpha1,beta,mean,scale),param(alpha))[1]
         return grad
@@ -104,7 +118,7 @@ function gas(lams,data)
 			update!(mean,lam4*grads(j)[mean])
 			println(err)
 		catch err
-			loglike = loglike-1000
+			#loglike = loglike-1000
 		        continue
 		end
 
