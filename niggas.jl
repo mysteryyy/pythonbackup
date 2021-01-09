@@ -85,11 +85,11 @@ function gas(lam1,lam2,lam3,lam4)
 		global loglike
 		try
 			loglike=loglike+nigpdf1(j)
-			grad_scale=grads(j)[scale]
+			grad_scale=Tracker.data(grads(j)[scale])
 			update!(scale,lam1*grad_scale)
-			grad_beta=grads(j)[beta]
+			grad_beta=Tracker.data(grads(j)[beta]
 			update!(beta,lam2*grad_beta)
-			grad_alpha=grads[j][alpha]
+			grad_alpha=Tracker.data(grads[j][alpha])
 			update!(alpha,lam3*grad_alpha)
 			grad_mean=Tracker.data(grads(j)[mean])
 			update!(mean,lam4*grad_mean)
@@ -101,6 +101,10 @@ function gas(lam1,lam2,lam3,lam4)
 	end
 	return loglike
 end
+function trial(a,b,c,d)
+
+	return a^2+b^3-c-d
+end
 register(model,:gas,4,gas,autodiff=true)
-@objective(model,Max,gas(lam_scale,lam_beta,lam_alpha,lam_mean))
+@NLobjective(model,Max,gas(lam_scale,lam_beta,lam_alpha,lam_mean))
 optimize!(model)
