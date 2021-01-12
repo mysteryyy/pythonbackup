@@ -115,15 +115,15 @@ function gas(lams)
 	global data
 	for(i,j) in enumerate(data)
 		global loglike
-		distpars=deepcopy(pars)
+		distpars=copy(pars)
 		distpars=reshape(distpars,length(distpars),)
 		append!(distpars,j)
 		try     
 			loglike=loglike+nigpdf2(distpars)
-			g=ForwardDiff.gradient(nigpdf2,distpars)
+			g=ReverseDiff.gradient(nigpdf2,distpars)
 			g = g[1:end-1]
 
-			h=ForwardDiff.hessian(nigpdf2,distpars)
+			h=ReverseDiff.hessian(nigpdf2,distpars)
 			h = h[1:end-1,1:end-1]
 			gradparam=g'*inv(h)
 			pars = lamsc.*pars-lamgrad'.*gradparam
