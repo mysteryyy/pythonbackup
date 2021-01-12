@@ -1,9 +1,9 @@
 using SpecialFunctions
 using Optim
 using ReverseDiff
-using Ipopt
-using JuMP
-using GLPK
+#using Ipopt
+#using JuMP
+#using GLPK
 using Distributions
 using Zygote
 using Flux
@@ -97,7 +97,9 @@ function grads(x)
 end
 loglikbestfit=sum(nigpdf1.(train))
 loglike=0
-function gas(pars,lamsc,lamgrad,data)
+pars=params[1],params[2],params[3],params[4]
+data=train
+function gas(lamsc,lamgrad)
 	##Older Gradient Update Code
 	#lam1=lams[1]
 	#lam2=lams[2]
