@@ -1,4 +1,5 @@
 using SpecialFunctions
+using ReverseDiff
 using Ipopt
 using JuMP
 using GLPK
@@ -95,23 +96,39 @@ function grads(x)
 end
 loglikbestfit=sum(nigpdf1.(train))
 loglike=0
-function gas(lams,data)
-	lam1=lams[1]
-	lam2=lams[2]
-	lam3=lams[3]
-	lam4=lams[4]
+function gas(pars,lamsc,lamgrad,data)
+	##Older Gradient Update Code
+	#lam1=lams[1]
+	#lam2=lams[2]
+	#lam3=lams[3]
+	#lam4=lams[4]
+	##
 	for(i,j) in enumerate(data)
 		global loglike
-		try
-			loglike=loglike+nigpdf1(j)
-			grad_scale=Tracker.data(grads(j)[scale])
-			
-			update!(scale,lam1*grads(j)[scale])
-			grad_beta=Tracker.data(grads(j)[beta])
-			update!(beta,lam2*grads(j)[beta])
-			grad_alpha=Tracker.data(grads[j][alpha])
-			update!(alpha,lam3*grads(j)[alpha])
-			grad_mean=Tracker.data(grads(j)[mean])
+		distpars=copy(pars)
+		append!(distpars,j)
+		try     
+			loglike=loglike+nigpdf2(distpars)
+			g=ReverseDiff.gradient(nigpdf2,distpars)
+			g = g[1:end-1]
+
+			h=ReverseDiff.hessian(nigpdf2,distpars)
+			h = h[1:end-1,1:end-1]
+			gradparam=g'*inv(h)
+			pars = lamsc*pars+lamgrad*gradparam
+
+
+		        	
+			## Older radient Update Code
+			#grad_scale=Tracker.data(grads(j)[scale])
+			#
+			#update!(scale,lam1*grads(j)[scale])
+			#grad_beta=Tracker.data(grads(j)[beta])
+			#update!(beta,lam2*grads(j)[beta])
+			#grad_alpha=Tracker.data(grads[j][alpha])
+			#update!(alpha,lam3*grads(j)[alpha])
+			#grad_mean=Tracker.data(grads(j)[mean])
+			##
 			if(alpha<0)
 				loglike=loglike-1000
 			end
