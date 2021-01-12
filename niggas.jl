@@ -13,9 +13,9 @@ using Flux.Tracker: update!
 using PyCall
 using DataFrames
 using Debugger
-model=Model(Ipopt.Optimizer)
-model=Model()
-set_optimizer(model, Ipopt.Optimizer);
+#model=Model(Ipopt.Optimizer)
+#model=Model()
+#set_optimizer(model, Ipopt.Optimizer);
 function nigpdf1(x)
           extra = (alpha^2-beta^2)^.5
           num = alpha*scale*besselk(1,alpha*(scale^2 + (x-mean)^2)^.5)*exp(extra*scale+beta*(x-mean))
@@ -88,10 +88,10 @@ beta=param(beta)
 mean=param(mean)
 scale=param(scale)
 lam=0.1
-@variable(model,0 <= lam_scale <= 2)
-@variable(model,0 <= lam_beta <= 2)
-@variable(model,0 <= lam_alpha <= 2)
-@variable(model,0 <= lam_mean <= 2)
+#@variable(model,0 <= lam_scale <= 2)
+#@variable(model,0 <= lam_beta <= 2)
+#@variable(model,0 <= lam_alpha <= 2)
+#@variable(model,0 <= lam_mean <= 2)
 function grads(x)
 	grad = Tracker.gradient(()->nigpdf1(x),Flux.params(alpha,beta,mean,scale))
 	return grad
@@ -126,7 +126,7 @@ function gas(lams)
 			h=ReverseDiff.hessian(nigpdf2,distpars)
 			h = h[1:end-1,1:end-1]
 			gradparam=g'*inv(h)
-			pars = lamsc.*pars-lamgrad'.*gradparam
+			pars = lamsc.*pars-(lamgrad'.*gradparam)'
 
 
 				
