@@ -98,9 +98,10 @@ end
 loglikbestfit=sum(nigpdf1.(train))
 loglike=0
 pars=[params[1],params[2],params[3],params[4]]
-pars = reshape(pars,length(pars),1)
 data=train
-function gas(lamsc,lamgrad)
+function gas(lams)
+	lamsc=lams[1]
+	lamgrad=lams[2]
 	##Older Gradient Update Code
 	#lam1=lams[1]
 	#lam2=lams[2]
@@ -108,42 +109,45 @@ function gas(lamsc,lamgrad)
 	#lam4=lams[4]
 	##
 	global pars
+	pars=reshape(pars,length(pars),)
 	global data
 	for(i,j) in enumerate(data)
 		global loglike
 		distpars=deepcopy(pars)
-		distpars=reshape(distpars,length(pars),1)
+		distpars=reshape(distpars,length(distpars),)
 		append!(distpars,j)
-		#try     
-		loglike=loglike+nigpdf2(distpars)
-		g=ReverseDiff.gradient(nigpdf2,distpars)
-		g = g[1:end-1]
+		try     
+			loglike=loglike+nigpdf2(distpars)
+			g=ReverseDiff.gradient(nigpdf2,distpars)
+			g = g[1:end-1]
 
-		h=ReverseDiff.hessian(nigpdf2,distpars)
-		h = h[1:end-1,1:end-1]
-		gradparam=g'*inv(h)
-		pars = lamsc.*pars-(nigpdf2(distpars)*lamgrad'.*gradparam)'
+			h=ReverseDiff.hessian(nigpdf2,distpars)
+			h = h[1:end-1,1:end-1]
+			gradparam=g'*inv(h)
+			pars = lamsc.*pars-lamgrad'.*gradparam
 
 
-			
-		## Older radient Update Code
-		#grad_scale=Tracker.data(grads(j)[scale])
-		#
-		#update!(scale,lam1*grads(j)[scale])
-		#grad_beta=Tracker.data(grads(j)[beta])
-		#update!(beta,lam2*grads(j)[beta])
-		#grad_alpha=Tracker.data(grads[j][alpha])
-		#update!(alpha,lam3*grads(j)[alpha])
-		#grad_mean=Tracker.data(grads(j)[mean])
-		#
-		#if(alpha<0)
-		#	loglike=loglike-1000
-		#end
-		#update!(mean,lam4*grads(j)[mean])
-		##
-	#catch err
-		#loglike = loglike-1000
-		continue
+				
+			## Older radient Update Code
+			#grad_scale=Tracker.data(grads(j)[scale])
+			#
+			#update!(scale,lam1*grads(j)[scale])
+			#grad_beta=Tracker.data(grads(j)[beta])
+			#update!(beta,lam2*grads(j)[beta])
+			#grad_alpha=Tracker.data(grads[j][alpha])
+			#update!(alpha,lam3*grads(j)[alpha])
+			#grad_mean=Tracker.data(grads(j)[mean])
+			#
+			#if(alpha<0)
+			#	loglike=loglike-1000
+			#end
+			#update!(mean,lam4*grads(j)[mean])
+			##
+	        catch err
+	          println(err)
+		  loglike = loglike-1000
+		  continue
+		end
 
 		println(pars[4])
 	
