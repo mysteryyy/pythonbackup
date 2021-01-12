@@ -1,4 +1,5 @@
 using SpecialFunctions
+using ForwardDiff
 using Optim
 using ReverseDiff
 #using Ipopt
@@ -98,6 +99,7 @@ end
 loglikbestfit=sum(nigpdf1.(train))
 loglike=0
 pars=[params[1],params[2],params[3],params[4]]
+pars=[12.1,-0.2,0.01,2.5]
 data=train
 function gas(lams)
 	lamsc=lams[1]
@@ -118,10 +120,10 @@ function gas(lams)
 		append!(distpars,j)
 		try     
 			loglike=loglike+nigpdf2(distpars)
-			g=ReverseDiff.gradient(nigpdf2,distpars)
+			g=ForwardDiff.gradient(nigpdf2,distpars)
 			g = g[1:end-1]
 
-			h=ReverseDiff.hessian(nigpdf2,distpars)
+			h=ForwardDiff.hessian(nigpdf2,distpars)
 			h = h[1:end-1,1:end-1]
 			gradparam=g'*inv(h)
 			pars = lamsc.*pars-lamgrad'.*gradparam
