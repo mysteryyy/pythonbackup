@@ -1,4 +1,5 @@
 using SpecialFunctions
+using Optim
 using ReverseDiff
 using Ipopt
 using JuMP
@@ -115,7 +116,7 @@ function gas(pars,lamsc,lamgrad,data)
 			h=ReverseDiff.hessian(nigpdf2,distpars)
 			h = h[1:end-1,1:end-1]
 			gradparam=g'*inv(h)
-			pars = lamsc*pars+lamgrad*gradparam
+			pars = lamsc.*pars+lamgrad.*gradparam
 
 
 		        	
@@ -128,13 +129,15 @@ function gas(pars,lamsc,lamgrad,data)
 			#grad_alpha=Tracker.data(grads[j][alpha])
 			#update!(alpha,lam3*grads(j)[alpha])
 			#grad_mean=Tracker.data(grads(j)[mean])
+			#
+			#if(alpha<0)
+			#	loglike=loglike-1000
+			#end
+			#update!(mean,lam4*grads(j)[mean])
 			##
-			if(alpha<0)
-				loglike=loglike-1000
-			end
-			update!(mean,lam4*grads(j)[mean])
 			println(err)
 		catch err
+			print(err)
 			#loglike = loglike-1000
 		        continue
 		end
