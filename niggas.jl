@@ -97,7 +97,7 @@ function grads(x)
 end
 loglikbestfit=sum(nigpdf1.(train))
 loglike=0
-pars=params[1],params[2],params[3],params[4]
+pars=[params[1],params[2],params[3],params[4]]
 data=train
 function gas(lamsc,lamgrad)
 	##Older Gradient Update Code
@@ -106,6 +106,8 @@ function gas(lamsc,lamgrad)
 	#lam3=lams[3]
 	#lam4=lams[4]
 	##
+	global pars
+	global data
 	for(i,j) in enumerate(data)
 		global loglike
 		distpars=copy(pars)
@@ -118,7 +120,7 @@ function gas(lamsc,lamgrad)
 			h=ReverseDiff.hessian(nigpdf2,distpars)
 			h = h[1:end-1,1:end-1]
 			gradparam=g'*inv(h)
-			pars = lamsc.*pars+lamgrad.*gradparam
+			pars = lamsc.*pars+-1*nigpdf2(distpars)*(lamgrad.*gradparam)
 
 
 		        	
@@ -137,14 +139,14 @@ function gas(lamsc,lamgrad)
 			#end
 			#update!(mean,lam4*grads(j)[mean])
 			##
-			println(err)
 		catch err
-			print(err)
+			println(err)
 			#loglike = loglike-1000
 		        continue
 		end
 
-		println(scale)
+		println(pars[4])
+	
 	end
 	return -loglike
 end
@@ -158,4 +160,4 @@ end
 #register(model,:gas,4,gas,autodiff=true)
 #@NLobjective(model,Max,gas(lam_scale,lam_beta,lam_alpha,lam_mean,train))
 #optimize!(model)
-println(optimize(lamg->gas(lamg,test),[.1,.1,.1,.1]))
+println(optimize(f,[[.9,.9,.9,.9],[.1,.1,.1,.1]]))
