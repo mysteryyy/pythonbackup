@@ -127,7 +127,7 @@ function gas(lams)
 			h=ReverseDiff.hessian(nigpdf2,distpars)
 			h = h[1:end-1,1:end-1]
 			gradparam=g'*inv(h)
-			pars = lamsc.*pars-(lamgrad'.*gradparam)'
+			pars =pars+lamsc.*pars-(lamgrad'.*gradparam)'
 
 
 				
