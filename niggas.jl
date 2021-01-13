@@ -121,10 +121,10 @@ function gas(lams)
 		try     
 			loglike=loglike+nigpdf2(distpars)
 			g=ReverseDiff.gradient(nigpdf2,distpars)
-			g = g[1:end-1]
+			g = g[2:end-2]
 
 			h=ReverseDiff.hessian(nigpdf2,distpars)
-			h = h[1:end-1,1:end-1]
+			h = h[2:end-2,2:end-2]
 			gradparam=g'*inv(h)
 			pars = lamsc.*pars-(lamgrad'.*gradparam)'
 
