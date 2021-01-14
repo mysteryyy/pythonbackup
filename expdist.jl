@@ -14,7 +14,21 @@ using PyCall
 using DataFrames
 using Debugger
 file_dir="/home/sahil/pythonbackup"
-k = pd.read_pickle(string(file_dir,"/todays_stock1.pkl"))
+k1 = pd.read_pickle(string(file_dir,"/todays_stock1.pkl"))
+function nigpdf2(params)
+	  alpha=params[1]
+	  beta=params[2]
+	  mean=params[3]
+	  scale=params[4]
+	  x = params[5]
+          extra = (alpha^2-beta^2)^.5
+          num = alpha*scale*besselk(1,alpha*(scale^2 + (x-mean)^2)^.5)*exp(extra*scale+beta*(x-mean))
+          den = pi*(scale^2 + (x-mean)^2)^.5
+          pdf = num/den
+	  return log(pdf)
+end
+
+
 function pd_to_df(df_pd)
     df= DataFrame()
     for col in df_pd.columns
@@ -36,8 +50,8 @@ function nigpdf2(params)
 end
 
 
-k = pd_to_df(k)
-ret=k.retlog
+k1 = pd_to_df(k1)
+ret=k1.retlog
 train_len=Int(round(.5*length(ret)))
 train=ret[1:train_len]
 test=ret[train_len:Int(round(0.8*end))]
@@ -56,23 +70,28 @@ lamalpha=.94
 lambeta=.94
 loglike=0
 for (i,j) in enumerate(data)
+	global loglike
+	j=j+.0001
 	var[i+1]=lamscale*var[i]+(1-lamscale)*j^2
         v=var[i+1] 
 	skew[i+1]=(lamscale*skew[i]+(1-lamscale)*j^3)/(var[i+1]^(1.5))
 	s = skew[i+1]
 	kurt[i+1]=(lamscale*skew[i]+(1-lamscale)*j^4)/(var[i+1]^(2.))
 	k=kurt[i+1]
-	mean=(3*s*v^.5)/(3*k-4*s*s-9)
-	bet= s/(v^.5*(k- 5*s^2/3 -3))
-	al = (3*k-4*s^2-9)^.5/((v^.5)*k-5*s^2/3 -3)
-	del = 
-	elta[i+1]=del
-	alpha[i+1]=al
-	beta[i+1]=bet
-	scale[i+l]=del
-	mu[i+1]=mean
+	if(i>50)
+		fac1 = k-5/3*(s^2)-3
+		fac2 = 3*k-4*(s^2)-9
+		mean=3*s*v^.5/(fac2)
+		bet=s/(v^.5*fac1) 
+		al = fac2^.5/(v^.5*fac1)
+		del =(3^1.5*(v*fac1)^.5)/fac2
+		alpha[i+1]=al
+		beta[i+1]=bet
+		scale[i+1]=del
+		mu[i+1]=mean
 
-	loglike=loglike+nigpdf2(alpha[i],beta[i],mu[i],delta[i])
+		loglike=loglike+nigpdf2([alpha[i],beta[i],mu[i],scale[i],j])
+       end
 
 end
 
