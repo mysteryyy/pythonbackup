@@ -75,10 +75,11 @@ for (i,j) in enumerate(data)
 	var[i+1]=lamscale*var[i]+(1-lamscale)*j^2
         v=var[i+1] 
 	skew[i+1]=(lamscale*skew[i]+(1-lamscale)*j^3)/(var[i+1]^(1.5))
-	s = skew[i+1]
-	kurt[i+1]=(lamscale*skew[i]+(1-lamscale)*j^4)/(var[i+1]^(2.))
-	k=kurt[i+1]
-	if(i>50)
+	s = i^.5*skew[i+1]
+	kurt[i+1]=(lamscale*kurt[i]+(1-lamscale)*j^4)/(var[i+1]^(2.))
+	k=i*kurt[i+1]
+	if(i>100)
+	try
 		fac1 = k-5/3*(s^2)-3
 		fac2 = 3*k-4*(s^2)-9
 		mean=3*s*v^.5/(fac2)
@@ -89,8 +90,14 @@ for (i,j) in enumerate(data)
 		beta[i+1]=bet
 		scale[i+1]=del
 		mu[i+1]=mean
+	catch err
+		alpha[i+1]=alpha[i]
+		beta[i+1]=beta[i]
+		scale[i+1]=scale[i]
+		mu[i+1]=mu[i]
 
 		loglike=loglike+nigpdf2([alpha[i],beta[i],mu[i],scale[i],j])
+       end
        end
 
 end
