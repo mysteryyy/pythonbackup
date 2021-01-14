@@ -62,11 +62,16 @@ for (i,j) in enumerate(data)
 	s = skew[i+1]
 	kurt[i+1]=(lamscale*skew[i]+(1-lamscale)*j^4)/(var[i+1]^(2.))
 	k=kurt[i+1]
-	beta[i]=skew[i+1]*(var[i+1]^.5)*kurt[i+1]^2*3^-1
-	sigma=3/(5*3^.5*kurt[i+1]-5*skew[i+1]^2)
-	delta[i] = var[i+1]*sigma^3/(beta[i]^2*sigma^2)
-	mu[i]=beta*delta[i]*sigma^-1
-	alpha[i]=(sigma^2+beta[i]^2)^.5
+	mean=(3*s*v^.5)/(3*k-4*s*s-9)
+	bet= s/(v^.5*(k- 5*s^2/3 -3))
+	al = (3*k-4*s^2-9)^.5/((v^.5)*k-5*s^2/3 -3)
+	del = 
+	elta[i+1]=del
+	alpha[i+1]=al
+	beta[i+1]=bet
+	scale[i+l]=del
+	mu[i+1]=mean
+
 	loglike=loglike+nigpdf2(alpha[i],beta[i],mu[i],delta[i])
 
 end
