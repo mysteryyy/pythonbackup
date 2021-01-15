@@ -56,7 +56,7 @@ train_len=Int(round(.5*length(ret)))
 train=ret[1:train_len]
 test=ret[train_len:Int(round(0.8*end))]
 data =copy(train)
-data=rand(Normal(),1000)
+#data=rand(Normal(),1000)
 l=length(data)
 mu=zeros(l+1)
 alpha=zeros(l+1)
@@ -66,7 +66,7 @@ scale=zeros(l+1)
 var=zeros(l+1)
 skew=zeros(l+1)
 kurt=zeros(l+1)
-lamscale=.94
+lamscale=.97
 lamalpha=.94
 lambeta=.94
 loglike=0
@@ -75,10 +75,12 @@ for (i,j) in enumerate(data)
 	j=j+.0001
 	var[i+1]=lamscale*var[i]+(1-lamscale)*j^2
         v=var[i+1] 
-	skew[i+1]=(lamscale*skew[i]+(1-lamscale)*j^3)/(var[i+1]^(1.5))
-	s = i^.5*skew[i+1]
-	kurt[i+1]=(lamscale*kurt[i]+(1-lamscale)*j^4)/(var[i+1]^(2.))
-	k=i*kurt[i+1]
+	inst_skew = j^3/(v)^1.5
+	skew[i+1]=lamscale*skew[i]+(1-lamscale)*inst_skew
+	s = skew[i+1]
+	inst_kurt = j^4/(v^2)
+	kurt[i+1]=lamscale*kurt[i]+(1-lamscale)*inst_kurt
+	k=kurt[i+1]
 	if(i>100)
 	try
 		fac1 = k-5/3*(s^2)-3
