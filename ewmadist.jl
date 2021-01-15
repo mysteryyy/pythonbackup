@@ -96,13 +96,14 @@ for (i,j) in enumerate(data)
 		logd=nigpdf2([alpha[i],beta[i],mu[i],scale[i],j])
 		loglike=loglike+logd	
         catch err
+		loglike=loglike-1000
 		println(err)
 		alpha[i]=alpha[i-1]
 		beta[i]=beta[i-1]
 		scale[i]=scale[i-1]
 		mu[i]=mu[i-1]
 
-		loglike=loglike+nigpdf2([alpha[i],beta[i],mu[i],scale[i],j])
+		#loglike=loglike+nigpdf2([alpha[i],beta[i],mu[i],scale[i],j])
        end
        end
 
