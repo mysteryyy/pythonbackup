@@ -52,7 +52,7 @@ end
 
 k1 = pd_to_df(k1)
 ret=k1.retlog
-train_len=Int(round(.5*length(ret)))
+train_len=Int(round(.7*length(ret)))
 train=ret[1:train_len]
 test=ret[train_len:Int(round(0.8*end))]
 data =copy(train)
