@@ -93,13 +93,14 @@ for (i,j) in enumerate(data)
 		beta[i+1]=bet
 		scale[i+1]=del
 		mu[i+1]=mean
-		loglike=loglike+nigpdf2([alpha[i],beta[i],mu[i],scale[i],j])
-	catch err
+		logd=nigpdf2([alpha[i],beta[i],mu[i],scale[i],j])
+		loglike=loglike+logd	
+        catch err
 		println(err)
-		alpha[i+1]=alpha[i]
-		beta[i+1]=beta[i]
-		scale[i+1]=scale[i]
-		mu[i+1]=mu[i]
+		alpha[i]=alpha[i-1]
+		beta[i]=beta[i-1]
+		scale[i]=scale[i-1]
+		mu[i]=mu[i-1]
 
 		loglike=loglike+nigpdf2([alpha[i],beta[i],mu[i],scale[i],j])
        end
