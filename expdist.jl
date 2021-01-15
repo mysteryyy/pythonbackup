@@ -56,6 +56,7 @@ train_len=Int(round(.5*length(ret)))
 train=ret[1:train_len]
 test=ret[train_len:Int(round(0.8*end))]
 data =copy(train)
+#data=rand(Normal(),1000)
 l=length(data)
 mu=zeros(l+1)
 alpha=zeros(l+1)
@@ -90,7 +91,9 @@ for (i,j) in enumerate(data)
 		beta[i+1]=bet
 		scale[i+1]=del
 		mu[i+1]=mean
+		loglike=loglike+nigpdf2([alpha[i],beta[i],mu[i],scale[i],j])
 	catch err
+		println(err)
 		alpha[i+1]=alpha[i]
 		beta[i+1]=beta[i]
 		scale[i+1]=scale[i]
