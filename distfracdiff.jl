@@ -91,10 +91,10 @@ for (i,j) in enumerate(data)
 	end
 	var[i+1]=dot(data[i-lenw+1:i].^2,w)
 	v=var[i+1]
-	skew[i+1] = dot(data[i-lenw+1:i].^3*(v^-1.5),w)
+	skew[i+1] = dot(data[i-lenw+1:i].^3,w)*(v^-1.5)
 
 	s = skew[i+1]
-	kurt[i+1] = dot(data[i-lenw+1:i].^4*(v^-2),w)
+	kurt[i+1] = dot(data[i-lenw+1:i].^4,w)*(v^-2)
 
 	k = kurt[i+1]
 end
