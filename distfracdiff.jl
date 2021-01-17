@@ -73,7 +73,7 @@ function weights(d,w=[1.])
 	ind=0
 	for i in 2:1:200
 		push!(w,-w[end]*(d-i+2)/(i-1))
-	     if w[i]<0.01
+		if abs(w[i])<0.01
 		   ind=i-1
 		   break
              end
