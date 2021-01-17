@@ -1,4 +1,5 @@
 using SpecialFunctions
+using LinearAlgebra
 using ForwardDiff
 using Optim
 using ReverseDiff
@@ -13,6 +14,8 @@ using Flux.Tracker: update!
 using PyCall
 using DataFrames
 using Debugger
+pyimport("scipy.stats")
+pd = pyimport("pandas")
 file_dir="/home/sahil/pythonbackup"
 k1 = pd.read_pickle(string(file_dir,"/todays_stock1.pkl"))
 function nigpdf2(params)
@@ -56,7 +59,7 @@ train_len=Int(round(.5*length(ret)))
 train=ret[1:train_len]
 test=ret[train_len:Int(round(0.8*end))]
 data =copy(train)
-data=rand(Normal(),1000)
+#data=rand(Normal(),1000)
 l=length(data)
 mu=zeros(l+1)
 alpha=zeros(l+1)
@@ -69,7 +72,7 @@ kurt=zeros(l+1)
 function weights(d,w=[1.])
 	ind=0
 	for i in 2:1:200
-	     w[i] = -w[i-1]*(d-i+1)/i
+		push!(w,-w[end]*(d-i+1)/i)
 	     if w[i]<0.01
 		   ind=i-1
 		   break
@@ -78,12 +81,22 @@ function weights(d,w=[1.])
 	return w[1:ind]
 end
 
-w=weights(.4)
+w=weights(.1)
 loglike=0
 for (i,j) in enumerate(data)
 	global loglike
-	if(i<=ind)
+	lenw = length(w)
+	if(i<=lenw)
            continue
 	end
+	var[i+1]=dot(data[i-lenw+1:i].^2,w)
+	v=var[i+1]
+	skew[i+1] = dot(data[i-lenw+1:i].^3*(v^-1.5),w)
+	s = skew[i+1]
+	kurt[i+1] = dot(data[i-lenw+1:i].^4*(v^-2),w)
+	k = kurt[i+1]
+end
+
+
 
 
