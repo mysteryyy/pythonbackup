@@ -72,7 +72,7 @@ kurt=zeros(l+1)
 function weights(d,w=[1.])
 	ind=0
 	for i in 2:1:200
-	push!(w,-w[end]*(d-i+1)/i)
+		push!(w,-w[end]*(d-i+1)/(i))
 	     if w[i]<0.01
 		   ind=i-1
 		   break
@@ -81,7 +81,7 @@ function weights(d,w=[1.])
 	return w[1:ind]
 end
 
-w=weights(.1)
+w=weights(.3)
 loglike=0
 for (i,j) in enumerate(data)
 	global loglike
@@ -89,11 +89,13 @@ for (i,j) in enumerate(data)
 	if(i<=lenw)
            continue
 	end
-	var[i+1]=dot(data[i-lenw+1:i].^2,w)
+	var[i+1]=dot(data[i-lenw+1:i].^2,w)*sum(w)^-1
 	v=var[i+1]
-	skew[i+1] = dot(data[i-lenw+1:i].^3*(v^-1.5),w)
+	skew[i+1] = dot(data[i-lenw+1:i].^3*(v^-1.5),w)*sum(w)^-1
+
 	s = skew[i+1]
-	kurt[i+1] = dot(data[i-lenw+1:i].^4*(v^-2),w)
+	kurt[i+1] = dot(data[i-lenw+1:i].^4*(v^-2),w)*sum(w)^-1
+
 	k = kurt[i+1]
 end
 
