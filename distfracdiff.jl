@@ -72,7 +72,7 @@ kurt=zeros(l+1)
 function weights(d,w=[1.])
 	ind=0
 	for i in 2:1:200
-		push!(w,-w[end]*(d-i+1)/i)
+	push!(w,-w[end]*(d-i+1)/i)
 	     if w[i]<0.01
 		   ind=i-1
 		   break
