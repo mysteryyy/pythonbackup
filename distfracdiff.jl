@@ -81,7 +81,7 @@ function weights(d,w=[1.])
 	return w[1:ind]
 end
 
-w=weights(.5)
+w=weights(.3)
 loglike=0
 for (i,j) in enumerate(data)
 	global loglike
