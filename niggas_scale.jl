@@ -61,9 +61,9 @@ end
 sp = pyimport("scipy.stats")
 pd = pyimport("pandas")
 investpy=pyimport("investpy")
-k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2015',to_date='07/12/2020')
+k1=investpy.search_quotes(text="AARTIIND",products=["stocks"],countries=["India"],n_results=2)[1].retrieve_historical_data(from_date="01/01/2015",to_date="07/12/2020")
 
-#file_dir="/home/sahil/pythonbackup"
+file_dir="/home/sahil/pythonbackup"
 #k = pd.read_pickle(string(file_dir,"/todays_stock1.pkl"))
 function pd_to_df(df_pd)
     df= DataFrame()
@@ -72,7 +72,8 @@ function pd_to_df(df_pd)
     end
     df
 end
-k = pd_to_df(k)
+k = pd_to_df(k1)
+k.ret = (k.Close./k.Open .- 1)*100
 ret=k.ret
 train_len=Int(round(.5*length(ret)))
 train=ret[1:train_len]
@@ -98,8 +99,9 @@ function grads(x)
 end
 loglikbestfit=sum(nigpdf1.(train))
 loglike=0
-pars=[params[1],params[2],params[3],params[4]]
-pars=[12.1,-0.2,0.01,2.5]
+pars = [alpha,beta,mean,scale]
+#pars=[params[1],params[2],params[3],params[4]]
+#pars=[12.1,-0.2,0.01,2.5]
 data=train
 function gas(lams)
 	lamsc=lams[1]
