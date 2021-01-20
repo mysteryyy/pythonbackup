@@ -23,6 +23,14 @@ function nigpdf1(x)
           pdf = num/den
 	  return log(pdf)
 end
+function nigpdf3(alpha,beta,mean,scale,x)
+	  extra = (alpha^2-beta^2)^.5
+          num = alpha*scale*besselk(1,alpha*(scale^2 + (x-mean)^2)^.5)*exp(extra*scale+beta*(x-mean))
+          den = pi*(scale^2 + (x-mean)^2)^.5
+          pdf = num/den
+	  return log(pdf)
+end
+
 
 function nigpdf2(params)
 	  alpha=params[1]
@@ -103,9 +111,7 @@ pars = [alpha,beta,mean,scale]
 #pars=[params[1],params[2],params[3],params[4]]
 #pars=[12.1,-0.2,0.01,2.5]
 data=train
-function gas(lams)
-	lamsc=lams[1]
-	lamgrad=lams[2]
+function gas(lamsc,lamgrad)
 	##Older Gradient Update Code
 	#lam1=lams[1]
 	#lam2=lams[2]
@@ -121,18 +127,21 @@ function gas(lams)
 		distpars=reshape(distpars,length(distpars),)
 		append!(distpars,j)
 		try     
-			if(i>10)
+			if(i>30)
 			 break
 			end
 			sc=nigpdf2(distpars)
 			loglike=loglike+sc
 			g=ReverseDiff.gradient(nigpdf2,distpars)
-			g = g[1:end-1]
+			g = g[end-1]
 
-			h=ReverseDiff.hessian(nigpdf2,distpars)
-			h = h[1:end-1,1:end-1]
-			gradparam=g'*inv(h)
-			pars =pars+lamsc.*pars-(lamgrad'.*gradparam)'
+			h=ReverseDiff.jacobian(nigpdf2,distpars)
+			h = h[end-1]
+			scale_old = distpars[end-1]
+			pars[4] = lamsc*scale_old + lamgrad*(g/h)
+
+
+
 
 
 				
