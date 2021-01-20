@@ -106,7 +106,6 @@ function grads(x)
 	return grad
 end
 loglikbestfit=sum(nigpdf1.(train))
-loglike=0
 pars = [alpha,beta,mean,scale]
 #pars=[params[1],params[2],params[3],params[4]]
 #pars=[12.1,-0.2,0.01,2.5]
@@ -119,20 +118,21 @@ function gas(lamsc,lamgrad)
 	#lam3=lams[3]
 	#lam4=lams[4]
 	##
+	loglike=0
 	global pars
 	global stored_updates
 	stored_updates=[pars[4]]
 	pars=reshape(pars,length(pars),)
 	global data
 	for(i,j) in enumerate(data)
-		global loglike
+		#global loglike
 		distpars=copy(pars)
 		distpars=reshape(distpars,length(distpars),)
 		append!(distpars,j)
 		try     
-			if(i>50)
-			 break
-			end
+			#if(i>50)
+			# break
+			#end
 			sc=nigpdf2(distpars)
 			loglike=loglike+sc
 			g=ReverseDiff.gradient(nigpdf2,distpars)
