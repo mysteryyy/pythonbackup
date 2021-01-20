@@ -119,6 +119,9 @@ function gas(lams)
 		distpars=reshape(distpars,length(distpars),)
 		append!(distpars,j)
 		try     
+			if(i>10)
+			 break
+			end
 			sc=nigpdf2(distpars)
 			loglike=loglike+sc
 			g=ReverseDiff.gradient(nigpdf2,distpars)
@@ -167,4 +170,4 @@ end
 #register(model,:gas,4,gas,autodiff=true)
 #@NLobjective(model,Max,gas(lam_scale,lam_beta,lam_alpha,lam_mean,train))
 #optimize!(model)
-println(optimize(f,[[.9,.9,.9,.9],[.1,.1,.1,.1]]))
+#println(optimize(f,[[.9,.9,.9,.9],[.1,.1,.1,.1]]))
