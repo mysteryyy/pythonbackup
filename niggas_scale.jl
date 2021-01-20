@@ -130,19 +130,19 @@ function gas(lamsc,lamgrad)
 		distpars=reshape(distpars,length(distpars),)
 		append!(distpars,j)
 		try     
-			#if(i>50)
-			# break
-			#end
+			if(i>5)
+			 break
+			end
 			sc=nigpdf2(distpars)
 			loglike=loglike+sc
-                        h=ReverseDiff.jacobian(nigpdf2,distpars)
-			h = h[end-1]
+                        h=ReverseDiff.hessian(nigpdf2,distpars)
+			h = h[end-1,end-1]
 
 			g=ReverseDiff.gradient(nigpdf2,distpars)
 			g = g[end-1]
 
 						scale_old = distpars[end-1]
-			pars[4] = lamsc*scale_old + lamgrad*(g/1)
+			pars[4] = lamsc*scale_old + lamgrad*sc*(g/1)
 			push!(stored_updates,pars[4])
 
 
