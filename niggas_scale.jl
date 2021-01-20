@@ -32,7 +32,7 @@ function nigpdf3(alpha,beta,mean,scale,x)
 end
 
 
-function nigpdf2(params)
+function nigpdf2(params::Vector)
 	  alpha=params[1]
 	  beta=params[2]
 	  mean=params[3]
@@ -135,12 +135,13 @@ function gas(lamsc,lamgrad)
 			#end
 			sc=nigpdf2(distpars)
 			loglike=loglike+sc
+                        h=ReverseDiff.jacobian(nigpdf2,distpars)
+			h = h[end-1]
+
 			g=ReverseDiff.gradient(nigpdf2,distpars)
 			g = g[end-1]
 
-			#h=ReverseDiff.jacobian(nigpdf2,distpars)
-			#h = h[end-1]
-			scale_old = distpars[end-1]
+						scale_old = distpars[end-1]
 			pars[4] = lamsc*scale_old + lamgrad*(g/1)
 			push!(stored_updates,pars[4])
 
