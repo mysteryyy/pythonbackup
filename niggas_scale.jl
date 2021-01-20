@@ -110,7 +110,8 @@ loglike=0
 pars = [alpha,beta,mean,scale]
 #pars=[params[1],params[2],params[3],params[4]]
 #pars=[12.1,-0.2,0.01,2.5]
-data=train
+data=test
+stored_updates=[]
 function gas(lamsc,lamgrad)
 	##Older Gradient Update Code
 	#lam1=lams[1]
@@ -119,6 +120,8 @@ function gas(lamsc,lamgrad)
 	#lam4=lams[4]
 	##
 	global pars
+	global stored_updates
+	stored_updates=[pars[4]]
 	pars=reshape(pars,length(pars),)
 	global data
 	for(i,j) in enumerate(data)
@@ -127,7 +130,7 @@ function gas(lamsc,lamgrad)
 		distpars=reshape(distpars,length(distpars),)
 		append!(distpars,j)
 		try     
-			if(i>30)
+			if(i>50)
 			 break
 			end
 			sc=nigpdf2(distpars)
@@ -135,10 +138,11 @@ function gas(lamsc,lamgrad)
 			g=ReverseDiff.gradient(nigpdf2,distpars)
 			g = g[end-1]
 
-			h=ReverseDiff.jacobian(nigpdf2,distpars)
-			h = h[end-1]
+			#h=ReverseDiff.jacobian(nigpdf2,distpars)
+			#h = h[end-1]
 			scale_old = distpars[end-1]
-			pars[4] = lamsc*scale_old + lamgrad*(g/h)
+			pars[4] = lamsc*scale_old + lamgrad*(g/1)
+			push!(stored_updates,pars[4])
 
 
 
