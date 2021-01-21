@@ -69,7 +69,7 @@ end
 sp = pyimport("scipy.stats")
 pd = pyimport("pandas")
 investpy=pyimport("investpy")
-k1=investpy.search_quotes(text="AARTIIND",products=["stocks"],countries=["India"],n_results=2)[1].retrieve_historical_data(from_date="01/01/2015",to_date="07/12/2020")
+k1=investpy.search_quotes(text="SUNPHARMA",products=["stocks"],countries=["India"],n_results=2)[1].retrieve_historical_data(from_date="01/01/2015",to_date="07/12/2020")
 
 file_dir="/home/sahil/pythonbackup"
 #k = pd.read_pickle(string(file_dir,"/todays_stock1.pkl"))
@@ -143,7 +143,8 @@ function gas(lamsc,lamgrad)
 			g = g[end-1]
 
 						scale_old = distpars[end-1]
-			pars[4] =scale_mean + lamsc*scale_old + lamgrad*1*(g/1)
+			pars[4] = lamsc*scale_old + lamgrad*sc*(g/h)
+			#pars[4] =0 + lamsc*scale_old + lamgrad*1*(g/1)
 			push!(stored_updates,pars[4])
 
 
@@ -177,7 +178,7 @@ function gas(lamsc,lamgrad)
 	end
 	return -loglike
 end
-println(gas(.25,.55))
+println(gas(0.9,.10))
 stored_updates=stored_updates[1:end-1]
 plot(1:length(test),(test.^2)/20)
 plot!(1:length(test),stored_updates)
