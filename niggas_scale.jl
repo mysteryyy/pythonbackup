@@ -107,6 +107,7 @@ function grads(x)
 end
 loglikbestfit=sum(nigpdf1.(train))
 pars = [alpha,beta,mean,scale]
+scale_mean = scale
 #pars=[params[1],params[2],params[3],params[4]]
 #pars=[12.1,-0.2,0.01,2.5]
 data=test
@@ -130,9 +131,9 @@ function gas(lamsc,lamgrad)
 		distpars=reshape(distpars,length(distpars),)
 		append!(distpars,j)
 		try     
-			if(i>5)
-			 break
-			end
+			#if(i>5)
+			# break
+			#end
 			sc=nigpdf2(distpars)
 			loglike=loglike+sc
                         h=ReverseDiff.hessian(nigpdf2,distpars)
@@ -142,7 +143,7 @@ function gas(lamsc,lamgrad)
 			g = g[end-1]
 
 						scale_old = distpars[end-1]
-			pars[4] = lamsc*scale_old + lamgrad*1*(g/1)
+			pars[4] =scale_mean + lamsc*scale_old + lamgrad*1*(g/1)
 			push!(stored_updates,pars[4])
 
 
@@ -176,10 +177,10 @@ function gas(lamsc,lamgrad)
 	end
 	return -loglike
 end
-gas(.85,.15)
+println(gas(.25,.55))
 stored_updates=stored_updates[1:end-1]
 plot(1:length(test),(test.^2)/20)
-plot(1:length(test),stored_updats)
+plot!(1:length(test),stored_updates)
 #register(model,:gas,4,gas,autodiff=true)
 #@NLobjective(model,Max,gas(lam_scale,lam_beta,lam_alpha,lam_mean,train))
 #optimize!(model)
