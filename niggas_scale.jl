@@ -142,7 +142,7 @@ function gas(lamsc,lamgrad)
 			g = g[end-1]
 
 						scale_old = distpars[end-1]
-			pars[4] = lamsc*scale_old + lamgrad*sc*(g/1)
+			pars[4] = lamsc*scale_old + lamgrad*1*(g/1)
 			push!(stored_updates,pars[4])
 
 
