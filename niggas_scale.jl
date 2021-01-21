@@ -176,13 +176,10 @@ function gas(lamsc,lamgrad)
 	end
 	return -loglike
 end
-function trial(a)
-        a = a[1]
-	b = a[2]
-	c=  a[3]
-	d=  a[4]
-	return a[1]^2+a[2]^3-a[3]-a[4]
-end
+gas(.85,.15)
+stored_updates=stored_updates[1:end-1]
+plot(1:length(test),(test.^2)/20)
+plot(1:length(test),stored_updats)
 #register(model,:gas,4,gas,autodiff=true)
 #@NLobjective(model,Max,gas(lam_scale,lam_beta,lam_alpha,lam_mean,train))
 #optimize!(model)
