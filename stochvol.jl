@@ -39,9 +39,9 @@ ret=k.ret
 	sigma[1] ~ Exponential(10.0)
 	mu ~ Uniform(-1.0,1.0)
 	for i in 2:T
-		sigma[i] ~ Normal(sigma[i-1],step_size)
-		x[i] ~ Normal(mu,exp(sigma))
+		sigma[i] ~ InverseGaussian(sigma[i-1],step_size)
+		x[i] ~ Normal(mu,sigma[i])
 	end
 end
-chain = sample(normalwalk(ret),NUTS(4000,.95,max_depth=200))
+chain = sample(normalwalk(ret),NUTS(1000,.6),1500)
 
