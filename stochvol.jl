@@ -7,9 +7,9 @@ using ReverseDiff
 #using GLPK
 using Distributions
 using Zygote
-using Flux
-using Flux.Tracker
-using Flux.Tracker: update!
+#using Flux
+#using Flux.Tracker
+#using Flux.Tracker: update!
 using PyCall
 using DataFrames
 using Debugger
@@ -34,13 +34,14 @@ k.ret = (k.Close./k.Open .- 1)*100
 ret=k.ret
 @model normalwalk(x) = begin
 	T=length(x)
-	step_size ~ Exponential(10)
+	step_size ~ Exponential(10.0)
 	sigma = Vector(undef,T)
-	mu ~ Uniform(-1,1)
+	sigma[1] ~ Exponential(10.0)
+	mu ~ Uniform(-1.0,1.0)
 	for i in 2:T
 		sigma[i] ~ Normal(sigma[i-1],step_size)
 		x[i] ~ Normal(mu,exp(sigma))
 	end
 end
-
+chain = sample(normalwalk(ret),NUTS(4000,.95,max_depth=200))
 
