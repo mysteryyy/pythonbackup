@@ -43,5 +43,5 @@ ret=k.ret
 		x[i] ~ Normal(mu,sigma[i])
 	end
 end
-chain = sample(normalwalk(ret),NUTS(1000,.6),1500)
+chain = sample(normalwalk(ret),NUTS(100,.6),500)
 
