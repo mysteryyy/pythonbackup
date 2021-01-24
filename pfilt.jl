@@ -25,10 +25,9 @@ end
 
 function get_data(name,prod,start_date,end_date)
      k1=investpy.search_quotes(text=name,products=[prod],countries=["India"]
-     ,n_results=2)[0].retrieve_historical_data(from_date=start_date,to_date=end_date)
+     ,n_results=2)[1].retrieve_historical_data(from_date=start_date,to_date=end_date)
      k1 = pd_to_df(k1)
      return k1
-     print("stock data downloaded")
 end
 
 function get_resample_indices(weights)
@@ -60,15 +59,37 @@ function likelihood(x,vol)
 	return prob
 end
 
-function sample(w,x)
+function gen_sample(w,x)
   ind=get_sample_indices(w)
   w = w[ind]
   w =w/sum(w)
   x = x[ind]
   return w,x
+end
+function update_sample(w,samps,val)
+	for (i,j) in enumerate(samps)
+		old_samp=j
+		new_samp = rand(Normal(old_samp,step_size),1)[1]
+		weight = likelihood(val,new_samp)
+		w[i] = weight
+		samps[i] = new_samp
+	end	
+	w = w/sum(w)
+	w,samps=gen_sample(w,samps)
+	return w,samps
+end
 step_size=0.05
 vol_mean = 0.6
 vol_sd=0.24
 mean_mu = -.2
 mean_sd=.1
+k1.dayret=(k1.Close./k1.Open .- 1)*100
+ret=k1.dayret
+w=zeros(1000)
+vols=zeros(length(ret))
+samps=rand(Normal(vol_mean,vol_sd),1000)
+
+
+
+
 
