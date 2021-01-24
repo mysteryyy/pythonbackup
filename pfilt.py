@@ -26,8 +26,8 @@ def likelihood(x,vol):
     sd = np.exp(vol)
     prob=0
     for i in norm.rvs(loc=mean_mu,
-    scale=mean_sd,size=1000):
-         prob=prob+norm.pdf(x,i,sd)/1000
+    scale=mean_sd,size=100):
+         prob=prob+norm.pdf(x,i,sd)/100
     return prob
 
 def get_resample_indices(weights):
@@ -65,10 +65,10 @@ mean_mu = -.2
 mean_sd=.1
 ret = np.array(k1.dayret)
 
-w=np.zeros(1000)
-samps=np.zeros(1000)
+w=np.zeros(100)
+samps=np.zeros(100)
 for (i,j) in enumerate(norm.rvs(vol_mean,
-vol_sd,size=1000)):
+vol_sd,size=100)):
          w[i]=likelihood(ret[0],j)
          samps[i]=j
 w = w/np.sum(w)
