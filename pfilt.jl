@@ -60,7 +60,7 @@ function likelihood(x,vol)
 end
 
 function gen_sample(w,x)
-  ind=get_sample_indices(w)
+  ind=get_resample_indices(w)
   w = w[ind]
   w =w/sum(w)
   x = x[ind]
