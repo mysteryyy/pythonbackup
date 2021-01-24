@@ -22,15 +22,6 @@ def get_data(name,prod,start_date,end_date):
      print('stock data downloaded')
     # stockfile= stock_name + 'stockdata.pkl'
 # k1 = pd.read_pickle(stockfile)
-k1=get_data('GAIL','stocks','10/01/2021','20/01/2021')
-k1['dayret'] = ((k1.Close/k1.Open)-1)*100
-step_size=0.05
-vol_mean = 0.6
-vol_sd=0.24
-mean_mu = -.2
-mean_sd=.1
-ret = np.array(k1.dayret)
-
 def likelihood(x,vol):
     sd = np.exp(vol)
     prob=0
@@ -49,7 +40,7 @@ def get_resample_indices(weights):
             u[i] = (i + fuzz) / n1
 
         # calculate number of babies for each particle
-        baby_indices = np.zeros(n1)  # index array: a[i] contains index of
+        baby_indices = np.array([0 for i in range(n1)])  # index array: a[i] contains index of
         # original particle that should be at i-th place in new particle array
         j = 0
         for i in range(n1):
@@ -57,7 +48,23 @@ def get_resample_indices(weights):
                 j += 1
             baby_indices[i] = int(j)
         return baby_indices
+def sample(w,x):
+    ind=get_resample_indices(w)
+    w = w[ind]
+    w = w/np.sum(w)
+    x = x[ind]
+    return w,x
+
 ##Likelihood Calculation
+k1=get_data('GAIL','stocks','10/01/2021','20/01/2021')
+k1['dayret'] = ((k1.Close/k1.Open)-1)*100
+step_size=0.05
+vol_mean = 0.6
+vol_sd=0.24
+mean_mu = -.2
+mean_sd=.1
+ret = np.array(k1.dayret)
+
 w=np.zeros(1000)
 samps=np.zeros(1000)
 for (i,j) in enumerate(norm.rvs(vol_mean,
@@ -66,21 +73,18 @@ vol_sd,size=1000)):
          samps[i]=j
 w = w/np.sum(w)
 ##
-def sample(w,x):
-    ind=get_resample_indices(w)
-    w = w[ind]
-    w = w/np.sum(w)
-    x = x[ind]
-    return w,x
-for i in ret[1:]:
+vols=np.zeros(len(ret)-1)
+for (m,i) in enumerate(ret[1:]):
+    if m>1:
+       w,samps=sample(w,samps)
+    vols[m] = np.dot(w,samps)
     for (l,j) in enumerate(samps):
-        w,samps=sample(w,samps)
         new_samp = norm.rvs(j,step_size,size=1)[0]
         weight = likelihood(i,new_samp)
         w[l]=weight
         samps[l] = new_samp
+    w = w/np.sum(w)
 
 
-get_resample_indices(w)
      
 
