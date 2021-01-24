@@ -30,6 +30,7 @@ vol_sd=0.24
 mean_mu = -.2
 mean_sd=.1
 ret = np.array(k1.dayret)
+
 def likelihood(x,vol):
     sd = np.exp(vol)
     prob=0
@@ -37,34 +38,49 @@ def likelihood(x,vol):
     scale=mean_sd,size=1000):
          prob=prob+norm.pdf(x,i,sd)/1000
     return prob
+
 def get_resample_indices(weights):
-        n = weights.shape[0]
+        n1 = weights.shape[0]
         cum_weights = np.cumsum(weights)
 
-        u = np.zeros(n)
+        u = np.zeros(n1)
         fuzz = random.uniform(0,1)
-        for i in range(n):
-            u[i] = (i + fuzz) / n
+        for i in range(n1):
+            u[i] = (i + fuzz) / n1
 
         # calculate number of babies for each particle
-        baby_indices = np.zeros(n)  # index array: a[i] contains index of
+        baby_indices = np.zeros(n1)  # index array: a[i] contains index of
         # original particle that should be at i-th place in new particle array
         j = 0
-        for i in range(n):
+        for i in range(n1):
             while u[i] > cum_weights[j]:
                 j += 1
-            baby_indices[i] = j
+            baby_indices[i] = int(j)
         return baby_indices
 ##Likelihood Calculation
-#w=np.zeros(1000)
-#samps=np.zeros(1000)
-#for (i,j) in enumerate(norm.rvs(vol_mean,
-#vol_sd,size=1000)):
-#         w[i]=likelihood(ret[0],j)
-#         samps[i]=j
-#w = w/np.sum(w)
+w=np.zeros(1000)
+samps=np.zeros(1000)
+for (i,j) in enumerate(norm.rvs(vol_mean,
+vol_sd,size=1000)):
+         w[i]=likelihood(ret[0],j)
+         samps[i]=j
+w = w/np.sum(w)
 ##
-w = np.array([.01,.01,.2,.3])
+def sample(w,x):
+    ind=get_resample_indices(w)
+    w = w[ind]
+    w = w/np.sum(w)
+    x = x[ind]
+    return w,x
+for i in ret[1:]:
+    for (l,j) in enumerate(samps):
+        w,samps=sample(w,samps)
+        new_samp = norm.rvs(j,step_size,size=1)[0]
+        weight = likelihood(i,new_samp)
+        w[l]=weight
+        samps[l] = new_samp
+
+
 get_resample_indices(w)
      
 
