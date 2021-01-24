@@ -23,19 +23,25 @@ def get_data(name,prod,start_date,end_date):
 # k1 = pd.read_pickle(stockfile)
 k1=get_data('GAIL','stocks','10/01/2021','20/01/2021')
 k1['dayret'] = ((k1.Close/k1.Open)-1)*100
-step_size=0.06
-vol_norm = 0.6
-vols_sd=0.24
+step_size=0.05
+vol_mean = 0.6
+vol_sd=0.24
 mean_mu = -.2
 mean_sd=.1
 ret = np.array(k1.dayret)
-def likelyhood(vol):
+def likelihood(x,vol):
     sd = np.exp(vol)
     prob=0
     for i in norm.rvs(loc=mean_mu,
     scale=mean_sd,size=1000):
-         prob=prob+norm.pdf(i,vol)/1000
+         prob=prob+norm.pdf(x,i,sd)/1000
     return prob
-for i in ret:
+w=np.zeros(1000)
+samps=np.zeros(1000)
+for (i,j) in enumerate(norm.rvs(vol_mean,
+vol_sd,size=1000)):
+         w[i]=likelihood(ret[0],j)
+         samps[i]=j
+w = w/np.sum(w)
      
 
