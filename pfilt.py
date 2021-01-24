@@ -1,3 +1,4 @@
+import random
 from  matplotlib import pyplot as plt1
 from scipy.stats import norm
 import investpy
@@ -36,12 +37,34 @@ def likelihood(x,vol):
     scale=mean_sd,size=1000):
          prob=prob+norm.pdf(x,i,sd)/1000
     return prob
-w=np.zeros(1000)
-samps=np.zeros(1000)
-for (i,j) in enumerate(norm.rvs(vol_mean,
-vol_sd,size=1000)):
-         w[i]=likelihood(ret[0],j)
-         samps[i]=j
-w = w/np.sum(w)
+def get_resample_indices(weights):
+        n = weights.shape[0]
+        cum_weights = np.cumsum(weights)
+
+        u = np.zeros(n)
+        fuzz = random.uniform(0,1)
+        for i in range(n):
+            u[i] = (i + fuzz) / n
+
+        # calculate number of babies for each particle
+        baby_indices = np.zeros(n)  # index array: a[i] contains index of
+        # original particle that should be at i-th place in new particle array
+        j = 0
+        for i in range(n):
+            while u[i] > cum_weights[j]:
+                j += 1
+            baby_indices[i] = j
+        return baby_indices
+##Likelihood Calculation
+#w=np.zeros(1000)
+#samps=np.zeros(1000)
+#for (i,j) in enumerate(norm.rvs(vol_mean,
+#vol_sd,size=1000)):
+#         w[i]=likelihood(ret[0],j)
+#         samps[i]=j
+#w = w/np.sum(w)
+##
+w = np.array([.01,.01,.2,.3])
+get_resample_indices(w)
      
 
