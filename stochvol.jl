@@ -36,7 +36,7 @@ ret=k.ret
 	T=length(x)
 	step_size ~ Exponential(10.0)
 	sigma = Vector(undef,T)
-	sigma[1] ~ Exponential(10.0)
+	#sigma[1] ~ Exponential(10.0)
 	mu ~ Uniform(-1.0,1.0)
 	for i in 2:T
 		sigma[i] ~ Normal(sigma[i-1],step_size)
