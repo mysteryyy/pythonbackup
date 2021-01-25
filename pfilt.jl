@@ -93,11 +93,11 @@ vol_mean = 0.6
 vol_sd=0.24
 mean_mu = -.2
 mean_sd=.1
-k1.dayret=(k1.Close./k1.Open .- 1)*100
-ret=k1.dayret
-w=zeros(1000)
-vols=zeros(length(ret))
-samps=rand(Normal(vol_mean,vol_sd),1000)
+#k1.dayret=(k1.Close./k1.Open .- 1)*100
+#ret=k1.dayret
+#w=zeros(1000)
+#vols=zeros(length(ret))
+#samps=rand(Normal(vol_mean,vol_sd),1000)
 
 
 
