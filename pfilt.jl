@@ -30,6 +30,12 @@ function get_data(name,prod,start_date,end_date)
      return k1
 end
 
+mutable struct ParticleFilter{T<:Number}
+	step_size::T
+	mean_mu::T
+	mean_sd::T
+end
+
 function get_resample_indices(weights)
 	n1 = length(weights)
 	cum_weights=cumsum(weights)
@@ -50,7 +56,9 @@ function get_resample_indices(weights)
 	return baby_indices
 end
 
-function likelihood(x,vol)
+function likelihood(pf :: ParticleFilter,x,vol)
+	mean_mu=pf.mean_mu
+	mean_sd=pf.mean_sd
 	sd=exp(vol)
 	prob=0
 	for i in rand(Normal(mean_mu,mean_sd),1000)
@@ -66,7 +74,7 @@ function gen_sample(w,x)
   x = x[ind]
   return w,x
 end
-function update_sample(pf :: PartcleFilter,w,samps,val)
+function update_sample(pf :: ParticleFilter,w,samps,val)
 	step_size=pf.step_size
 	for (i,j) in enumerate(samps)
 		old_samp=j
@@ -80,13 +88,6 @@ function update_sample(pf :: PartcleFilter,w,samps,val)
 	return w,samps
 end
 
-mutable struct ParticleFilter{T<:Number}
-	step_size::T
-	vol_mean::T
-	vol_sd::T
-	mean_mu::T
-	mean_sd::T
-end
 step_size=0.05
 vol_mean = 0.6
 vol_sd=0.24
