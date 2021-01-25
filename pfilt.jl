@@ -66,7 +66,8 @@ function gen_sample(w,x)
   x = x[ind]
   return w,x
 end
-function update_sample(w,samps,val)
+function update_sample(pf :: PartcleFilter,w,samps,val)
+	step_size=pf.step_size
 	for (i,j) in enumerate(samps)
 		old_samp=j
 		new_samp = rand(Normal(old_samp,step_size),1)[1]
@@ -77,6 +78,14 @@ function update_sample(w,samps,val)
 	w = w/sum(w)
 	w,samps=gen_sample(w,samps)
 	return w,samps
+end
+
+mutable struct ParticleFilter{T<:Number}
+	step_size::T
+	vol_mean::T
+	vol_sd::T
+	mean_mu::T
+	mean_sd::T
 end
 step_size=0.05
 vol_mean = 0.6
