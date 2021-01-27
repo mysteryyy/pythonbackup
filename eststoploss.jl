@@ -71,10 +71,19 @@ end
 
     
 function slutil(sloss::StopLoss,sl,tp,days)
-	dayret=Float64[]
+	finaldayrets=Float64[]
 	hit=false
 
+	mean_mu = sl.mean_mu
+	mean_sd = sl.mean_sd
 	for i in 1:days
+           rets = gen_sample_ret(sloss,.5)
+	   dayret=sltpval(rets,sl,tp)
+	   append!(finaldayrets,dayret)
+	end
+        return finaldayrets
+end
+
 	   
 
 
