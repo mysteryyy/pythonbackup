@@ -30,8 +30,9 @@ function gen_sample_ret(sl::StopLoss,period)
 	mean_dist=Normal(mean_mu/fac,mean_sd/(fac^.5))
 	w,var=gen_sample(sl.weights,sl.var)
         ret=zeros(size)
-	for (i,j) in enumerate(var)
+	for i in 1:period
 	    mean = rand(mean_dist,fac)[1]
+	    j = var[rand(1:length(var))]
             sample_ret=Normal(mean,j)
 	    ret[i]=rand(sample_ret,1)[1]
 	end
@@ -73,8 +74,8 @@ end
 function slutil(sloss::StopLoss,sl,tp,days)
 	finaldayrets=Float64[]
 
-	mean_mu = sl.mean_mu
-	mean_sd = sl.mean_sd
+	mean_mu = sloss.mean_mu
+	mean_sd = sloss.mean_sd
 	for i in 1:days
            rets = gen_sample_ret(sloss,.5)
 	   dayret=sltpval(rets,sl,tp)
@@ -82,17 +83,24 @@ function slutil(sloss::StopLoss,sl,tp,days)
 	end
         return finaldayrets
 end
+vars = rand(Normal(.6,.24),100) 
+w = [pdf(Normal(.6,.24),i) for i in vars]
+mean_mu=-.2
+mean_sd=.1
+sloss = StopLoss(var=vars,weights=w,mean_mu=mean_mu,
+		mean_sd=mean_sd)
+rets = -1*rets
+limits=Float64[]
+sor=Float64[]
+for i in -1:.1:-.1,j in .5:.1:2
+	limrets=slutil(sloss,i,j,100)
+	down_sd = std([k for k in limrets if k<0])+.01
+	sortino = mean(limrets)/down_sd
+	append!(sor,sortino)
+	append!(limits,(i,j))
+end
 
-#rets = -1*rets
-#limits=Float64[]
-#sor=Float64[]
-#for i in -1:.1:-.1,j in .5:.1:2
-#	limrets=slutil(sloss,i,j,100)
-#	down_sd = std([k for k in limrets if k<0])+.01
-#	sortino = mean(limrets)/down_sd
-#	append!(sor,sortino)
-#	limits!((i,j))
-#
+
 
 
 	   
