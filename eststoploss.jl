@@ -14,8 +14,9 @@ using PyCall
 using DataFrames
 using Debugger
 using Turing,StatsBase,StatsPlots,MCMCChains
+using Parameters
 include("/home/sahil/pythonbackup/pfilt.jl")
-mutable struct StopLoss{T<:Number}
+@with_kw mutable struct StopLoss{T<:Number}
 	var::Vector{T}
 	weights::Vector{T}
 	mean_mu::T
@@ -72,7 +73,13 @@ end
 function slutil(sloss::StopLoss,sl,tp,days)
 	dayret=Float64[]
 	hit=false
-	for i in days
+
+	for i in 1:days
+	   
+
+
+
+
 
 	   rets = gen_sample(sloss,.5)
 	   	end
