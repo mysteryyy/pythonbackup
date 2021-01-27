@@ -92,16 +92,15 @@ mean_sd=.1
 sloss = StopLoss(var=vars,weights=w,mean_mu=mean_mu,
 		mean_sd=mean_sd)
 rets = -1*rets
-limits=Float64[]
+limits=[]
 sor=Float64[]
 all_limrets=Float64[]
 for i=-1:.1:-.1,j=.5:.1:2
 	global limrets=slutil(sloss,i,j,100)
-	append!(all_limrets,limrets)
 	down_sd = std([k for k in limrets if k<0])+.01
 	sortino = mean(limrets)/down_sd
 	append!(sor,sortino)
-	append!(limits,(i,j))
+	push!(limits,(i,j))
 end
 
 
