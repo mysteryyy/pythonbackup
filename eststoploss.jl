@@ -72,7 +72,6 @@ end
     
 function slutil(sloss::StopLoss,sl,tp,days)
 	finaldayrets=Float64[]
-	hit=false
 
 	mean_mu = sl.mean_mu
 	mean_sd = sl.mean_sd
@@ -84,37 +83,19 @@ function slutil(sloss::StopLoss,sl,tp,days)
         return finaldayrets
 end
 
+#rets = -1*rets
+#limits=Float64[]
+#sor=Float64[]
+#for i in -1:.1:-.1,j in .5:.1:2
+#	limrets=slutil(sloss,i,j,100)
+#	down_sd = std([k for k in limrets if k<0])+.01
+#	sortino = mean(limrets)/down_sd
+#	append!(sor,sortino)
+#	limits!((i,j))
+#
+
+
 	   
-
-
-
-
-
-	   rets = gen_sample(sloss,.5)
-	   	end
-        return finaldayret
-end
-
-
-
-
-
-
-
-
-		
-           
-
-
-
-
-
-
-
-
-
-
-
 
 
 
