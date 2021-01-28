@@ -34,7 +34,7 @@ function gen_sample_ret(sl::StopLoss,period)
 	ret=zeros(Int64(size))
 	for i in 1:fac
 	    mean = rand(mean_dist,fac)[1]
-	    j = var[rand(1:length(var))]
+	    j = mean(var)
 	    sample_ret=Normal(mean,exp(j))
 	    ret[i]=rand(sample_ret,1)[1]
 	end
@@ -85,10 +85,10 @@ function slutil(sloss::StopLoss,sl,tp,days)
 	end
         return finaldayrets
 end
-vars = rand(Normal(.7,.14),100) 
-w = [pdf(Normal(.7,.14),i) for i in vars]
+vars = rand(Normal(.8,.14),100) 
+w = [pdf(Normal(.8,.14),i) for i in vars]
 mean_mu=-.2
-mean_sd=.03
+mean_sd=.07
 sloss = StopLoss(var=vars,weights=w,mean_mu=mean_mu,
 		mean_sd=mean_sd)
 rets = -1*rets
@@ -97,7 +97,7 @@ shrp=Float64[]
 all_limrets=Float64[]
 rets=Float64[]
 for i=-1:.1:-.1,j=.5:.1:2
-	global limrets=slutil(sloss,i,j,1000)
+	global limrets=slutil(sloss,i,j,5000)
 	#down_sd = std([k for k in limrets if k<0])+.01
 	sharpe = mean(limrets)/std(limrets)
 	append!(shrp,sharpe)
