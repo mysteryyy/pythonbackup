@@ -54,5 +54,15 @@ for i in mean1
 	end
 end
 
-println(s/(length(vars)^2))
-print(k/(length(vars)^2))
+s=s/(length(vars)^2)
+k=k/(length(vars)^2)
+m=mean_mu
+fac1 = (k-5/3*(s^2)-3)
+fac2 = 3*k-4*(s^2)-9
+v = exp(dot(vars,w)+0.2)
+mean=m-3*s*v^.5/(fac2)
+bet=s/(v^.5*fac1) 
+al = fac2^.5/(v^.5*fac1)
+del =(3^1.5*(v*fac1)^.5)/fac2
+
+
