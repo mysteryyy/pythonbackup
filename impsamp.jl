@@ -15,19 +15,14 @@ using DataFrames
 using Debugger
 using Turing,StatsBase,StatsPlots,MCMCChains
 using Parameters
-
-mean1 = Normal(-0.2,.05)
-sd = Normal(0.6,0.24)
-p=0
-for i in rand(Uniform(1,10),1000)
-    global p
-    mu = rand(mean1,1000)
-    for j in mu
-	var = rand(sd,1000)
-	for k in var
-		p = p + pdf(Normal(j,exp(k)),i)/(pdf(mean1,j)*pdf(sd,k))
-        end
+function likelihood(x,vol)
+	mean_mu=pf.mean_mu
+	mean_sd=pf.mean_sd
+	sd=exp(vol)
+	prob=0
+	for i in rand(Normal(mean_mu,mean_sd),1000)
+	    prob = prob + pdf(Normal(i,sd),x)/1000
+	end
+	return prob
 end
-end
-print(8*p/1000^3)
 
