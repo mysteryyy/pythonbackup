@@ -85,8 +85,8 @@ function slutil(sloss::StopLoss,sl,tp,days)
 	end
         return finaldayrets
 end
-vars = rand(Normal(.6,.24),100) 
-w = [pdf(Normal(.6,.24),i) for i in vars]
+vars = rand(Normal(.7,.24),100) 
+w = [pdf(Normal(.8,.24),i) for i in vars]
 mean_mu=-.2
 mean_sd=.1
 sloss = StopLoss(var=vars,weights=w,mean_mu=mean_mu,
@@ -104,6 +104,20 @@ for i=-1:.1:-.1,j=.5:.1:2
 	push!(limits,(i,j))
 	append!(rets,sum(limrets))
 end
+min1=1000
+for (i,j) in enumerate(rets)
+	rday = j/length(rets)
+	sl = abs(limits[i][1])
+	diff = abs(sl-rday)
+	if(diff<min1)
+	    global min1=diff
+	    global ind = i
+	    end
+end
+	
+
+
+
 
 
 
