@@ -15,6 +15,7 @@ using DataFrames
 using Debugger
 using Turing,StatsBase,StatsPlots,MCMCChains
 using Parameters
+using LinearAlgebra
 using HDF5
 include("pfilt.jl")
 f = h5open("stocksdata.hdf5","r")
@@ -40,7 +41,18 @@ for i in mean1
 	for j in vars
 	 global s
 	 x=rand(Normal(i,exp(j)),1)[1]
-	 s=s+((x-i)/exp(j))^3
+	 s=s+((x-mean_mu)/exp(dot(vars,w)))^3
 	end
 end
-print(s/(length(vars)^2))
+k=0
+for i in mean1
+	for j in vars
+	 global k
+	 x=rand(Normal(i,exp(j)),1)[1]
+	 z=(x-mean_mu)/(exp(dot(vars,w)))
+	 k = k+z^4
+	end
+end
+
+println(s/(length(vars)^2))
+print(k/(length(vars)^2))
