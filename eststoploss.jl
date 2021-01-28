@@ -35,7 +35,7 @@ function gen_sample_ret(sl::StopLoss,period)
 	for i in 1:fac
 	    mean = rand(mean_dist,fac)[1]
 	    j = var[rand(1:length(var))]
-            sample_ret=Normal(mean,j)
+	    sample_ret=Normal(mean,exp(j))
 	    ret[i]=rand(sample_ret,1)[1]
 	end
 	return ret
@@ -93,13 +93,13 @@ sloss = StopLoss(var=vars,weights=w,mean_mu=mean_mu,
 		mean_sd=mean_sd)
 rets = -1*rets
 limits=[]
-sor=Float64[]
+shrp=Float64[]
 all_limrets=Float64[]
 for i=-1:.1:-.1,j=.5:.1:2
 	global limrets=slutil(sloss,i,j,100)
-	down_sd = std([k for k in limrets if k<0])+.01
-	sortino = mean(limrets)/down_sd
-	append!(sor,sortino)
+	#down_sd = std([k for k in limrets if k<0])+.01
+	sharpe = mean(limrets)/std(limrets)
+	append!(shrp,sharpe)
 	push!(limits,(i,j))
 end
 
