@@ -79,7 +79,7 @@ function slutil(sloss::StopLoss,sl,tp,days)
 	mean_mu = sloss.mean_mu
 	mean_sd = sloss.mean_sd
 	for i in 1:days
-           rets = gen_sample_ret(sloss,2)
+           rets = gen_sample_ret(sloss,360)
 	   dayret=sltpval(rets,sl,tp)
 	   append!(finaldayrets,dayret)
 	end
@@ -88,7 +88,7 @@ end
 vars = rand(Normal(.6,.24),100) 
 w = [pdf(Normal(.6,.24),i) for i in vars]
 mean_mu=-.2
-mean_sd=.1
+mean_sd=.03
 sloss = StopLoss(var=vars,weights=w,mean_mu=mean_mu,
 		mean_sd=mean_sd)
 rets = -1*rets
@@ -97,7 +97,7 @@ shrp=Float64[]
 all_limrets=Float64[]
 rets=Float64[]
 for i=-1:.1:-.1,j=.5:.1:2
-	global limrets=slutil(sloss,i,j,100)
+	global limrets=slutil(sloss,i,j,10000)
 	#down_sd = std([k for k in limrets if k<0])+.01
 	sharpe = mean(limrets)/std(limrets)
 	append!(shrp,sharpe)
