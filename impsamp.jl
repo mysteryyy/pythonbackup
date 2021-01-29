@@ -91,9 +91,9 @@ end
 
 function slutil(sl,lim)
    global nig
-   slval = sl*quadgk(x->pdf(nig,-x),-lim,sl)[1]
-   nolim = quadgk(x->-x*pdf(nig,-x),sl,lim)[1]
-   return slval+tpval+nolim
+   slval = sl*quadgk(x->pdf(nig,x),-sl,lim)[1]
+   nolim = quadgk(x->-x*pdf(nig,x),-lim,-sl)[1]
+   return slval+nolim
 end
 
 
