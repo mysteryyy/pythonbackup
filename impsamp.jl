@@ -95,6 +95,13 @@ function slutil(sl,lim)
    nolim = quadgk(x->-x*pdf(nig,x),-lim,-sl)[1]
    return slval+nolim
 end
+diffs=Float64[]
+lim=10
+sl = [i for i in -1:.1:-.1]
+for i in sl
+    p = slutil(i,lim)
+    diff = abs(p-abs(i))
+    append!(diffs,diff)
+end
 
-
-integ = quadgk(x->x*pdf(nig,x),-.5,-10)[1]
+ind = findall(x->x==minimum(diffs),diffs)
