@@ -27,6 +27,14 @@ mean_sd = read(f,"ZEEL/mean_sd")
 w = w/sum(w)
 w,vars=gen_sample(w,vars)
 mean1 = rand(Normal(mean_mu,mean_sd),length(vars))
+function nigpdf1(alpha,beta,mean,scale,x)
+          extra = (alpha^2-beta^2)^.5
+          num = alpha*scale*besselk(1,alpha*(scale^2 + (x-mean)^2)^.5)*exp(extra*scale+beta*(x-mean))
+          den = pi*(scale^2 + (x-mean)^2)^.5
+          pdf = num/den
+	  return pdf
+end
+
 function likelihood(x,vol)
 	mean_mu=pf.mean_mu
 	mean_sd=pf.mean_sd
@@ -68,9 +76,9 @@ del =(3^1.5*(v*fac1)^.5)/fac2
 nig = NormalInverseGaussian(m,al,bet,del)
 function limutil(sl,tp,lim)
    global nig
-   slval = sl*quadgk(x->1*pdf(nig,-x),-lim,sl)
-   tpval = tp*quadgk(x->1*pdf(nig,-x),tp,lim)
-   nolim = quadgk(x->x*pdf(nig,-x),sl,tp)
+   slval = sl*quadgk(x->1*pdf(nig,-x),-lim,sl)[1]
+   tpval = tp*quadgk(x->1*pdf(nig,-x),tp,lim)[1]
+   nolim = quadgk(x->x*pdf(nig,-x),sl,tp)[1]
    return slval+tpval+nolim
 end
 integ = quadgk(x->x*pdf(nig,x),-.5,-10)[1]
