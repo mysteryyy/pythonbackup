@@ -1,4 +1,5 @@
 using SpecialFunctions
+using QuadGK
 using ForwardDiff
 using Optim
 using ReverseDiff
@@ -64,5 +65,5 @@ mean=m-3*s*v^.5/(fac2)
 bet=s/(v^.5*fac1) 
 al = fac2^.5/(v^.5*fac1)
 del =(3^1.5*(v*fac1)^.5)/fac2
-
-
+nig = NormalInverseGaussian(m,al,bet,del)
+integ = quadgk(x->x*pdf(nig,x),-.5,-10)[1]
