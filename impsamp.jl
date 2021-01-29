@@ -74,11 +74,27 @@ bet=s/(v^.5*fac1)
 al = fac2^.5/(v^.5*fac1)
 del =(3^1.5*(v*fac1)^.5)/fac2
 nig = NormalInverseGaussian(m,al,bet,del)
-function limutil(sl,tp,lim)
+function limutilcheck(sl,tp,lim)
    global nig
-   slval = sl*quadgk(x->pdf(nig,x),sl,lim)[1]
+   slval = -sl*quadgk(x->pdf(nig,x),sl,lim)[1]
    tpval = tp*quadgk(x->pdf(nig,x),-lim,tp)[1]
    nolim = quadgk(x->-x*pdf(nig,x),tp,sl)[1]
    return slval+tpval+nolim
 end
+function limutil(sl,tp,lim)
+   global nig
+   slval = sl*quadgk(x->pdf(nig,-x),-lim,sl)[1]
+   tpval = tp*quadgk(x->pdf(nig,-x),tp,lim)[1]
+   nolim = quadgk(x->-x*pdf(nig,-x),sl,tp)[1]
+   return slval+tpval+nolim
+end
+
+function slutil(sl,lim)
+   global nig
+   slval = sl*quadgk(x->pdf(nig,-x),-lim,sl)[1]
+   nolim = quadgk(x->-x*pdf(nig,-x),sl,lim)[1]
+   return slval+tpval+nolim
+end
+
+
 integ = quadgk(x->x*pdf(nig,x),-.5,-10)[1]
