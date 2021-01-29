@@ -67,6 +67,8 @@ al = fac2^.5/(v^.5*fac1)
 del =(3^1.5*(v*fac1)^.5)/fac2
 nig = NormalInverseGaussian(m,al,bet,del)
 function limutil(sl,tp,nig,lim)
-   slval = quadgk(x->-x*pdf(nig,-x),-lim,sl)
-   tpval = quadgk(x->-x*pdf(nig,-x),tp,lim)
+   slval = sl*quadgk(x->pdf(nig,-x),-lim,sl)
+   tpval = tp*quadgk(x->pdf(nig,-x),tp,lim)
+   nolim = quadgk(x->pdf(nig,-x),sl,tp)
+   return slval+tpval+nolim
 integ = quadgk(x->x*pdf(nig,x),-.5,-10)[1]
