@@ -59,6 +59,13 @@ function limutil(sl,tp,lim)
    nolim = quadgk(x->-x*pdf(nig,x),-tp,-sl)[1]
    return slval+tpval+nolim
 end
+function slutil(sl,lim,nig)
+   slval = sl*quadgk(x->pdf(nig,x),-sl,lim)[1]
+   nolim = quadgk(x->-x*pdf(nig,x),-lim,-sl)[1]
+   return slval+nolim
+end
+
+
 sym="ADANIPORTS"
 vars = read(f,join([sym,"/samples"]))
 w = read(f,join([sym,"/weights"]))
