@@ -125,6 +125,6 @@ for i in keys(f)
 	continue
         end
 	sl = optsl(nig1)
-	println(join([i," ",sl]))
+	println(join([i," ",sl[1]]))
 end
 close(f)
