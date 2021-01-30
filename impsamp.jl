@@ -20,10 +20,11 @@ using LinearAlgebra
 using HDF5
 include("pfilt.jl")
 f = h5open("stocksdata.hdf5","r")
-vars = read(f,"ZEEL/samples")
-w = read(f,"ZEEL/weights")
-mean_mu = read(f,"ZEEL/mean_mu")
-mean_sd = read(f,"ZEEL/mean_sd")
+sym="ASIANPAINTS"
+vars = read(f,join([sym,"/samples"]))
+w = read(f,join([sym,"/weights"]))
+mean_mu = read(f,join([sym,"/mean_mu"]))
+mean_sd = read(f,join([sym,"/mean_sd"]))
 w = w/sum(w)
 w,vars=gen_sample(w,vars)
 mean1 = rand(Normal(mean_mu,mean_sd),length(vars))
