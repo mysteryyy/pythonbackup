@@ -57,33 +57,31 @@ function limutil(sl,tp,lim)
 end
 
 function slutil(sl,lim,nig)
-   global nig
    slval = sl*quadgk(x->pdf(nig,x),-sl,lim)[1]
    nolim = quadgk(x->-x*pdf(nig,x),-lim,-sl)[1]
    return slval+nolim
 end
 
-function optsl(nig)
-diffs=Float64[]
-lim=10
-sl = [i for i in -1:.1:-.1]
-vals=Float64[]
+function optsl(nig2)
+	diffs=Float64[]
+	lim=10
+	sl = [i for i in -1:.1:-.1]
+	vals=Float64[]
 
-for i in sl
-    global p = slutil(i,lim,nig)
-    append!(vals,p)
-    diff = abs(p-abs(i))
-    append!(diffs,diff)
+	for i in sl
+	    p = slutil(i,lim,nig2)
+	    append!(vals,p)
+	    diff = abs(p-abs(i))
+	    append!(diffs,diff)
+	end
+	ind = findall(x->x==minimum(diffs),diffs)
+	return sl[ind]
 end
-end
-ind = findall(x->x==minimum(diffs),diffs)
-return sl[ind]
-
 function calc_dist(vars,w,mean_mu,mean1)
 	s=0
 	for i in mean1
+		
 		for j in vars
-		 global s
 		 x=rand(Normal(i,exp(j)),1)[1]
 		 s=s+((x-mean_mu)/exp(dot(vars,w)))^3
 		end
@@ -91,7 +89,6 @@ function calc_dist(vars,w,mean_mu,mean1)
 	k=0
 	for i in mean1
 		for j in vars
-		 global k
 		 x=rand(Normal(i,exp(j)),1)[1]
 		 z=(x-mean_mu)/(exp(dot(vars,w)))
 		 k = k+z^4
@@ -108,8 +105,8 @@ function calc_dist(vars,w,mean_mu,mean1)
 	bet=s/(v^.5*fac1) 
 	al = fac2^.5/(v^.5*fac1)
 	del =(3^1.5*(v*fac1)^.5)/fac2
-	nig = NormalInverseGaussian(m,al,bet,del)
-	return nig
+	nig1 = NormalInverseGaussian(m,al,bet,del)
+	return nig1
 end
 for i in keys(f)
         sym=i
@@ -121,12 +118,13 @@ for i in keys(f)
 	w,vars=gen_sample(w,vars)
 	mean1 = rand(Normal(mean_mu,mean_sd),length(vars))
 	try
-	nig=calc_dist(vars,w,mean_mu,mean1)
+	global nig1=calc_dist(vars,w,mean_mu,mean1)
+	print(nig1)
         catch e
 	println(join([i," ",e]))
 	continue
         end
-	sl = optsl(nig)
+	sl = optsl(nig1)
 	println(join([i," ",sl]))
 end
 close(f)
