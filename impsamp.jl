@@ -20,7 +20,7 @@ using LinearAlgebra
 using HDF5
 include("pfilt.jl")
 f = h5open("stocksdata.hdf5","r")
-sym="DRREDDY"
+sym="SUNPHARMA"
 vars = read(f,join([sym,"/samples"]))
 w = read(f,join([sym,"/weights"]))
 mean_mu = read(f,join([sym,"/mean_mu"]))
@@ -77,6 +77,7 @@ bet=s/(v^.5*fac1)
 al = fac2^.5/(v^.5*fac1)
 del =(3^1.5*(v*fac1)^.5)/fac2
 nig = NormalInverseGaussian(m,al,bet,del)
+
 function limutilcheck(sl,tp,lim)
    global nig
    slval = -sl*quadgk(x->pdf(nig,x),sl,lim)[1]
@@ -84,6 +85,7 @@ function limutilcheck(sl,tp,lim)
    nolim = quadgk(x->-x*pdf(nig,x),tp,sl)[1]
    return slval+tpval+nolim
 end
+
 function limutil(sl,tp,lim)
    global nig
    slval = sl*quadgk(x->pdf(nig,-x),-lim,sl)[1]
@@ -98,10 +100,12 @@ function slutil(sl,lim)
    nolim = quadgk(x->-x*pdf(nig,x),-lim,-sl)[1]
    return slval+nolim
 end
+
 diffs=Float64[]
 lim=10
 sl = [i for i in -1:.1:-.1]
 vals=Float64[]
+
 for i in sl
     global p = slutil(i,lim)
     append!(vals,p)
