@@ -20,15 +20,6 @@ using LinearAlgebra
 using HDF5
 include("pfilt.jl")
 f = h5open("stocksdata.hdf5","r")
-sym="SUNPHARMA"
-vars = read(f,join([sym,"/samples"]))
-w = read(f,join([sym,"/weights"]))
-mean_mu = read(f,join([sym,"/mean_mu"]))
-mean_sd = read(f,join([sym,"/mean_sd"]))
-w = w/sum(w)
-w,vars=gen_sample(w,vars)
-mean1 = rand(Normal(mean_mu,mean_sd),length(vars))
-
 
 function nigpdf1(alpha,beta,mean,scale,x)
           extra = (alpha^2-beta^2)^.5
@@ -48,35 +39,6 @@ function likelihood(x,vol)
 	end
 	return prob
 end
-s=0
-for i in mean1
-	for j in vars
-	 global s
-	 x=rand(Normal(i,exp(j)),1)[1]
-	 s=s+((x-mean_mu)/exp(dot(vars,w)))^3
-	end
-end
-k=0
-for i in mean1
-	for j in vars
-	 global k
-	 x=rand(Normal(i,exp(j)),1)[1]
-	 z=(x-mean_mu)/(exp(dot(vars,w)))
-	 k = k+z^4
-	end
-end
-
-s=s/(length(vars)^2)
-k=k/(length(vars)^2)
-m=mean_mu
-fac1 = (k-5/3*(s^2)-3)
-fac2 = 3*k-4*(s^2)-9
-v = exp(dot(vars,w)+0.2)
-mean=m-3*s*v^.5/(fac2)
-bet=s/(v^.5*fac1) 
-al = fac2^.5/(v^.5*fac1)
-del =(3^1.5*(v*fac1)^.5)/fac2
-nig = NormalInverseGaussian(m,al,bet,del)
 
 function limutilcheck(sl,tp,lim)
    global nig
@@ -94,23 +56,77 @@ function limutil(sl,tp,lim)
    return slval+tpval+nolim
 end
 
-function slutil(sl,lim)
+function slutil(sl,lim,nig)
    global nig
    slval = sl*quadgk(x->pdf(nig,x),-sl,lim)[1]
    nolim = quadgk(x->-x*pdf(nig,x),-lim,-sl)[1]
    return slval+nolim
 end
 
+function optsl(nig)
 diffs=Float64[]
 lim=10
 sl = [i for i in -1:.1:-.1]
 vals=Float64[]
 
 for i in sl
-    global p = slutil(i,lim)
+    global p = slutil(i,lim,nig)
     append!(vals,p)
     diff = abs(p-abs(i))
     append!(diffs,diff)
 end
-
+end
 ind = findall(x->x==minimum(diffs),diffs)
+return sl[ind]
+
+function calc_dist(vars,w,mean_mu,mean1)
+	s=0
+	for i in mean1
+		for j in vars
+		 global s
+		 x=rand(Normal(i,exp(j)),1)[1]
+		 s=s+((x-mean_mu)/exp(dot(vars,w)))^3
+		end
+	end
+	k=0
+	for i in mean1
+		for j in vars
+		 global k
+		 x=rand(Normal(i,exp(j)),1)[1]
+		 z=(x-mean_mu)/(exp(dot(vars,w)))
+		 k = k+z^4
+		end
+	end
+
+	s=s/(length(vars)^2)
+	k=k/(length(vars)^2)
+	m=mean_mu
+	fac1 = (k-5/3*(s^2)-3)
+	fac2 = 3*k-4*(s^2)-9
+	v = exp(dot(vars,w)+0.2)
+	mean=m-3*s*v^.5/(fac2)
+	bet=s/(v^.5*fac1) 
+	al = fac2^.5/(v^.5*fac1)
+	del =(3^1.5*(v*fac1)^.5)/fac2
+	nig = NormalInverseGaussian(m,al,bet,del)
+	return nig
+end
+for i in keys(f)
+        sym=i
+	vars = read(f,join([sym,"/samples"]))
+	w = read(f,join([sym,"/weights"]))
+	mean_mu = read(f,join([sym,"/mean_mu"]))
+	mean_sd = read(f,join([sym,"/mean_sd"]))
+	w = w/sum(w)
+	w,vars=gen_sample(w,vars)
+	mean1 = rand(Normal(mean_mu,mean_sd),length(vars))
+	try
+	nig=calc_dist(vars,w,mean_mu,mean1)
+        catch e
+	println(join([i," ",e]))
+	continue
+        end
+	sl = optsl(nig)
+	println(join([i," ",sl]))
+end
+close(f)
