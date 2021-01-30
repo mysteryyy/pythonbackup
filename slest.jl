@@ -19,7 +19,7 @@ using Parameters
 using LinearAlgebra
 using HDF5
 include("pfilt.jl")
-f = h5open("stocksdata.hdf5","r")
+f = h5open("stocksdata.hdf5","r+")
 
 function nigpdf1(alpha,beta,mean,scale,x)
           extra = (alpha^2-beta^2)^.5
@@ -117,14 +117,23 @@ for i in keys(f)
 	w = w/sum(w)
 	w,vars=gen_sample(w,vars)
 	mean1 = rand(Normal(mean_mu,mean_sd),length(vars))
+	noerror=true
 	try
 	global nig1=calc_dist(vars,w,mean_mu,mean1)
 	print(nig1)
         catch e
 	println(join([i," ",e]))
-	continue
+	noerror=false
         end
-	sl = optsl(nig1)
+        if(noerror)
+	 sl = optsl(nig1)
+	 f[join([sym,"/sl"])]=sl[1]
+	 f[join([sym,"/error"])]="noerror"
+	else
+	 sl = ["not defined"]
+	 f[join([sym,"/error"])]="error"
+	end
+	 
 	println(join([i," ",sl[1]]))
 end
 close(f)
