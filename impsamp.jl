@@ -20,7 +20,7 @@ using LinearAlgebra
 using HDF5
 include("pfilt.jl")
 f = h5open("stocksdata.hdf5","r")
-sym="ASIANPAINTS"
+sym="DRREDDY"
 vars = read(f,join([sym,"/samples"]))
 w = read(f,join([sym,"/weights"]))
 mean_mu = read(f,join([sym,"/mean_mu"]))
@@ -28,6 +28,8 @@ mean_sd = read(f,join([sym,"/mean_sd"]))
 w = w/sum(w)
 w,vars=gen_sample(w,vars)
 mean1 = rand(Normal(mean_mu,mean_sd),length(vars))
+
+
 function nigpdf1(alpha,beta,mean,scale,x)
           extra = (alpha^2-beta^2)^.5
           num = alpha*scale*besselk(1,alpha*(scale^2 + (x-mean)^2)^.5)*exp(extra*scale+beta*(x-mean))
@@ -99,8 +101,10 @@ end
 diffs=Float64[]
 lim=10
 sl = [i for i in -1:.1:-.1]
+vals=Float64[]
 for i in sl
-    p = slutil(i,lim)
+    global p = slutil(i,lim)
+    append!(vals,p)
     diff = abs(p-abs(i))
     append!(diffs,diff)
 end
