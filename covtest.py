@@ -32,18 +32,25 @@ def cov_ab(beta_b,beta_a,var_b):
 nstocks = len(stocks)
 cov = np.zeros((nstocks,nstocks))
 def var(i):
-    var = f[i+"/"+"samples"]
+    var1 = f[i+"/"+"samples"]
     w = f[i+"/"+"weights"]
-    var = np.dot(w,var)
-    return var
+    var1 = np.exp(2*np.dot(w,var1))
+    return var1
 
-for (i,j) in enumerate(stocks):
-    var = f[i+"/"+"samples"]
-    w = f[i+"/"+"weights"]
-    var = np.dot(w,var)
-    cov[j][j]=var
+#for (i,j) in enumerate(stocks):
+#    var1 = f[i+"/"+"samples"]
+#    w = f[i+"/"+"weights"]
+#    var1 = np.dot(w,var1)
+#    cov[j][j]=var(i)
 
 for i in range(nstocks):
     for j in range(nstocks):
-        
+      if(i==j):
+          cov[j][j]=var(stocks[i])
+          continue
+      f1 = stocks[i]
+      f2 = stocks[j]
+      cov[i][j] = cov_ab(f[f1+"/"+"beta"],f[f2+"/"+"beta"],
+              var(f2))
+
        
