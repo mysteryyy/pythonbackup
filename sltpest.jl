@@ -59,6 +59,14 @@ function limutil(sl,tp,lim)
    nolim = quadgk(x->-x*pdf(nig,x),-tp,-sl)[1]
    return slval+tpval+nolim
 end
+function limutil_var(sl,tp,lim)
+   global nig
+   slval = sl^2*quadgk(x->pdf(nig,x),-sl,lim)[1]
+   tpval = tp^2*quadgk(x->pdf(nig,x),-tp,-lim)[1]
+   nolim = quadgk(x->(x^2)*pdf(nig,x),-tp,-sl)[1]
+   return slval+tpval+nolim
+end
+
 function slutil(sl,lim,nig)
    slval = sl*quadgk(x->pdf(nig,x),-sl,lim)[1]
    nolim = quadgk(x->-x*pdf(nig,x),-lim,-sl)[1]
