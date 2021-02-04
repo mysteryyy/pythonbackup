@@ -11,7 +11,7 @@ import pdb
 from digfilters import filters
 from bandperiod import bandpassfilt
 from hurst import compute_Hc
-k=pd.read_pickle('projdir/dailydata.pkl')
+#k=pd.read_pickle('projdir/dailydata.pkl')
 #k1=k[k.Symbol==k.Symbol.unique()[0]]
 filt = filters()
 bp=bandpassfilt()
@@ -77,5 +77,5 @@ def feattrans(k1):
     print(k1.Symbol[0])
     return k1
 
-k=pd.concat([feattrans(k[k.Symbol==i]) for i in k.Symbol.unique()])
+#########k=pd.concat([feattrans(k[k.Symbol==i]) for i in k.Symbol.unique()])
 
