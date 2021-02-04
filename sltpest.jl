@@ -55,15 +55,16 @@ end
 function limutil(sl,tp,lim)
    global nig
    slval = sl*quadgk(x->pdf(nig,x),-sl,lim)[1]
-   tpval = tp*quadgk(x->pdf(nig,x),-tp,-lim)[1]
+   tpval = tp*quadgk(x->pdf(nig,x),-lim,-tp)[1]
    nolim = quadgk(x->-x*pdf(nig,x),-tp,-sl)[1]
    return slval+tpval+nolim
 end
 function limutil_var(sl,tp,lim)
    global nig
-   slval = (sl^2)*quadgk(x->pdf(nig,x),-sl,lim)[1]
-   tpval = (tp^2)*quadgk(x->pdf(nig,x),-tp,-lim)[1]
-   nolim = quadgk(x->(x^2)*pdf(nig,x),-tp,-sl)[1]
+   m=mean_mu
+   slval = ((sl-m)^2)*quadgk(x->pdf(nig,x),-sl,lim)[1]
+   tpval = ((tp-m)^2)*quadgk(x->pdf(nig,x),-lim,-tp)[1]
+   nolim = quadgk(x->((x-m)^2)*pdf(nig,x),-tp,-sl)[1]
    return slval+tpval+nolim
 end
 
