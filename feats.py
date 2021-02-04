@@ -74,7 +74,6 @@ def feattrans(k1):
     k1['cci'] = (k1.roof-k1.roof.rolling(window=20).mean())/(.015*k1.rms)
     k1=k1.dropna()
     k1['cci'] = filt.butterworth2(k1.cci,10)
-    print(k1.Symbol[0])
     return k1
 
 #########k=pd.concat([feattrans(k[k.Symbol==i]) for i in k.Symbol.unique()])
