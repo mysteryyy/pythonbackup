@@ -50,7 +50,7 @@ k2['VIX_Close'] = k2.Close
 k1 = pd.concat([k1,k2['VIX_Close']],join='inner',axis=1)
 k1['Date'] = [i.date() for i in k1.index]
 k1['VIX_Close'] = k1.VIX_Close.shift(1)
-k1['VIX_Close_diff'] = ((k1.Close-k1.VIX_Close.shift(1))/k1.Close.shift(1))*100
+k1['VIX_Close_diff'] = ((k1.VIX_Close-k1.VIX_Close.shift(1))/k1.Close.shift(1))*100
 k1 = k1.dropna()
 k1 = feats.feattrans(k1)
 k1['rets1'] = k1.rets/abs(k1.rets)
@@ -59,10 +59,12 @@ k2 = k1[k1.Date>datetime.date(2018,1,1)]
 k1 = k1[k1.Date<datetime.date(2018,1,1)]
 k1 = k1.dropna()
 feats = ['stoch20','stoch14','rsi14','rsi20','sine','bandpass','cci','decycle','quadlead','velacc','VIX_Close','VIX_Close_diff','h']
-xtrain = np.array(k1[feats])
+feats1= feats
+xtrain = np.array(k1[feats1])
 ytrain=np.array(k1.rets1)
-tr = RandomForestClassifier(n_estimators=50,max_depth=6,min_samples_split=10)
+tr = RandomForestClassifier(n_estimators=4550,max_depth=6,min_samples_split=10)
+#clf=tr
 clf = AdaBoostClassifier(base_estimator=tr,n_estimators=50,random_state=50,learning_rate=1.0)
 clf.fit(xtrain,ytrain)
-k2['predictions'] =clf.predict(np.array(k2[feats]))
+k2['predictions'] =clf.predict(np.array(k2[feats1]))
 k2['rand_preds'] = [random.choice([0,1]) for _ in range(len(k2))]
