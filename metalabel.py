@@ -33,7 +33,7 @@ import feats
 #lb = int(input("enter no of returns: "))
 #k=pd.read_pickle('/home/sahil/projdir/dailydata.pkl')
 #k1=k[k.Symbol==k.Symbol.unique()[pos]].iloc[-lb:]
-k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2015',to_date='07/12/2020')
+k1=investpy.search_quotes(text='SBIN',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2015',to_date='07/12/2020')
 #k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2019',to_date='07/12/2020')
 
 k2=investpy.search_quotes(text='VIX',products=['indices'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2015',to_date='07/12/2020')
@@ -45,7 +45,7 @@ def slret(o,h,l,c,sl):
       return(((o-c)/o)*100)
 print(k2.columns)
 #k1 = pd.concat([k1,k2['Close']],join='inner')
-k1['rets'] = k1.apply(lambda x:slret(x['Open'],x['High'],x['Low'],x['Close'],-1.5),axis=1)
+k1['rets'] = k1.apply(lambda x:slret(x['Open'],x['High'],x['Low'],x['Close'],-2.0),axis=1)
 k2['VIX_Close'] = k2.Close
 k1 = pd.concat([k1,k2['VIX_Close']],join='inner',axis=1)
 k1['Date'] = [i.date() for i in k1.index]
@@ -62,8 +62,8 @@ feats = ['stoch20','stoch14','rsi14','rsi20','sine','bandpass','cci','decycle','
 feats1= feats
 xtrain = np.array(k1[feats1])
 ytrain=np.array(k1.rets1)
-tr = RandomForestClassifier(n_estimators=4550,max_depth=6,min_samples_split=10)
-#clf=tr
+tr = RandomForestClassifier(n_estimators=7550,max_depth=6,min_samples_split=10)
+clf=tr
 clf = AdaBoostClassifier(base_estimator=tr,n_estimators=50,random_state=50,learning_rate=1.0)
 clf.fit(xtrain,ytrain)
 k2['predictions'] =clf.predict(np.array(k2[feats1]))
