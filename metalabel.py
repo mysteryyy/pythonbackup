@@ -1,4 +1,5 @@
 import datetime
+import random
 import nolds
 from datetime import date, timedelta
 from numpy.lib.stride_tricks import as_strided
@@ -26,6 +27,7 @@ import pyflux as pf
 import sys
 import investpy
 from sklearn.ensemble import AdaBoostClassifier,RandomForestClassifier
+import feats
 #Main.include("try3.jl")
 #pos=int(input("enter stock pos: "))
 #lb = int(input("enter no of returns: "))
@@ -45,17 +47,22 @@ print(k2.columns)
 #k1 = pd.concat([k1,k2['Close']],join='inner')
 k1['rets'] = k1.apply(lambda x:slret(x['Open'],x['High'],x['Low'],x['Close'],-1.0),axis=1)
 k2['VIX_Close'] = k2.Close
-k1 = pd.concat([k1,k2['VIX_Close']],join='inner',axis=1,names=['VIX Close'])
-k1 = k1.VIX_Close.shift(1)
+k1 = pd.concat([k1,k2['VIX_Close']],join='inner',axis=1)
+k1['Date'] = [i.date() for i in k1.index]
+k1['VIX_Close'] = k1.VIX_Close.shift(1)
+k1['VIX_Close_diff'] = ((k1.Close-k1.VIX_Close.shift(1))/k1.Close.shift(1))*100
 k1 = k1.dropna()
-k1['rets'] = k1.apply(lambda x:slret(x['Open'],x['Close'],x['Low'],x['High'],-1),axis=1)
+k1 = feats.feattrans(k1)
 k1['rets1'] = k1.rets/abs(k1.rets)
 k1['rets1'] = (k1.rets1+1)/2
 k2 = k1[k1.Date>datetime.date(2019,1,1)]
 k1 = k1[k1.Date<datetime.date(2019,1,1)]
-xtrain = np.array(k1[['stoch20','stoch14','rsi14','rsi20','sine','bandpass','cci','decycle','quadlead','velacc','VIX_Close']])
-ytrain=np.array(k1.rets)
+k1 = k1.dropna()
+feats = ['stoch20','stoch14','rsi14','rsi20','sine','bandpass','cci','decycle','quadlead','velacc','VIX_Close','VIX_Close_diff','h']
+xtrain = np.array(k1[feats])
+ytrain=np.array(k1.rets1)
 tr = RandomForestClassifier(n_estimators=50,max_depth=6,min_samples_split=10)
 clf = AdaBoostClassifier(base_estimator=tr,n_estimators=50,random_state=50,learning_rate=1.0)
 clf.fit(xtrain,ytrain)
-
+k2['predictions'] =clf.predict(np.array(k2[feats]))
+k2['rand_preds'] = [random.choice([0,1]) for _ in range(len(k2))]
