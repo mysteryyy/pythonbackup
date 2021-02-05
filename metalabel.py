@@ -45,7 +45,7 @@ def slret(o,h,l,c,sl):
       return(((o-c)/o)*100)
 print(k2.columns)
 #k1 = pd.concat([k1,k2['Close']],join='inner')
-k1['rets'] = k1.apply(lambda x:slret(x['Open'],x['High'],x['Low'],x['Close'],-1.0),axis=1)
+k1['rets'] = k1.apply(lambda x:slret(x['Open'],x['High'],x['Low'],x['Close'],-1.5),axis=1)
 k2['VIX_Close'] = k2.Close
 k1 = pd.concat([k1,k2['VIX_Close']],join='inner',axis=1)
 k1['Date'] = [i.date() for i in k1.index]
@@ -55,8 +55,8 @@ k1 = k1.dropna()
 k1 = feats.feattrans(k1)
 k1['rets1'] = k1.rets/abs(k1.rets)
 k1['rets1'] = (k1.rets1+1)/2
-k2 = k1[k1.Date>datetime.date(2019,1,1)]
-k1 = k1[k1.Date<datetime.date(2019,1,1)]
+k2 = k1[k1.Date>datetime.date(2018,1,1)]
+k1 = k1[k1.Date<datetime.date(2018,1,1)]
 k1 = k1.dropna()
 feats = ['stoch20','stoch14','rsi14','rsi20','sine','bandpass','cci','decycle','quadlead','velacc','VIX_Close','VIX_Close_diff','h']
 xtrain = np.array(k1[feats])
