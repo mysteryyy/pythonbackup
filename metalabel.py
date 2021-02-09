@@ -56,13 +56,15 @@ k1 = feats.feattrans(k1)
 k1['rsi20_diff'] = k1.rsi20.diff()
 k1['rsi14_diff'] = k1.rsi14.diff()
 k1['stoch20_diff'] = k1.stoch20.diff()
+k1['gap'] = (k1.Open-k1.Close.shift(1))/k1.Close.shift(1)
+k1['gap'] = k1.gap*100
 k1['rets1'] = k1.rets/abs(k1.rets)
 k1['rets1'] = (k1.rets1+1)/2
 k2 = k1[k1.Date>datetime.date(2018,1,1)]
 k1 = k1[k1.Date<datetime.date(2018,1,1)]
 k1 = k1.dropna()
-feats = ['stoch20','stoch14','rsi14','rsi20','sine','bandpass','cci','decycle','quadlead','velacc','VIX_Close','VIX_Close_diff','h','rsi20_diff','rsi14_diff','stoch20_diff']
-feats1= feats
+feats = ['gap','stoch20','stoch14','rsi14','rsi20','sine','bandpass','cci','decycle','quadlead','velacc','VIX_Close','VIX_Close_diff','h','rsi20_diff','rsi14_diff','stoch20_diff']
+feats1= ['gap']
 xtrain = np.array(k1[feats1])
 ytrain=np.array(k1.rets1)
 tr = RandomForestClassifier(n_estimators=3550,max_depth=6,min_samples_split=10)
