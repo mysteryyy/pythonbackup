@@ -33,7 +33,7 @@ import feats
 #lb = int(input("enter no of returns: "))
 #k=pd.read_pickle('/home/sahil/projdir/dailydata.pkl')
 #k1=k[k.Symbol==k.Symbol.unique()[pos]].iloc[-lb:]
-k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2015',to_date='07/12/2020')
+k1=investpy.search_quotes(text='ZEEL',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2015',to_date='07/12/2020')
 #k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2019',to_date='07/12/2020')
 
 k2=investpy.search_quotes(text='VIX',products=['indices'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2015',to_date='07/12/2020')
@@ -64,7 +64,7 @@ k2 = k1[k1.Date>datetime.date(2018,1,1)]
 k1 = k1[k1.Date<datetime.date(2018,1,1)]
 k1 = k1.dropna()
 feats = ['gap','stoch20','stoch14','rsi14','rsi20','sine','bandpass','cci','decycle','quadlead','velacc','VIX_Close','VIX_Close_diff','h','rsi20_diff','rsi14_diff','stoch20_diff']
-feats1= ['gap']
+feats1=feats
 xtrain = np.array(k1[feats1])
 ytrain=np.array(k1.rets1)
 tr = RandomForestClassifier(n_estimators=3550,max_depth=6,min_samples_split=10)
@@ -73,3 +73,9 @@ clf = AdaBoostClassifier(base_estimator=tr,n_estimators=80,random_state=50,learn
 clf.fit(xtrain,ytrain)
 k2['predictions'] =clf.predict(np.array(k2[feats1]))
 k2['rand_preds'] = [random.choice([0,1]) for _ in range(len(k2))]
+print("accs:")
+print(len(k2[k2.predictions==k2.rets1])/(len(k2)))
+print("rets original:")
+print(k2.rets.sum())
+print("rets model")
+print((k2.predictions*k2.rets).sum())
