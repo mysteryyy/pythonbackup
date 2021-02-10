@@ -33,7 +33,7 @@ import feats
 #lb = int(input("enter no of returns: "))
 #k=pd.read_pickle('/home/sahil/projdir/dailydata.pkl')
 #k1=k[k.Symbol==k.Symbol.unique()[pos]].iloc[-lb:]
-k1=investpy.search_quotes(text='ZEEL',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2015',to_date='07/12/2020')
+k1=investpy.search_quotes(text='ZEEL',products=['stocks'],countries=['India'],n_results=2)[1].retrieve_historical_data(from_date='01/01/2015',to_date='07/12/2020')
 #k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2019',to_date='07/12/2020')
 
 k2=investpy.search_quotes(text='VIX',products=['indices'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2015',to_date='07/12/2020')
@@ -67,7 +67,7 @@ feats = ['gap','stoch20','stoch14','rsi14','rsi20','sine','bandpass','cci','decy
 feats1=feats
 xtrain = np.array(k1[feats1])
 ytrain=np.array(k1.rets1)
-tr = RandomForestClassifier(n_estimators=3550,max_depth=6,min_samples_split=10)
+tr = RandomForestClassifier(n_estimators=550,max_depth=6,min_samples_split=10)
 clf=tr
 clf = AdaBoostClassifier(base_estimator=tr,n_estimators=80,random_state=50,learning_rate=1.0)
 clf.fit(xtrain,ytrain)
