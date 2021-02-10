@@ -45,7 +45,7 @@ def slret(o,h,l,c,sl):
       return(((o-c)/o)*100)
 print(k2.columns)
 #k1 = pd.concat([k1,k2['Close']],join='inner')
-k1['rets'] = k1.apply(lambda x:slret(x['Open'],x['High'],x['Low'],x['Close'],-1.0),axis=1)
+k1['rets'] = k1.apply(lambda x:slret(x['Open'],x['High'],x['Low'],x['Close'],-2.0),axis=1)
 k2['VIX_Close'] = k2.Close
 k1 = pd.concat([k1,k2['VIX_Close']],join='inner',axis=1)
 k1['Date'] = [i.date() for i in k1.index]
