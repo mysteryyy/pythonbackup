@@ -28,11 +28,13 @@ import sys
 import investpy
 from sklearn.ensemble import AdaBoostClassifier,RandomForestClassifier
 import feats
+from supervised.automl import AutoML
 #Main.include("try3.jl")
 #pos=int(input("enter stock pos: "))
 #lb = int(input("enter no of returns: "))
 #k=pd.read_pickle('/home/sahil/projdir/dailydata.pkl')
 #k1=k[k.Symbol==k.Symbol.unique()[pos]].iloc[-lb:]
+automl=AutoML(mode='Compete',total_time_limit=600)
 k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2015',to_date='10/02/2021')
 #k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2019',to_date='07/12/2020')
 
@@ -79,8 +81,8 @@ ytrain=np.array(k1.rets1)
 tr = RandomForestClassifier(n_estimators=550,max_depth=6,min_samples_split=10)
 clf=tr
 #clf = AdaBoostClassifier(base_estimator=tr,n_estimators=80,random_state=50,learning_rate=1.0)
-clf.fit(xtrain,ytrain)
-k2['predictions'] =clf.predict(np.array(k2[feats1]))
+automl.fit(xtrain,ytrain)
+k2['predictions'] =automl.predict(np.array(k2[feats1]))
 k2['rand_preds'] = [random.choice([0,1]) for _ in range(len(k2))]
 print("accs:")
 print(len(k2[k2.predictions==k2.rets1])/(len(k2)))
