@@ -64,7 +64,9 @@ k1['gap'] = (k1.Open-k1.Close.shift(1))/k1.Close.shift(1)
 k1 = k1[k1.gap>0]
 nig = norminvgauss.fit(k1.dayret)
 l = norminvgauss.rvs(nig[0],nig[1],nig[2],nig[3],size=100)
+l=k1.dayret
 a1=[]
+a2=[]
 s=2000
 for i in l:
     if(i<-2):
@@ -73,7 +75,8 @@ for i in l:
       r=-1
     else:
       r=-i
-    s=s*(1+r/50)
+    s=s*(1+r/100)
+    a2.append(r)
     a1.append(s)
 plt.plot(a1)
 plt.show()
