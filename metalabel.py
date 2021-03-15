@@ -81,8 +81,8 @@ ytrain=np.array(k1.rets1)
 tr = RandomForestClassifier(n_estimators=550,max_depth=6,min_samples_split=10)
 clf=tr
 #clf = AdaBoostClassifier(base_estimator=tr,n_estimators=80,random_state=50,learning_rate=1.0)
-automl.fit(xtrain,ytrain)
-k2['predictions'] =automl.predict(np.array(k2[feats1]))
+tr.fit(xtrain,ytrain)
+k2['predictions'] =tr.predict(np.array(k2[feats1]))
 k2['rand_preds'] = [random.choice([0,1]) for _ in range(len(k2))]
 print("accs:")
 print(len(k2[k2.predictions==k2.rets1])/(len(k2)))
