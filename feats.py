@@ -20,6 +20,7 @@ def rsi(k):
     k['du'] = ((k.delta/abs(k.delta)+1)/2)*k.delta#keeping only the positive k.delta
     k['dd'] = ((abs((k.delta/abs(k.delta))-1)/2))*abs(k.delta)#keeping only the negative delta
     k['rsi14'] = k.du.rolling(window=14).mean()/(k.dd.rolling(window=14).mean()+k.du.rolling(window=14).mean())
+    k['rsi5'] = k.du.rolling(window=5).mean()/(k.dd.rolling(window=5).mean()+k.du.rolling(window=5).mean())
 
     k['rsi20'] = k.du.rolling(window=20).mean()/(k.dd.rolling(window=20).mean()+k.du.rolling(window=20).mean())
     return k
@@ -64,6 +65,7 @@ def feattrans(k1):
     k1=k1.dropna()
     k1['rsi20'] = filt.butterworth2(k1.rsi20,10)
     k1['rsi14'] = filt.butterworth2(k1.rsi14,10)
+    k1['rsi5_smoothed'] = filt.butterworth2(k1.rsi14,5)
     k1['decycle'] = filt.highpass2(k1.Close,60)-filt.highpass2(k1.Close,30)
     k1['sine'] = filt.butterworth2(filt.highpass1(k1.Close,40),10)
     k1['sinpow'] = ((k1.sine)**2).rolling(window=3).mean()
