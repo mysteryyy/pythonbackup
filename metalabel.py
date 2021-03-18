@@ -45,9 +45,16 @@ def slret(o,h,l,c,sl):
       return sl
     else:
       return(((o-c)/o)*100)
+def slret_long(x):
+    if x>0:
+        return 1
+    else:
+        return 0
 print(k2.columns)
 #k1 = pd.concat([k1,k2['Close']],join='inner')
 k1['rets'] = k1.apply(lambda x:slret(x['Open'],x['High'],x['Low'],x['Close'],-1.0),axis=1)
+k1['rets_long'] = ((k1.Close.shift(-10)-k1.Close)/k1.Close)*100
+k1['rets_long'] = k1.rets_long.apply(slret_long)
 k2['VIX_Close'] = k2.Close
 k1 = pd.concat([k1,k2['VIX_Close']],join='inner',axis=1)
 k1['Date'] = [i.date() for i in k1.index]
@@ -77,7 +84,7 @@ k1 = k1.dropna()
 feats = ['close_diff','gap1','rsi5','rsi5_smoothed','gap','stoch20','stoch14','rsi14','rsi20','sine','bandpass','cci','decycle','quadlead','velacc','VIX_Close','VIX_Close_diff','h','rsi20_diff','rsi14_diff','stoch20_diff','res1','res2','res3','res4','res5']
 feats1=feats
 xtrain = np.array(k1[feats1])
-ytrain=np.array(k1.rets1)
+ytrain=np.array(k1.rets_long)
 tr = RandomForestClassifier(n_estimators=550,max_depth=6,min_samples_split=10)
 clf=tr
 #clf = AdaBoostClassifier(base_estimator=tr,n_estimators=80,random_state=50,learning_rate=1.0)
