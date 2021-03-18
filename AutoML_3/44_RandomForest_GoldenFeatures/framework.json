@@ -1,0 +1,615 @@
+{
+    "uid": "26d404dc-9570-4b48-89c5-437d31502842",
+    "name": "44_RandomForest_GoldenFeatures",
+    "preprocessing": [
+        {
+            "golden_features": {
+                "new_features": [
+                    {
+                        "feature1": "feature_22",
+                        "feature2": "feature_25",
+                        "operation": "diff",
+                        "score": 0.676064975
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_25",
+                        "operation": "diff",
+                        "score": 0.6802480123
+                    },
+                    {
+                        "feature1": "feature_15",
+                        "feature2": "feature_24",
+                        "operation": "diff",
+                        "score": 0.6826533829
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_15",
+                        "operation": "sum",
+                        "score": 0.6844157648
+                    },
+                    {
+                        "feature1": "feature_15",
+                        "feature2": "feature_24",
+                        "operation": "ratio",
+                        "score": 0.6889462886
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_15",
+                        "operation": "ratio",
+                        "score": 0.6889462886
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_15",
+                        "operation": "multiply",
+                        "score": 0.6889462886
+                    },
+                    {
+                        "feature1": "feature_22",
+                        "feature2": "feature_24",
+                        "operation": "ratio",
+                        "score": 0.6892538221
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_22",
+                        "operation": "ratio",
+                        "score": 0.6892538221
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_22",
+                        "operation": "multiply",
+                        "score": 0.6892538221
+                    }
+                ],
+                "new_columns": [
+                    "feature_22_diff_feature_25",
+                    "feature_24_diff_feature_25",
+                    "feature_15_diff_feature_24",
+                    "feature_24_sum_feature_15",
+                    "feature_15_ratio_feature_24",
+                    "feature_24_ratio_feature_15",
+                    "feature_24_multiply_feature_15",
+                    "feature_22_ratio_feature_24",
+                    "feature_24_ratio_feature_22",
+                    "feature_24_multiply_feature_22"
+                ],
+                "ml_task": "binary_classification"
+            },
+            "ml_task": "binary_classification",
+            "params": {
+                "columns_preprocessing": {},
+                "target_preprocessing": [
+                    "na_exclude"
+                ],
+                "ml_task": "binary_classification",
+                "golden_features": {
+                    "results_path": "AutoML_3",
+                    "ml_task": "binary_classification"
+                }
+            }
+        },
+        {
+            "golden_features": {
+                "new_features": [
+                    {
+                        "feature1": "feature_22",
+                        "feature2": "feature_25",
+                        "operation": "diff",
+                        "score": 0.676064975
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_25",
+                        "operation": "diff",
+                        "score": 0.6802480123
+                    },
+                    {
+                        "feature1": "feature_15",
+                        "feature2": "feature_24",
+                        "operation": "diff",
+                        "score": 0.6826533829
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_15",
+                        "operation": "sum",
+                        "score": 0.6844157648
+                    },
+                    {
+                        "feature1": "feature_15",
+                        "feature2": "feature_24",
+                        "operation": "ratio",
+                        "score": 0.6889462886
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_15",
+                        "operation": "ratio",
+                        "score": 0.6889462886
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_15",
+                        "operation": "multiply",
+                        "score": 0.6889462886
+                    },
+                    {
+                        "feature1": "feature_22",
+                        "feature2": "feature_24",
+                        "operation": "ratio",
+                        "score": 0.6892538221
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_22",
+                        "operation": "ratio",
+                        "score": 0.6892538221
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_22",
+                        "operation": "multiply",
+                        "score": 0.6892538221
+                    }
+                ],
+                "new_columns": [
+                    "feature_22_diff_feature_25",
+                    "feature_24_diff_feature_25",
+                    "feature_15_diff_feature_24",
+                    "feature_24_sum_feature_15",
+                    "feature_15_ratio_feature_24",
+                    "feature_24_ratio_feature_15",
+                    "feature_24_multiply_feature_15",
+                    "feature_22_ratio_feature_24",
+                    "feature_24_ratio_feature_22",
+                    "feature_24_multiply_feature_22"
+                ],
+                "ml_task": "binary_classification"
+            },
+            "ml_task": "binary_classification",
+            "params": {
+                "columns_preprocessing": {},
+                "target_preprocessing": [
+                    "na_exclude"
+                ],
+                "ml_task": "binary_classification",
+                "golden_features": {
+                    "results_path": "AutoML_3",
+                    "ml_task": "binary_classification"
+                }
+            }
+        },
+        {
+            "golden_features": {
+                "new_features": [
+                    {
+                        "feature1": "feature_22",
+                        "feature2": "feature_25",
+                        "operation": "diff",
+                        "score": 0.676064975
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_25",
+                        "operation": "diff",
+                        "score": 0.6802480123
+                    },
+                    {
+                        "feature1": "feature_15",
+                        "feature2": "feature_24",
+                        "operation": "diff",
+                        "score": 0.6826533829
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_15",
+                        "operation": "sum",
+                        "score": 0.6844157648
+                    },
+                    {
+                        "feature1": "feature_15",
+                        "feature2": "feature_24",
+                        "operation": "ratio",
+                        "score": 0.6889462886
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_15",
+                        "operation": "ratio",
+                        "score": 0.6889462886
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_15",
+                        "operation": "multiply",
+                        "score": 0.6889462886
+                    },
+                    {
+                        "feature1": "feature_22",
+                        "feature2": "feature_24",
+                        "operation": "ratio",
+                        "score": 0.6892538221
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_22",
+                        "operation": "ratio",
+                        "score": 0.6892538221
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_22",
+                        "operation": "multiply",
+                        "score": 0.6892538221
+                    }
+                ],
+                "new_columns": [
+                    "feature_22_diff_feature_25",
+                    "feature_24_diff_feature_25",
+                    "feature_15_diff_feature_24",
+                    "feature_24_sum_feature_15",
+                    "feature_15_ratio_feature_24",
+                    "feature_24_ratio_feature_15",
+                    "feature_24_multiply_feature_15",
+                    "feature_22_ratio_feature_24",
+                    "feature_24_ratio_feature_22",
+                    "feature_24_multiply_feature_22"
+                ],
+                "ml_task": "binary_classification"
+            },
+            "ml_task": "binary_classification",
+            "params": {
+                "columns_preprocessing": {},
+                "target_preprocessing": [
+                    "na_exclude"
+                ],
+                "ml_task": "binary_classification",
+                "golden_features": {
+                    "results_path": "AutoML_3",
+                    "ml_task": "binary_classification"
+                }
+            }
+        },
+        {
+            "golden_features": {
+                "new_features": [
+                    {
+                        "feature1": "feature_22",
+                        "feature2": "feature_25",
+                        "operation": "diff",
+                        "score": 0.676064975
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_25",
+                        "operation": "diff",
+                        "score": 0.6802480123
+                    },
+                    {
+                        "feature1": "feature_15",
+                        "feature2": "feature_24",
+                        "operation": "diff",
+                        "score": 0.6826533829
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_15",
+                        "operation": "sum",
+                        "score": 0.6844157648
+                    },
+                    {
+                        "feature1": "feature_15",
+                        "feature2": "feature_24",
+                        "operation": "ratio",
+                        "score": 0.6889462886
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_15",
+                        "operation": "ratio",
+                        "score": 0.6889462886
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_15",
+                        "operation": "multiply",
+                        "score": 0.6889462886
+                    },
+                    {
+                        "feature1": "feature_22",
+                        "feature2": "feature_24",
+                        "operation": "ratio",
+                        "score": 0.6892538221
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_22",
+                        "operation": "ratio",
+                        "score": 0.6892538221
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_22",
+                        "operation": "multiply",
+                        "score": 0.6892538221
+                    }
+                ],
+                "new_columns": [
+                    "feature_22_diff_feature_25",
+                    "feature_24_diff_feature_25",
+                    "feature_15_diff_feature_24",
+                    "feature_24_sum_feature_15",
+                    "feature_15_ratio_feature_24",
+                    "feature_24_ratio_feature_15",
+                    "feature_24_multiply_feature_15",
+                    "feature_22_ratio_feature_24",
+                    "feature_24_ratio_feature_22",
+                    "feature_24_multiply_feature_22"
+                ],
+                "ml_task": "binary_classification"
+            },
+            "ml_task": "binary_classification",
+            "params": {
+                "columns_preprocessing": {},
+                "target_preprocessing": [
+                    "na_exclude"
+                ],
+                "ml_task": "binary_classification",
+                "golden_features": {
+                    "results_path": "AutoML_3",
+                    "ml_task": "binary_classification"
+                }
+            }
+        },
+        {
+            "golden_features": {
+                "new_features": [
+                    {
+                        "feature1": "feature_22",
+                        "feature2": "feature_25",
+                        "operation": "diff",
+                        "score": 0.676064975
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_25",
+                        "operation": "diff",
+                        "score": 0.6802480123
+                    },
+                    {
+                        "feature1": "feature_15",
+                        "feature2": "feature_24",
+                        "operation": "diff",
+                        "score": 0.6826533829
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_15",
+                        "operation": "sum",
+                        "score": 0.6844157648
+                    },
+                    {
+                        "feature1": "feature_15",
+                        "feature2": "feature_24",
+                        "operation": "ratio",
+                        "score": 0.6889462886
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_15",
+                        "operation": "ratio",
+                        "score": 0.6889462886
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_15",
+                        "operation": "multiply",
+                        "score": 0.6889462886
+                    },
+                    {
+                        "feature1": "feature_22",
+                        "feature2": "feature_24",
+                        "operation": "ratio",
+                        "score": 0.6892538221
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_22",
+                        "operation": "ratio",
+                        "score": 0.6892538221
+                    },
+                    {
+                        "feature1": "feature_24",
+                        "feature2": "feature_22",
+                        "operation": "multiply",
+                        "score": 0.6892538221
+                    }
+                ],
+                "new_columns": [
+                    "feature_22_diff_feature_25",
+                    "feature_24_diff_feature_25",
+                    "feature_15_diff_feature_24",
+                    "feature_24_sum_feature_15",
+                    "feature_15_ratio_feature_24",
+                    "feature_24_ratio_feature_15",
+                    "feature_24_multiply_feature_15",
+                    "feature_22_ratio_feature_24",
+                    "feature_24_ratio_feature_22",
+                    "feature_24_multiply_feature_22"
+                ],
+                "ml_task": "binary_classification"
+            },
+            "ml_task": "binary_classification",
+            "params": {
+                "columns_preprocessing": {},
+                "target_preprocessing": [
+                    "na_exclude"
+                ],
+                "ml_task": "binary_classification",
+                "golden_features": {
+                    "results_path": "AutoML_3",
+                    "ml_task": "binary_classification"
+                }
+            }
+        }
+    ],
+    "learners": [
+        {
+            "library_version": "0.24.1",
+            "algorithm_name": "Random Forest",
+            "algorithm_short_name": "Random Forest",
+            "uid": "ae5b81e4-7fa7-41b1-a6b3-08bc9f5d522b",
+            "params": {
+                "model_type": "Random Forest",
+                "ml_task": "binary_classification",
+                "n_jobs": -1,
+                "seed": 1240,
+                "criterion": "gini",
+                "max_features": 1.0,
+                "min_samples_split": 40,
+                "max_depth": 7,
+                "explain_level": 0
+            },
+            "name": "learner_fold_0"
+        },
+        {
+            "library_version": "0.24.1",
+            "algorithm_name": "Random Forest",
+            "algorithm_short_name": "Random Forest",
+            "uid": "49c258ff-c346-45da-a8d9-266cce363333",
+            "params": {
+                "model_type": "Random Forest",
+                "ml_task": "binary_classification",
+                "n_jobs": -1,
+                "seed": 1240,
+                "criterion": "gini",
+                "max_features": 1.0,
+                "min_samples_split": 40,
+                "max_depth": 7,
+                "explain_level": 0
+            },
+            "name": "learner_fold_1"
+        },
+        {
+            "library_version": "0.24.1",
+            "algorithm_name": "Random Forest",
+            "algorithm_short_name": "Random Forest",
+            "uid": "a427165e-ae99-4ab6-a800-1aba1c8f9194",
+            "params": {
+                "model_type": "Random Forest",
+                "ml_task": "binary_classification",
+                "n_jobs": -1,
+                "seed": 1240,
+                "criterion": "gini",
+                "max_features": 1.0,
+                "min_samples_split": 40,
+                "max_depth": 7,
+                "explain_level": 0
+            },
+            "name": "learner_fold_2"
+        },
+        {
+            "library_version": "0.24.1",
+            "algorithm_name": "Random Forest",
+            "algorithm_short_name": "Random Forest",
+            "uid": "d353ded6-5ea7-4486-b1d5-4397510b3614",
+            "params": {
+                "model_type": "Random Forest",
+                "ml_task": "binary_classification",
+                "n_jobs": -1,
+                "seed": 1240,
+                "criterion": "gini",
+                "max_features": 1.0,
+                "min_samples_split": 40,
+                "max_depth": 7,
+                "explain_level": 0
+            },
+            "name": "learner_fold_3"
+        },
+        {
+            "library_version": "0.24.1",
+            "algorithm_name": "Random Forest",
+            "algorithm_short_name": "Random Forest",
+            "uid": "a718e734-1ca0-4efc-9df6-7b46732b88a9",
+            "params": {
+                "model_type": "Random Forest",
+                "ml_task": "binary_classification",
+                "n_jobs": -1,
+                "seed": 1240,
+                "criterion": "gini",
+                "max_features": 1.0,
+                "min_samples_split": 40,
+                "max_depth": 7,
+                "explain_level": 0
+            },
+            "name": "learner_fold_4"
+        }
+    ],
+    "params": {
+        "additional": {
+            "trees_in_step": 100,
+            "train_cant_improve_limit": 1,
+            "min_steps": 1,
+            "max_steps": 50,
+            "early_stopping_rounds": 50,
+            "max_rows_limit": null,
+            "max_cols_limit": null
+        },
+        "preprocessing": {
+            "columns_preprocessing": {},
+            "target_preprocessing": [
+                "na_exclude"
+            ],
+            "ml_task": "binary_classification",
+            "golden_features": {
+                "results_path": "AutoML_3",
+                "ml_task": "binary_classification"
+            }
+        },
+        "validation_strategy": {
+            "validation_type": "kfold",
+            "shuffle": true,
+            "stratify": true,
+            "X_path": "AutoML_3/X.parquet",
+            "y_path": "AutoML_3/y.parquet",
+            "results_path": "AutoML_3",
+            "k_folds": 5
+        },
+        "learner": {
+            "model_type": "Random Forest",
+            "ml_task": "binary_classification",
+            "n_jobs": -1,
+            "seed": 1240,
+            "criterion": "gini",
+            "max_features": 1.0,
+            "min_samples_split": 40,
+            "max_depth": 7,
+            "explain_level": 0
+        },
+        "ml_task": "binary_classification",
+        "explain_level": 0,
+        "name": "44_RandomForest_GoldenFeatures",
+        "status": "initialized",
+        "final_loss": null,
+        "train_time": null,
+        "max_time_for_learner": 60
+    },
+    "saved": [
+        "44_RandomForest_GoldenFeatures/learner_fold_0.random_forest",
+        "44_RandomForest_GoldenFeatures/learner_fold_1.random_forest",
+        "44_RandomForest_GoldenFeatures/learner_fold_2.random_forest",
+        "44_RandomForest_GoldenFeatures/learner_fold_3.random_forest",
+        "44_RandomForest_GoldenFeatures/learner_fold_4.random_forest"
+    ],
+    "predictions_fname": "44_RandomForest_GoldenFeatures/predictions_out_of_folds.csv",
+    "metric_name": "logloss",
+    "final_loss": 0.6577875065108486,
+    "train_time": 3.4354465007781982,
+    "is_stacked": false,
+    "threshold": 0.49073779100133047
+}

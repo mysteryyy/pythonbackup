@@ -1,0 +1,484 @@
+{
+    "uid": "b83d4e2c-a2ea-4bd3-a566-f1f9d56b88be",
+    "name": "44_RandomForest_KMeansFeatures",
+    "preprocessing": [
+        {
+            "kmeans": {
+                "new_features": [
+                    "Dist_Cluster_0",
+                    "Dist_Cluster_1",
+                    "Dist_Cluster_2",
+                    "Dist_Cluster_3",
+                    "Dist_Cluster_4",
+                    "Dist_Cluster_5",
+                    "Dist_Cluster_6",
+                    "Dist_Cluster_7",
+                    "Dist_Cluster_8",
+                    "Dist_Cluster_9",
+                    "Dist_Cluster_10",
+                    "Dist_Cluster_11",
+                    "Dist_Cluster_12",
+                    "Dist_Cluster_13",
+                    "Dist_Cluster_14",
+                    "Dist_Cluster_15",
+                    "Dist_Cluster_16",
+                    "Dist_Cluster_17",
+                    "Cluster"
+                ],
+                "result_file": "44_RandomForest_KMeansFeatures/kmeans_fold_0.joblib",
+                "input_columns": [
+                    "feature_1",
+                    "feature_2",
+                    "feature_3",
+                    "feature_4",
+                    "feature_5",
+                    "feature_6",
+                    "feature_7",
+                    "feature_8",
+                    "feature_9",
+                    "feature_10",
+                    "feature_11",
+                    "feature_12",
+                    "feature_13",
+                    "feature_14",
+                    "feature_15",
+                    "feature_16",
+                    "feature_17",
+                    "feature_18",
+                    "feature_19",
+                    "feature_20",
+                    "feature_21",
+                    "feature_22",
+                    "feature_23",
+                    "feature_24",
+                    "feature_25",
+                    "feature_26"
+                ]
+            },
+            "ml_task": "binary_classification",
+            "params": {
+                "columns_preprocessing": {},
+                "target_preprocessing": [
+                    "na_exclude"
+                ],
+                "ml_task": "binary_classification",
+                "kmeans_features": {
+                    "results_path": "AutoML_3"
+                }
+            }
+        },
+        {
+            "kmeans": {
+                "new_features": [
+                    "Dist_Cluster_0",
+                    "Dist_Cluster_1",
+                    "Dist_Cluster_2",
+                    "Dist_Cluster_3",
+                    "Dist_Cluster_4",
+                    "Dist_Cluster_5",
+                    "Dist_Cluster_6",
+                    "Dist_Cluster_7",
+                    "Dist_Cluster_8",
+                    "Dist_Cluster_9",
+                    "Dist_Cluster_10",
+                    "Dist_Cluster_11",
+                    "Dist_Cluster_12",
+                    "Dist_Cluster_13",
+                    "Dist_Cluster_14",
+                    "Dist_Cluster_15",
+                    "Dist_Cluster_16",
+                    "Dist_Cluster_17",
+                    "Cluster"
+                ],
+                "result_file": "44_RandomForest_KMeansFeatures/kmeans_fold_1.joblib",
+                "input_columns": [
+                    "feature_1",
+                    "feature_2",
+                    "feature_3",
+                    "feature_4",
+                    "feature_5",
+                    "feature_6",
+                    "feature_7",
+                    "feature_8",
+                    "feature_9",
+                    "feature_10",
+                    "feature_11",
+                    "feature_12",
+                    "feature_13",
+                    "feature_14",
+                    "feature_15",
+                    "feature_16",
+                    "feature_17",
+                    "feature_18",
+                    "feature_19",
+                    "feature_20",
+                    "feature_21",
+                    "feature_22",
+                    "feature_23",
+                    "feature_24",
+                    "feature_25",
+                    "feature_26"
+                ]
+            },
+            "ml_task": "binary_classification",
+            "params": {
+                "columns_preprocessing": {},
+                "target_preprocessing": [
+                    "na_exclude"
+                ],
+                "ml_task": "binary_classification",
+                "kmeans_features": {
+                    "results_path": "AutoML_3"
+                }
+            }
+        },
+        {
+            "kmeans": {
+                "new_features": [
+                    "Dist_Cluster_0",
+                    "Dist_Cluster_1",
+                    "Dist_Cluster_2",
+                    "Dist_Cluster_3",
+                    "Dist_Cluster_4",
+                    "Dist_Cluster_5",
+                    "Dist_Cluster_6",
+                    "Dist_Cluster_7",
+                    "Dist_Cluster_8",
+                    "Dist_Cluster_9",
+                    "Dist_Cluster_10",
+                    "Dist_Cluster_11",
+                    "Dist_Cluster_12",
+                    "Dist_Cluster_13",
+                    "Dist_Cluster_14",
+                    "Dist_Cluster_15",
+                    "Dist_Cluster_16",
+                    "Dist_Cluster_17",
+                    "Cluster"
+                ],
+                "result_file": "44_RandomForest_KMeansFeatures/kmeans_fold_2.joblib",
+                "input_columns": [
+                    "feature_1",
+                    "feature_2",
+                    "feature_3",
+                    "feature_4",
+                    "feature_5",
+                    "feature_6",
+                    "feature_7",
+                    "feature_8",
+                    "feature_9",
+                    "feature_10",
+                    "feature_11",
+                    "feature_12",
+                    "feature_13",
+                    "feature_14",
+                    "feature_15",
+                    "feature_16",
+                    "feature_17",
+                    "feature_18",
+                    "feature_19",
+                    "feature_20",
+                    "feature_21",
+                    "feature_22",
+                    "feature_23",
+                    "feature_24",
+                    "feature_25",
+                    "feature_26"
+                ]
+            },
+            "ml_task": "binary_classification",
+            "params": {
+                "columns_preprocessing": {},
+                "target_preprocessing": [
+                    "na_exclude"
+                ],
+                "ml_task": "binary_classification",
+                "kmeans_features": {
+                    "results_path": "AutoML_3"
+                }
+            }
+        },
+        {
+            "kmeans": {
+                "new_features": [
+                    "Dist_Cluster_0",
+                    "Dist_Cluster_1",
+                    "Dist_Cluster_2",
+                    "Dist_Cluster_3",
+                    "Dist_Cluster_4",
+                    "Dist_Cluster_5",
+                    "Dist_Cluster_6",
+                    "Dist_Cluster_7",
+                    "Dist_Cluster_8",
+                    "Dist_Cluster_9",
+                    "Dist_Cluster_10",
+                    "Dist_Cluster_11",
+                    "Dist_Cluster_12",
+                    "Dist_Cluster_13",
+                    "Dist_Cluster_14",
+                    "Dist_Cluster_15",
+                    "Dist_Cluster_16",
+                    "Dist_Cluster_17",
+                    "Cluster"
+                ],
+                "result_file": "44_RandomForest_KMeansFeatures/kmeans_fold_3.joblib",
+                "input_columns": [
+                    "feature_1",
+                    "feature_2",
+                    "feature_3",
+                    "feature_4",
+                    "feature_5",
+                    "feature_6",
+                    "feature_7",
+                    "feature_8",
+                    "feature_9",
+                    "feature_10",
+                    "feature_11",
+                    "feature_12",
+                    "feature_13",
+                    "feature_14",
+                    "feature_15",
+                    "feature_16",
+                    "feature_17",
+                    "feature_18",
+                    "feature_19",
+                    "feature_20",
+                    "feature_21",
+                    "feature_22",
+                    "feature_23",
+                    "feature_24",
+                    "feature_25",
+                    "feature_26"
+                ]
+            },
+            "ml_task": "binary_classification",
+            "params": {
+                "columns_preprocessing": {},
+                "target_preprocessing": [
+                    "na_exclude"
+                ],
+                "ml_task": "binary_classification",
+                "kmeans_features": {
+                    "results_path": "AutoML_3"
+                }
+            }
+        },
+        {
+            "kmeans": {
+                "new_features": [
+                    "Dist_Cluster_0",
+                    "Dist_Cluster_1",
+                    "Dist_Cluster_2",
+                    "Dist_Cluster_3",
+                    "Dist_Cluster_4",
+                    "Dist_Cluster_5",
+                    "Dist_Cluster_6",
+                    "Dist_Cluster_7",
+                    "Dist_Cluster_8",
+                    "Dist_Cluster_9",
+                    "Dist_Cluster_10",
+                    "Dist_Cluster_11",
+                    "Dist_Cluster_12",
+                    "Dist_Cluster_13",
+                    "Dist_Cluster_14",
+                    "Dist_Cluster_15",
+                    "Dist_Cluster_16",
+                    "Dist_Cluster_17",
+                    "Cluster"
+                ],
+                "result_file": "44_RandomForest_KMeansFeatures/kmeans_fold_4.joblib",
+                "input_columns": [
+                    "feature_1",
+                    "feature_2",
+                    "feature_3",
+                    "feature_4",
+                    "feature_5",
+                    "feature_6",
+                    "feature_7",
+                    "feature_8",
+                    "feature_9",
+                    "feature_10",
+                    "feature_11",
+                    "feature_12",
+                    "feature_13",
+                    "feature_14",
+                    "feature_15",
+                    "feature_16",
+                    "feature_17",
+                    "feature_18",
+                    "feature_19",
+                    "feature_20",
+                    "feature_21",
+                    "feature_22",
+                    "feature_23",
+                    "feature_24",
+                    "feature_25",
+                    "feature_26"
+                ]
+            },
+            "ml_task": "binary_classification",
+            "params": {
+                "columns_preprocessing": {},
+                "target_preprocessing": [
+                    "na_exclude"
+                ],
+                "ml_task": "binary_classification",
+                "kmeans_features": {
+                    "results_path": "AutoML_3"
+                }
+            }
+        }
+    ],
+    "learners": [
+        {
+            "library_version": "0.24.1",
+            "algorithm_name": "Random Forest",
+            "algorithm_short_name": "Random Forest",
+            "uid": "89b5403d-5377-4c91-adf8-c5487b0f3de0",
+            "params": {
+                "model_type": "Random Forest",
+                "ml_task": "binary_classification",
+                "n_jobs": -1,
+                "seed": 1240,
+                "criterion": "gini",
+                "max_features": 1.0,
+                "min_samples_split": 40,
+                "max_depth": 7,
+                "explain_level": 0
+            },
+            "name": "learner_fold_0"
+        },
+        {
+            "library_version": "0.24.1",
+            "algorithm_name": "Random Forest",
+            "algorithm_short_name": "Random Forest",
+            "uid": "d1690d25-da89-402f-b800-a3ecd5f29185",
+            "params": {
+                "model_type": "Random Forest",
+                "ml_task": "binary_classification",
+                "n_jobs": -1,
+                "seed": 1240,
+                "criterion": "gini",
+                "max_features": 1.0,
+                "min_samples_split": 40,
+                "max_depth": 7,
+                "explain_level": 0
+            },
+            "name": "learner_fold_1"
+        },
+        {
+            "library_version": "0.24.1",
+            "algorithm_name": "Random Forest",
+            "algorithm_short_name": "Random Forest",
+            "uid": "54fe47b3-ade8-46f7-a6e9-07c72be5d338",
+            "params": {
+                "model_type": "Random Forest",
+                "ml_task": "binary_classification",
+                "n_jobs": -1,
+                "seed": 1240,
+                "criterion": "gini",
+                "max_features": 1.0,
+                "min_samples_split": 40,
+                "max_depth": 7,
+                "explain_level": 0
+            },
+            "name": "learner_fold_2"
+        },
+        {
+            "library_version": "0.24.1",
+            "algorithm_name": "Random Forest",
+            "algorithm_short_name": "Random Forest",
+            "uid": "5e1666d2-9a82-45ff-8def-09f4dba1f855",
+            "params": {
+                "model_type": "Random Forest",
+                "ml_task": "binary_classification",
+                "n_jobs": -1,
+                "seed": 1240,
+                "criterion": "gini",
+                "max_features": 1.0,
+                "min_samples_split": 40,
+                "max_depth": 7,
+                "explain_level": 0
+            },
+            "name": "learner_fold_3"
+        },
+        {
+            "library_version": "0.24.1",
+            "algorithm_name": "Random Forest",
+            "algorithm_short_name": "Random Forest",
+            "uid": "df51f07b-e73b-427b-9d31-e6b86004af81",
+            "params": {
+                "model_type": "Random Forest",
+                "ml_task": "binary_classification",
+                "n_jobs": -1,
+                "seed": 1240,
+                "criterion": "gini",
+                "max_features": 1.0,
+                "min_samples_split": 40,
+                "max_depth": 7,
+                "explain_level": 0
+            },
+            "name": "learner_fold_4"
+        }
+    ],
+    "params": {
+        "additional": {
+            "trees_in_step": 100,
+            "train_cant_improve_limit": 1,
+            "min_steps": 1,
+            "max_steps": 50,
+            "early_stopping_rounds": 50,
+            "max_rows_limit": null,
+            "max_cols_limit": null
+        },
+        "preprocessing": {
+            "columns_preprocessing": {},
+            "target_preprocessing": [
+                "na_exclude"
+            ],
+            "ml_task": "binary_classification",
+            "kmeans_features": {
+                "results_path": "AutoML_3"
+            }
+        },
+        "validation_strategy": {
+            "validation_type": "kfold",
+            "shuffle": true,
+            "stratify": true,
+            "X_path": "AutoML_3/X.parquet",
+            "y_path": "AutoML_3/y.parquet",
+            "results_path": "AutoML_3",
+            "k_folds": 5
+        },
+        "learner": {
+            "model_type": "Random Forest",
+            "ml_task": "binary_classification",
+            "n_jobs": -1,
+            "seed": 1240,
+            "criterion": "gini",
+            "max_features": 1.0,
+            "min_samples_split": 40,
+            "max_depth": 7,
+            "explain_level": 0
+        },
+        "ml_task": "binary_classification",
+        "explain_level": 0,
+        "name": "44_RandomForest_KMeansFeatures",
+        "status": "initialized",
+        "final_loss": null,
+        "train_time": null,
+        "max_time_for_learner": 60
+    },
+    "saved": [
+        "44_RandomForest_KMeansFeatures/learner_fold_0.random_forest",
+        "44_RandomForest_KMeansFeatures/learner_fold_1.random_forest",
+        "44_RandomForest_KMeansFeatures/learner_fold_2.random_forest",
+        "44_RandomForest_KMeansFeatures/learner_fold_3.random_forest",
+        "44_RandomForest_KMeansFeatures/learner_fold_4.random_forest"
+    ],
+    "predictions_fname": "44_RandomForest_KMeansFeatures/predictions_out_of_folds.csv",
+    "metric_name": "logloss",
+    "final_loss": 0.6730858834448232,
+    "train_time": 5.623875617980957,
+    "is_stacked": false,
+    "threshold": 0.5290670290001607
+}
