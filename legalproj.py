@@ -9,4 +9,7 @@ df['Date of Origination']=df['Date of Origination'].apply(lambda x:parser.parse(
 df['Date of Initial Review by Legal']=df['Date of Initial Review by Legal'].apply(lambda x:parser.parse(x))
 df['initreview']=df['Date of Initial Review by Legal']
 df['Turnaround Time'] = (df.initreview- df['Date of Origination']).apply(lambda x:x.days)
+df= df[df['No. of pages '].notna()]
+df['pages'] = df['No. of pages ']
+df= df[df.pages!='RFP']
 df['qornot']=df['Whether Q Template \n(Yes / No)']
