@@ -13,3 +13,4 @@ df= df[df['No. of pages '].notna()]
 df['pages'] = df['No. of pages ']
 df= df[df.pages!='RFP']
 df['qornot']=df['Whether Q Template \n(Yes / No)']
+df['pages'] = df.pages.astype(float)
