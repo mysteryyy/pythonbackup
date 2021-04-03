@@ -14,3 +14,5 @@ df['pages'] = df['No. of pages ']
 df= df[df.pages!='RFP']
 df['qornot']=df['Whether Q Template \n(Yes / No)']
 df['pages'] = df.pages.astype(float)
+df['doctype'] = df['Short Title of Document']
+ttdf = pd.DataFrame(columns=df.doctype.unique(),index = ['Q-Tempelate','Non-Q Tempelate'])
