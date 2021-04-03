@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from dateutil import parser
-df = pd.read_csv('/home/sahil/Downloads/LegalTrackerDated.csv')
+df = pd.read_csv('/home/sahil/Downloads/LegalTrackerDated1.csv')
 #df = df[df['Deal Created date'].notna()]
 df = df[df['Date of Initial Review by Legal'].notna()]
 #df['Deal Created date']=df['Deal Created date'].apply(lambda x:parser.parse(x))
