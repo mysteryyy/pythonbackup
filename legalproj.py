@@ -16,3 +16,12 @@ df['qornot']=df['Whether Q Template \n(Yes / No)']
 df['pages'] = df.pages.astype(float)
 df['doctype'] = df['Short Title of Document']
 ttdf = pd.DataFrame(columns=df.doctype.unique(),index = ['Q-Tempelate','Non-Q Tempelate'])
+for i in ttdf.columns:
+    for j in ttdf.index:
+        qornot = 'Yes' if j=='Q-Tempelate' else 'No'
+        tat  = df[(df.doctype==i) & (df.qornot==qornot)]['Turnaround Time']
+        if(len(tat)>5):
+            ttdf.loc[j,i]= tat.mean()
+        else:
+            ttdf.loc[j,i]= "Not enough data"
+
