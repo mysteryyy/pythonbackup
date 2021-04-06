@@ -16,7 +16,7 @@ df['pages'] = df['No. of pages ']
 df= df[df.pages!='RFP']
 df['qornot']=df['Whether Q Template \n(Yes / No)']
 df['pages'] = df.pages.astype(float)
-df['doctype'] = df['Short Title of Document']
+df['doctype'] = df['Long Title of Document']
 def tat_analysis(df):
     ttdf = pd.DataFrame(columns=df.doctype.unique(),index = ['Q-Tempelate','Non-Q Tempelate'])
     for i in ttdf.columns:
