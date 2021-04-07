@@ -17,6 +17,7 @@ df= df[df.pages!='RFP']
 df['qornot']=df['Whether Q Template \n(Yes / No)']
 df['pages'] = df.pages.astype(float)
 df['doctype'] = df['Long Title of Document']
+df['reviewers'] = df['Reviewed By']
 def tat_analysis(df):
     ttdf = pd.DataFrame(columns=df.doctype.unique(),index = ['Q-Tempelate','Non-Q Tempelate'])
     for i in ttdf.columns:
@@ -28,8 +29,21 @@ def tat_analysis(df):
             else:
                 ttdf.loc[j,i]= "Not enough data"
     return ttdf
+def tat_analysis_reviewers(df):
+    ttdf = pd.DataFrame(columns=df.doctype.unique(),index =df.reviewers.unique()) 
+    for i in ttdf.columns:
+        for j in ttdf.index:
+            #qornot = 'Yes' if j=='Q-Tempelate' else 'No'
+            tat  = df[(df.doctype==i) & (df.reviewers==j)]['Turnaround Time']
+            if(len(tat)>5):
+                ttdf.loc[j,i]= tat.mean()
+            else:
+                ttdf.loc[j,i]= "Not enough data"
+    return ttdf
+
 ttdf1 = tat_analysis(df[df.pages>5])
 ttdf2 = tat_analysis(df[df.pages<5])
+ttdf3 = tat_analysis_reviewers(df)
 # funtion
 def multiple_dfs(df_list, sheets, file_name, spaces):
     writer = pd.ExcelWriter(file_name,engine='xlsxwriter')   
