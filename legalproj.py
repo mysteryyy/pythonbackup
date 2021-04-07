@@ -44,6 +44,7 @@ def tat_analysis_reviewers(df):
 ttdf1 = tat_analysis(df[df.pages>5])
 ttdf2 = tat_analysis(df[df.pages<5])
 ttdf3 = tat_analysis_reviewers(df)
+ttdf4 = tat_analysis(df)
 # funtion
 def multiple_dfs(df_list, sheets, file_name, spaces):
     writer = pd.ExcelWriter(file_name,engine='xlsxwriter')   
