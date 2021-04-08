@@ -35,7 +35,7 @@ from supervised.automl import AutoML
 #k=pd.read_pickle('/home/sahil/projdir/dailydata.pkl')
 #k1=k[k.Symbol==k.Symbol.unique()[pos]].iloc[-lb:]
 automl=AutoML(mode='Compete',total_time_limit=600)
-k1=investpy.search_quotes(text='SBIN',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2015',to_date='10/02/2021')
+k1=investpy.search_quotes(text='SBIN',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2015',to_date='20/03/2021')
 #k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2019',to_date='07/12/2020')
 
 k2=investpy.search_quotes(text='VIX',products=['indices'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2015',to_date='07/12/2020')
