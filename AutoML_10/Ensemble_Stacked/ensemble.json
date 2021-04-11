@@ -1,0 +1,29 @@
+{
+    "name": "Ensemble_Stacked",
+    "ml_task": "binary_classification",
+    "optimize_metric": "logloss",
+    "selected_models": [
+        {
+            "model": "32_CatBoost",
+            "repeat": 1.0
+        },
+        {
+            "model": "5_Default_LightGBM_Stacked",
+            "repeat": 9.0
+        },
+        {
+            "model": "69_CatBoost_Stacked",
+            "repeat": 8.0
+        },
+        {
+            "model": "Ensemble",
+            "repeat": 2.0
+        }
+    ],
+    "predictions_fname": "Ensemble_Stacked/predictions_ensemble.csv",
+    "metric_name": "logloss",
+    "final_loss": 0.3539441992922502,
+    "train_time": 6.8426079750061035,
+    "is_stacked": true,
+    "threshold": 0.619435969177239
+}

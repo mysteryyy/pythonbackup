@@ -33,3 +33,9 @@ name,model_type,metric_type,metric_value,train_time
 68_NearestNeighbors,Nearest Neighbors,logloss,0.6272374655357289,1.28
 24_LightGBM,LightGBM,logloss,0.5717432697386586,3.76
 15_Xgboost,Xgboost,logloss,0.6438648656511643,43.59
+30_CatBoost_KMeansFeatures,CatBoost,logloss,0.44003843025573064,96.64
+69_CatBoost,CatBoost,logloss,0.3821565551264059,95.73
+Ensemble,Ensemble,logloss,0.37211735824359704,6.11
+69_CatBoost_Stacked,CatBoost,logloss,0.3615553318438419,54.68
+5_Default_LightGBM_Stacked,LightGBM,logloss,0.3640570790470309,8.0
+Ensemble_Stacked,Ensemble,logloss,0.3539441992922502,6.84

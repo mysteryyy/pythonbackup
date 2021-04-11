@@ -1,0 +1,961 @@
+{
+    "uid": "85339cf3-eaac-473e-9da2-af4bd3ed9792",
+    "name": "30_CatBoost_KMeansFeatures",
+    "preprocessing": [
+        {
+            "kmeans": {
+                "new_features": [
+                    "Dist_Cluster_0",
+                    "Dist_Cluster_1",
+                    "Dist_Cluster_2",
+                    "Dist_Cluster_3",
+                    "Dist_Cluster_4",
+                    "Dist_Cluster_5",
+                    "Dist_Cluster_6",
+                    "Dist_Cluster_7",
+                    "Dist_Cluster_8",
+                    "Dist_Cluster_9",
+                    "Dist_Cluster_10",
+                    "Dist_Cluster_11",
+                    "Dist_Cluster_12",
+                    "Dist_Cluster_13",
+                    "Dist_Cluster_14",
+                    "Dist_Cluster_15",
+                    "Dist_Cluster_16",
+                    "Dist_Cluster_17",
+                    "Dist_Cluster_18",
+                    "Dist_Cluster_19",
+                    "Dist_Cluster_20",
+                    "Dist_Cluster_21",
+                    "Dist_Cluster_22",
+                    "Cluster"
+                ],
+                "result_file": "30_CatBoost_KMeansFeatures/kmeans_fold_0.joblib",
+                "input_columns": [
+                    "feature_1",
+                    "feature_2",
+                    "feature_3",
+                    "feature_4",
+                    "feature_5",
+                    "feature_6",
+                    "feature_7",
+                    "feature_8",
+                    "feature_9",
+                    "feature_10",
+                    "feature_11",
+                    "feature_12",
+                    "feature_13",
+                    "feature_14",
+                    "feature_15",
+                    "feature_16",
+                    "feature_17",
+                    "feature_18",
+                    "feature_19",
+                    "feature_20",
+                    "feature_21",
+                    "feature_22",
+                    "feature_23",
+                    "feature_24",
+                    "feature_25",
+                    "feature_26"
+                ]
+            },
+            "ml_task": "binary_classification",
+            "params": {
+                "columns_preprocessing": {},
+                "target_preprocessing": [
+                    "na_exclude"
+                ],
+                "ml_task": "binary_classification",
+                "kmeans_features": {
+                    "results_path": "AutoML_10"
+                }
+            }
+        },
+        {
+            "kmeans": {
+                "new_features": [
+                    "Dist_Cluster_0",
+                    "Dist_Cluster_1",
+                    "Dist_Cluster_2",
+                    "Dist_Cluster_3",
+                    "Dist_Cluster_4",
+                    "Dist_Cluster_5",
+                    "Dist_Cluster_6",
+                    "Dist_Cluster_7",
+                    "Dist_Cluster_8",
+                    "Dist_Cluster_9",
+                    "Dist_Cluster_10",
+                    "Dist_Cluster_11",
+                    "Dist_Cluster_12",
+                    "Dist_Cluster_13",
+                    "Dist_Cluster_14",
+                    "Dist_Cluster_15",
+                    "Dist_Cluster_16",
+                    "Dist_Cluster_17",
+                    "Dist_Cluster_18",
+                    "Dist_Cluster_19",
+                    "Dist_Cluster_20",
+                    "Dist_Cluster_21",
+                    "Dist_Cluster_22",
+                    "Cluster"
+                ],
+                "result_file": "30_CatBoost_KMeansFeatures/kmeans_fold_1.joblib",
+                "input_columns": [
+                    "feature_1",
+                    "feature_2",
+                    "feature_3",
+                    "feature_4",
+                    "feature_5",
+                    "feature_6",
+                    "feature_7",
+                    "feature_8",
+                    "feature_9",
+                    "feature_10",
+                    "feature_11",
+                    "feature_12",
+                    "feature_13",
+                    "feature_14",
+                    "feature_15",
+                    "feature_16",
+                    "feature_17",
+                    "feature_18",
+                    "feature_19",
+                    "feature_20",
+                    "feature_21",
+                    "feature_22",
+                    "feature_23",
+                    "feature_24",
+                    "feature_25",
+                    "feature_26"
+                ]
+            },
+            "ml_task": "binary_classification",
+            "params": {
+                "columns_preprocessing": {},
+                "target_preprocessing": [
+                    "na_exclude"
+                ],
+                "ml_task": "binary_classification",
+                "kmeans_features": {
+                    "results_path": "AutoML_10"
+                }
+            }
+        },
+        {
+            "kmeans": {
+                "new_features": [
+                    "Dist_Cluster_0",
+                    "Dist_Cluster_1",
+                    "Dist_Cluster_2",
+                    "Dist_Cluster_3",
+                    "Dist_Cluster_4",
+                    "Dist_Cluster_5",
+                    "Dist_Cluster_6",
+                    "Dist_Cluster_7",
+                    "Dist_Cluster_8",
+                    "Dist_Cluster_9",
+                    "Dist_Cluster_10",
+                    "Dist_Cluster_11",
+                    "Dist_Cluster_12",
+                    "Dist_Cluster_13",
+                    "Dist_Cluster_14",
+                    "Dist_Cluster_15",
+                    "Dist_Cluster_16",
+                    "Dist_Cluster_17",
+                    "Dist_Cluster_18",
+                    "Dist_Cluster_19",
+                    "Dist_Cluster_20",
+                    "Dist_Cluster_21",
+                    "Dist_Cluster_22",
+                    "Cluster"
+                ],
+                "result_file": "30_CatBoost_KMeansFeatures/kmeans_fold_2.joblib",
+                "input_columns": [
+                    "feature_1",
+                    "feature_2",
+                    "feature_3",
+                    "feature_4",
+                    "feature_5",
+                    "feature_6",
+                    "feature_7",
+                    "feature_8",
+                    "feature_9",
+                    "feature_10",
+                    "feature_11",
+                    "feature_12",
+                    "feature_13",
+                    "feature_14",
+                    "feature_15",
+                    "feature_16",
+                    "feature_17",
+                    "feature_18",
+                    "feature_19",
+                    "feature_20",
+                    "feature_21",
+                    "feature_22",
+                    "feature_23",
+                    "feature_24",
+                    "feature_25",
+                    "feature_26"
+                ]
+            },
+            "ml_task": "binary_classification",
+            "params": {
+                "columns_preprocessing": {},
+                "target_preprocessing": [
+                    "na_exclude"
+                ],
+                "ml_task": "binary_classification",
+                "kmeans_features": {
+                    "results_path": "AutoML_10"
+                }
+            }
+        },
+        {
+            "kmeans": {
+                "new_features": [
+                    "Dist_Cluster_0",
+                    "Dist_Cluster_1",
+                    "Dist_Cluster_2",
+                    "Dist_Cluster_3",
+                    "Dist_Cluster_4",
+                    "Dist_Cluster_5",
+                    "Dist_Cluster_6",
+                    "Dist_Cluster_7",
+                    "Dist_Cluster_8",
+                    "Dist_Cluster_9",
+                    "Dist_Cluster_10",
+                    "Dist_Cluster_11",
+                    "Dist_Cluster_12",
+                    "Dist_Cluster_13",
+                    "Dist_Cluster_14",
+                    "Dist_Cluster_15",
+                    "Dist_Cluster_16",
+                    "Dist_Cluster_17",
+                    "Dist_Cluster_18",
+                    "Dist_Cluster_19",
+                    "Dist_Cluster_20",
+                    "Dist_Cluster_21",
+                    "Dist_Cluster_22",
+                    "Cluster"
+                ],
+                "result_file": "30_CatBoost_KMeansFeatures/kmeans_fold_3.joblib",
+                "input_columns": [
+                    "feature_1",
+                    "feature_2",
+                    "feature_3",
+                    "feature_4",
+                    "feature_5",
+                    "feature_6",
+                    "feature_7",
+                    "feature_8",
+                    "feature_9",
+                    "feature_10",
+                    "feature_11",
+                    "feature_12",
+                    "feature_13",
+                    "feature_14",
+                    "feature_15",
+                    "feature_16",
+                    "feature_17",
+                    "feature_18",
+                    "feature_19",
+                    "feature_20",
+                    "feature_21",
+                    "feature_22",
+                    "feature_23",
+                    "feature_24",
+                    "feature_25",
+                    "feature_26"
+                ]
+            },
+            "ml_task": "binary_classification",
+            "params": {
+                "columns_preprocessing": {},
+                "target_preprocessing": [
+                    "na_exclude"
+                ],
+                "ml_task": "binary_classification",
+                "kmeans_features": {
+                    "results_path": "AutoML_10"
+                }
+            }
+        },
+        {
+            "kmeans": {
+                "new_features": [
+                    "Dist_Cluster_0",
+                    "Dist_Cluster_1",
+                    "Dist_Cluster_2",
+                    "Dist_Cluster_3",
+                    "Dist_Cluster_4",
+                    "Dist_Cluster_5",
+                    "Dist_Cluster_6",
+                    "Dist_Cluster_7",
+                    "Dist_Cluster_8",
+                    "Dist_Cluster_9",
+                    "Dist_Cluster_10",
+                    "Dist_Cluster_11",
+                    "Dist_Cluster_12",
+                    "Dist_Cluster_13",
+                    "Dist_Cluster_14",
+                    "Dist_Cluster_15",
+                    "Dist_Cluster_16",
+                    "Dist_Cluster_17",
+                    "Dist_Cluster_18",
+                    "Dist_Cluster_19",
+                    "Dist_Cluster_20",
+                    "Dist_Cluster_21",
+                    "Dist_Cluster_22",
+                    "Cluster"
+                ],
+                "result_file": "30_CatBoost_KMeansFeatures/kmeans_fold_4.joblib",
+                "input_columns": [
+                    "feature_1",
+                    "feature_2",
+                    "feature_3",
+                    "feature_4",
+                    "feature_5",
+                    "feature_6",
+                    "feature_7",
+                    "feature_8",
+                    "feature_9",
+                    "feature_10",
+                    "feature_11",
+                    "feature_12",
+                    "feature_13",
+                    "feature_14",
+                    "feature_15",
+                    "feature_16",
+                    "feature_17",
+                    "feature_18",
+                    "feature_19",
+                    "feature_20",
+                    "feature_21",
+                    "feature_22",
+                    "feature_23",
+                    "feature_24",
+                    "feature_25",
+                    "feature_26"
+                ]
+            },
+            "ml_task": "binary_classification",
+            "params": {
+                "columns_preprocessing": {},
+                "target_preprocessing": [
+                    "na_exclude"
+                ],
+                "ml_task": "binary_classification",
+                "kmeans_features": {
+                    "results_path": "AutoML_10"
+                }
+            }
+        },
+        {
+            "kmeans": {
+                "new_features": [
+                    "Dist_Cluster_0",
+                    "Dist_Cluster_1",
+                    "Dist_Cluster_2",
+                    "Dist_Cluster_3",
+                    "Dist_Cluster_4",
+                    "Dist_Cluster_5",
+                    "Dist_Cluster_6",
+                    "Dist_Cluster_7",
+                    "Dist_Cluster_8",
+                    "Dist_Cluster_9",
+                    "Dist_Cluster_10",
+                    "Dist_Cluster_11",
+                    "Dist_Cluster_12",
+                    "Dist_Cluster_13",
+                    "Dist_Cluster_14",
+                    "Dist_Cluster_15",
+                    "Dist_Cluster_16",
+                    "Dist_Cluster_17",
+                    "Dist_Cluster_18",
+                    "Dist_Cluster_19",
+                    "Dist_Cluster_20",
+                    "Dist_Cluster_21",
+                    "Dist_Cluster_22",
+                    "Cluster"
+                ],
+                "result_file": "30_CatBoost_KMeansFeatures/kmeans_fold_5.joblib",
+                "input_columns": [
+                    "feature_1",
+                    "feature_2",
+                    "feature_3",
+                    "feature_4",
+                    "feature_5",
+                    "feature_6",
+                    "feature_7",
+                    "feature_8",
+                    "feature_9",
+                    "feature_10",
+                    "feature_11",
+                    "feature_12",
+                    "feature_13",
+                    "feature_14",
+                    "feature_15",
+                    "feature_16",
+                    "feature_17",
+                    "feature_18",
+                    "feature_19",
+                    "feature_20",
+                    "feature_21",
+                    "feature_22",
+                    "feature_23",
+                    "feature_24",
+                    "feature_25",
+                    "feature_26"
+                ]
+            },
+            "ml_task": "binary_classification",
+            "params": {
+                "columns_preprocessing": {},
+                "target_preprocessing": [
+                    "na_exclude"
+                ],
+                "ml_task": "binary_classification",
+                "kmeans_features": {
+                    "results_path": "AutoML_10"
+                }
+            }
+        },
+        {
+            "kmeans": {
+                "new_features": [
+                    "Dist_Cluster_0",
+                    "Dist_Cluster_1",
+                    "Dist_Cluster_2",
+                    "Dist_Cluster_3",
+                    "Dist_Cluster_4",
+                    "Dist_Cluster_5",
+                    "Dist_Cluster_6",
+                    "Dist_Cluster_7",
+                    "Dist_Cluster_8",
+                    "Dist_Cluster_9",
+                    "Dist_Cluster_10",
+                    "Dist_Cluster_11",
+                    "Dist_Cluster_12",
+                    "Dist_Cluster_13",
+                    "Dist_Cluster_14",
+                    "Dist_Cluster_15",
+                    "Dist_Cluster_16",
+                    "Dist_Cluster_17",
+                    "Dist_Cluster_18",
+                    "Dist_Cluster_19",
+                    "Dist_Cluster_20",
+                    "Dist_Cluster_21",
+                    "Dist_Cluster_22",
+                    "Cluster"
+                ],
+                "result_file": "30_CatBoost_KMeansFeatures/kmeans_fold_6.joblib",
+                "input_columns": [
+                    "feature_1",
+                    "feature_2",
+                    "feature_3",
+                    "feature_4",
+                    "feature_5",
+                    "feature_6",
+                    "feature_7",
+                    "feature_8",
+                    "feature_9",
+                    "feature_10",
+                    "feature_11",
+                    "feature_12",
+                    "feature_13",
+                    "feature_14",
+                    "feature_15",
+                    "feature_16",
+                    "feature_17",
+                    "feature_18",
+                    "feature_19",
+                    "feature_20",
+                    "feature_21",
+                    "feature_22",
+                    "feature_23",
+                    "feature_24",
+                    "feature_25",
+                    "feature_26"
+                ]
+            },
+            "ml_task": "binary_classification",
+            "params": {
+                "columns_preprocessing": {},
+                "target_preprocessing": [
+                    "na_exclude"
+                ],
+                "ml_task": "binary_classification",
+                "kmeans_features": {
+                    "results_path": "AutoML_10"
+                }
+            }
+        },
+        {
+            "kmeans": {
+                "new_features": [
+                    "Dist_Cluster_0",
+                    "Dist_Cluster_1",
+                    "Dist_Cluster_2",
+                    "Dist_Cluster_3",
+                    "Dist_Cluster_4",
+                    "Dist_Cluster_5",
+                    "Dist_Cluster_6",
+                    "Dist_Cluster_7",
+                    "Dist_Cluster_8",
+                    "Dist_Cluster_9",
+                    "Dist_Cluster_10",
+                    "Dist_Cluster_11",
+                    "Dist_Cluster_12",
+                    "Dist_Cluster_13",
+                    "Dist_Cluster_14",
+                    "Dist_Cluster_15",
+                    "Dist_Cluster_16",
+                    "Dist_Cluster_17",
+                    "Dist_Cluster_18",
+                    "Dist_Cluster_19",
+                    "Dist_Cluster_20",
+                    "Dist_Cluster_21",
+                    "Dist_Cluster_22",
+                    "Cluster"
+                ],
+                "result_file": "30_CatBoost_KMeansFeatures/kmeans_fold_7.joblib",
+                "input_columns": [
+                    "feature_1",
+                    "feature_2",
+                    "feature_3",
+                    "feature_4",
+                    "feature_5",
+                    "feature_6",
+                    "feature_7",
+                    "feature_8",
+                    "feature_9",
+                    "feature_10",
+                    "feature_11",
+                    "feature_12",
+                    "feature_13",
+                    "feature_14",
+                    "feature_15",
+                    "feature_16",
+                    "feature_17",
+                    "feature_18",
+                    "feature_19",
+                    "feature_20",
+                    "feature_21",
+                    "feature_22",
+                    "feature_23",
+                    "feature_24",
+                    "feature_25",
+                    "feature_26"
+                ]
+            },
+            "ml_task": "binary_classification",
+            "params": {
+                "columns_preprocessing": {},
+                "target_preprocessing": [
+                    "na_exclude"
+                ],
+                "ml_task": "binary_classification",
+                "kmeans_features": {
+                    "results_path": "AutoML_10"
+                }
+            }
+        },
+        {
+            "kmeans": {
+                "new_features": [
+                    "Dist_Cluster_0",
+                    "Dist_Cluster_1",
+                    "Dist_Cluster_2",
+                    "Dist_Cluster_3",
+                    "Dist_Cluster_4",
+                    "Dist_Cluster_5",
+                    "Dist_Cluster_6",
+                    "Dist_Cluster_7",
+                    "Dist_Cluster_8",
+                    "Dist_Cluster_9",
+                    "Dist_Cluster_10",
+                    "Dist_Cluster_11",
+                    "Dist_Cluster_12",
+                    "Dist_Cluster_13",
+                    "Dist_Cluster_14",
+                    "Dist_Cluster_15",
+                    "Dist_Cluster_16",
+                    "Dist_Cluster_17",
+                    "Dist_Cluster_18",
+                    "Dist_Cluster_19",
+                    "Dist_Cluster_20",
+                    "Dist_Cluster_21",
+                    "Dist_Cluster_22",
+                    "Cluster"
+                ],
+                "result_file": "30_CatBoost_KMeansFeatures/kmeans_fold_8.joblib",
+                "input_columns": [
+                    "feature_1",
+                    "feature_2",
+                    "feature_3",
+                    "feature_4",
+                    "feature_5",
+                    "feature_6",
+                    "feature_7",
+                    "feature_8",
+                    "feature_9",
+                    "feature_10",
+                    "feature_11",
+                    "feature_12",
+                    "feature_13",
+                    "feature_14",
+                    "feature_15",
+                    "feature_16",
+                    "feature_17",
+                    "feature_18",
+                    "feature_19",
+                    "feature_20",
+                    "feature_21",
+                    "feature_22",
+                    "feature_23",
+                    "feature_24",
+                    "feature_25",
+                    "feature_26"
+                ]
+            },
+            "ml_task": "binary_classification",
+            "params": {
+                "columns_preprocessing": {},
+                "target_preprocessing": [
+                    "na_exclude"
+                ],
+                "ml_task": "binary_classification",
+                "kmeans_features": {
+                    "results_path": "AutoML_10"
+                }
+            }
+        },
+        {
+            "kmeans": {
+                "new_features": [
+                    "Dist_Cluster_0",
+                    "Dist_Cluster_1",
+                    "Dist_Cluster_2",
+                    "Dist_Cluster_3",
+                    "Dist_Cluster_4",
+                    "Dist_Cluster_5",
+                    "Dist_Cluster_6",
+                    "Dist_Cluster_7",
+                    "Dist_Cluster_8",
+                    "Dist_Cluster_9",
+                    "Dist_Cluster_10",
+                    "Dist_Cluster_11",
+                    "Dist_Cluster_12",
+                    "Dist_Cluster_13",
+                    "Dist_Cluster_14",
+                    "Dist_Cluster_15",
+                    "Dist_Cluster_16",
+                    "Dist_Cluster_17",
+                    "Dist_Cluster_18",
+                    "Dist_Cluster_19",
+                    "Dist_Cluster_20",
+                    "Dist_Cluster_21",
+                    "Dist_Cluster_22",
+                    "Cluster"
+                ],
+                "result_file": "30_CatBoost_KMeansFeatures/kmeans_fold_9.joblib",
+                "input_columns": [
+                    "feature_1",
+                    "feature_2",
+                    "feature_3",
+                    "feature_4",
+                    "feature_5",
+                    "feature_6",
+                    "feature_7",
+                    "feature_8",
+                    "feature_9",
+                    "feature_10",
+                    "feature_11",
+                    "feature_12",
+                    "feature_13",
+                    "feature_14",
+                    "feature_15",
+                    "feature_16",
+                    "feature_17",
+                    "feature_18",
+                    "feature_19",
+                    "feature_20",
+                    "feature_21",
+                    "feature_22",
+                    "feature_23",
+                    "feature_24",
+                    "feature_25",
+                    "feature_26"
+                ]
+            },
+            "ml_task": "binary_classification",
+            "params": {
+                "columns_preprocessing": {},
+                "target_preprocessing": [
+                    "na_exclude"
+                ],
+                "ml_task": "binary_classification",
+                "kmeans_features": {
+                    "results_path": "AutoML_10"
+                }
+            }
+        }
+    ],
+    "learners": [
+        {
+            "library_version": "0.24.4",
+            "algorithm_name": "CatBoost",
+            "algorithm_short_name": "CatBoost",
+            "uid": "8d73e52b-2e3a-4c3b-bc53-3c5f38a0655d",
+            "params": {
+                "model_type": "CatBoost",
+                "ml_task": "binary_classification",
+                "n_jobs": -1,
+                "seed": 1235,
+                "learning_rate": 0.05,
+                "depth": 8,
+                "rsm": 0.8,
+                "loss_function": "Logloss",
+                "explain_level": 0
+            },
+            "name": "learner_fold_0",
+            "best_ntree_limit": 227
+        },
+        {
+            "library_version": "0.24.4",
+            "algorithm_name": "CatBoost",
+            "algorithm_short_name": "CatBoost",
+            "uid": "db6e561b-5417-4c3f-885f-d900f89dff2b",
+            "params": {
+                "model_type": "CatBoost",
+                "ml_task": "binary_classification",
+                "n_jobs": -1,
+                "seed": 1235,
+                "learning_rate": 0.05,
+                "depth": 8,
+                "rsm": 0.8,
+                "loss_function": "Logloss",
+                "explain_level": 0
+            },
+            "name": "learner_fold_1",
+            "best_ntree_limit": 447
+        },
+        {
+            "library_version": "0.24.4",
+            "algorithm_name": "CatBoost",
+            "algorithm_short_name": "CatBoost",
+            "uid": "ffd07cf6-d56d-43ef-b1e5-882f9dcb87d0",
+            "params": {
+                "model_type": "CatBoost",
+                "ml_task": "binary_classification",
+                "n_jobs": -1,
+                "seed": 1235,
+                "learning_rate": 0.05,
+                "depth": 8,
+                "rsm": 0.8,
+                "loss_function": "Logloss",
+                "explain_level": 0
+            },
+            "name": "learner_fold_2",
+            "best_ntree_limit": 346
+        },
+        {
+            "library_version": "0.24.4",
+            "algorithm_name": "CatBoost",
+            "algorithm_short_name": "CatBoost",
+            "uid": "2701c19c-da2d-41d5-9861-412a2d077b66",
+            "params": {
+                "model_type": "CatBoost",
+                "ml_task": "binary_classification",
+                "n_jobs": -1,
+                "seed": 1235,
+                "learning_rate": 0.05,
+                "depth": 8,
+                "rsm": 0.8,
+                "loss_function": "Logloss",
+                "explain_level": 0
+            },
+            "name": "learner_fold_3",
+            "best_ntree_limit": 323
+        },
+        {
+            "library_version": "0.24.4",
+            "algorithm_name": "CatBoost",
+            "algorithm_short_name": "CatBoost",
+            "uid": "dcc36f85-c8dc-4a22-b031-0ecb80b6c9a7",
+            "params": {
+                "model_type": "CatBoost",
+                "ml_task": "binary_classification",
+                "n_jobs": -1,
+                "seed": 1235,
+                "learning_rate": 0.05,
+                "depth": 8,
+                "rsm": 0.8,
+                "loss_function": "Logloss",
+                "explain_level": 0
+            },
+            "name": "learner_fold_4",
+            "best_ntree_limit": 683
+        },
+        {
+            "library_version": "0.24.4",
+            "algorithm_name": "CatBoost",
+            "algorithm_short_name": "CatBoost",
+            "uid": "02a29cc4-0382-428f-b407-1fe7d4aa591f",
+            "params": {
+                "model_type": "CatBoost",
+                "ml_task": "binary_classification",
+                "n_jobs": -1,
+                "seed": 1235,
+                "learning_rate": 0.05,
+                "depth": 8,
+                "rsm": 0.8,
+                "loss_function": "Logloss",
+                "explain_level": 0
+            },
+            "name": "learner_fold_5",
+            "best_ntree_limit": 497
+        },
+        {
+            "library_version": "0.24.4",
+            "algorithm_name": "CatBoost",
+            "algorithm_short_name": "CatBoost",
+            "uid": "eedb391f-6886-4f9d-8a45-0ec639e15bcc",
+            "params": {
+                "model_type": "CatBoost",
+                "ml_task": "binary_classification",
+                "n_jobs": -1,
+                "seed": 1235,
+                "learning_rate": 0.05,
+                "depth": 8,
+                "rsm": 0.8,
+                "loss_function": "Logloss",
+                "explain_level": 0
+            },
+            "name": "learner_fold_6",
+            "best_ntree_limit": 508
+        },
+        {
+            "library_version": "0.24.4",
+            "algorithm_name": "CatBoost",
+            "algorithm_short_name": "CatBoost",
+            "uid": "c3f74248-0f04-492e-9ff6-3324cd68ecfc",
+            "params": {
+                "model_type": "CatBoost",
+                "ml_task": "binary_classification",
+                "n_jobs": -1,
+                "seed": 1235,
+                "learning_rate": 0.05,
+                "depth": 8,
+                "rsm": 0.8,
+                "loss_function": "Logloss",
+                "explain_level": 0
+            },
+            "name": "learner_fold_7",
+            "best_ntree_limit": 430
+        },
+        {
+            "library_version": "0.24.4",
+            "algorithm_name": "CatBoost",
+            "algorithm_short_name": "CatBoost",
+            "uid": "8d33870b-885d-4b04-84f3-a283f3abbe2d",
+            "params": {
+                "model_type": "CatBoost",
+                "ml_task": "binary_classification",
+                "n_jobs": -1,
+                "seed": 1235,
+                "learning_rate": 0.05,
+                "depth": 8,
+                "rsm": 0.8,
+                "loss_function": "Logloss",
+                "explain_level": 0
+            },
+            "name": "learner_fold_8",
+            "best_ntree_limit": 300
+        },
+        {
+            "library_version": "0.24.4",
+            "algorithm_name": "CatBoost",
+            "algorithm_short_name": "CatBoost",
+            "uid": "be499441-a5e1-4adf-8ad5-72c81872d324",
+            "params": {
+                "model_type": "CatBoost",
+                "ml_task": "binary_classification",
+                "n_jobs": -1,
+                "seed": 1235,
+                "learning_rate": 0.05,
+                "depth": 8,
+                "rsm": 0.8,
+                "loss_function": "Logloss",
+                "explain_level": 0
+            },
+            "name": "learner_fold_9",
+            "best_ntree_limit": 478
+        }
+    ],
+    "params": {
+        "additional": {
+            "max_rounds": 10000,
+            "early_stopping_rounds": 50,
+            "max_rows_limit": null,
+            "max_cols_limit": null
+        },
+        "preprocessing": {
+            "columns_preprocessing": {},
+            "target_preprocessing": [
+                "na_exclude"
+            ],
+            "ml_task": "binary_classification",
+            "kmeans_features": {
+                "results_path": "AutoML_10"
+            }
+        },
+        "validation_strategy": {
+            "validation_type": "kfold",
+            "shuffle": true,
+            "stratify": true,
+            "X_path": "AutoML_10/X.parquet",
+            "y_path": "AutoML_10/y.parquet",
+            "results_path": "AutoML_10",
+            "k_folds": 10
+        },
+        "learner": {
+            "model_type": "CatBoost",
+            "ml_task": "binary_classification",
+            "n_jobs": -1,
+            "seed": 1235,
+            "learning_rate": 0.05,
+            "depth": 8,
+            "rsm": 0.8,
+            "loss_function": "Logloss",
+            "explain_level": 0
+        },
+        "ml_task": "binary_classification",
+        "explain_level": 0,
+        "name": "30_CatBoost_KMeansFeatures",
+        "status": "initialized",
+        "final_loss": null,
+        "train_time": null,
+        "max_time_for_learner": 60
+    },
+    "saved": [
+        "30_CatBoost_KMeansFeatures/learner_fold_0.catboost",
+        "30_CatBoost_KMeansFeatures/learner_fold_1.catboost",
+        "30_CatBoost_KMeansFeatures/learner_fold_2.catboost",
+        "30_CatBoost_KMeansFeatures/learner_fold_3.catboost",
+        "30_CatBoost_KMeansFeatures/learner_fold_4.catboost",
+        "30_CatBoost_KMeansFeatures/learner_fold_5.catboost",
+        "30_CatBoost_KMeansFeatures/learner_fold_6.catboost",
+        "30_CatBoost_KMeansFeatures/learner_fold_7.catboost",
+        "30_CatBoost_KMeansFeatures/learner_fold_8.catboost",
+        "30_CatBoost_KMeansFeatures/learner_fold_9.catboost"
+    ],
+    "predictions_fname": "30_CatBoost_KMeansFeatures/predictions_out_of_folds.csv",
+    "metric_name": "logloss",
+    "final_loss": 0.44003843025573064,
+    "train_time": 96.03217244148254,
+    "is_stacked": false,
+    "threshold": 0.46338993144184454
+}

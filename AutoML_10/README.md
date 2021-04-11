@@ -15,7 +15,7 @@
 |              | [11_Default_NearestNeighbors](11_Default_NearestNeighbors/README.md) | Nearest Neighbors | logloss       |       0.748981 |         1.37 |
 |              | [21_LightGBM](21_LightGBM/README.md)                                 | LightGBM          | logloss       |       0.46641  |         3.48 |
 |              | [12_Xgboost](12_Xgboost/README.md)                                   | Xgboost           | logloss       |       0.494823 |         9.6  |
-| **the best** | [30_CatBoost](30_CatBoost/README.md)                                 | CatBoost          | logloss       |       0.38322  |        49.43 |
+|              | [30_CatBoost](30_CatBoost/README.md)                                 | CatBoost          | logloss       |       0.38322  |        49.43 |
 |              | [39_RandomForest](39_RandomForest/README.md)                         | Random Forest     | logloss       |       0.613441 |         9.14 |
 |              | [48_ExtraTrees](48_ExtraTrees/README.md)                             | Extra Trees       | logloss       |       0.635053 |         5.56 |
 |              | [57_NeuralNetwork](57_NeuralNetwork/README.md)                       | Neural Network    | logloss       |       0.894062 |         2.78 |
@@ -36,6 +36,12 @@
 |              | [68_NearestNeighbors](68_NearestNeighbors/README.md)                 | Nearest Neighbors | logloss       |       0.627237 |         1.28 |
 |              | [24_LightGBM](24_LightGBM/README.md)                                 | LightGBM          | logloss       |       0.571743 |         3.76 |
 |              | [15_Xgboost](15_Xgboost/README.md)                                   | Xgboost           | logloss       |       0.643865 |        43.59 |
+|              | [30_CatBoost_KMeansFeatures](30_CatBoost_KMeansFeatures/README.md)   | CatBoost          | logloss       |       0.440038 |        96.64 |
+|              | [69_CatBoost](69_CatBoost/README.md)                                 | CatBoost          | logloss       |       0.382157 |        95.73 |
+|              | [Ensemble](Ensemble/README.md)                                       | Ensemble          | logloss       |       0.372117 |         6.11 |
+|              | [69_CatBoost_Stacked](69_CatBoost_Stacked/README.md)                 | CatBoost          | logloss       |       0.361555 |        54.68 |
+|              | [5_Default_LightGBM_Stacked](5_Default_LightGBM_Stacked/README.md)   | LightGBM          | logloss       |       0.364057 |         8    |
+| **the best** | [Ensemble_Stacked](Ensemble_Stacked/README.md)                       | Ensemble          | logloss       |       0.353944 |         6.84 |
 
 ### AutoML Performance
 ![AutoML Performance](ldb_performance.png)
