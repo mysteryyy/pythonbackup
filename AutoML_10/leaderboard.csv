@@ -1,0 +1,35 @@
+name,model_type,metric_type,metric_value,train_time
+1_DecisionTree,Decision Tree,logloss,0.7497896061216412,1.46
+2_DecisionTree,Decision Tree,logloss,0.8959814485803063,1.21
+3_DecisionTree,Decision Tree,logloss,0.8809971648948791,1.24
+4_Linear,Linear,logloss,0.6998408539810537,4.04
+5_Default_LightGBM,LightGBM,logloss,0.4178787447515688,6.26
+6_Default_Xgboost,Xgboost,logloss,0.4548119241447509,8.94
+7_Default_CatBoost,CatBoost,logloss,0.41995045621365473,14.85
+8_Default_NeuralNetwork,Neural Network,logloss,0.9201115066223994,3.17
+9_Default_RandomForest,Random Forest,logloss,0.6062957301149993,9.55
+10_Default_ExtraTrees,Extra Trees,logloss,0.6353539039181254,8.35
+11_Default_NearestNeighbors,Nearest Neighbors,logloss,0.7489811034033872,1.37
+21_LightGBM,LightGBM,logloss,0.4664095124295198,3.48
+12_Xgboost,Xgboost,logloss,0.4948234015918153,9.6
+30_CatBoost,CatBoost,logloss,0.38321987522862844,49.43
+39_RandomForest,Random Forest,logloss,0.6134409281573286,9.14
+48_ExtraTrees,Extra Trees,logloss,0.6350531162956372,5.56
+57_NeuralNetwork,Neural Network,logloss,0.8940616329118687,2.78
+66_NearestNeighbors,Nearest Neighbors,logloss,0.6409142586822004,1.28
+22_LightGBM,LightGBM,logloss,0.4268899336511817,3.17
+13_Xgboost,Xgboost,logloss,0.4374727227448823,8.17
+31_CatBoost,CatBoost,logloss,0.3836554052558431,41.14
+40_RandomForest,Random Forest,logloss,0.5570224074436154,9.82
+49_ExtraTrees,Extra Trees,logloss,0.588473850852957,6.35
+58_NeuralNetwork,Neural Network,logloss,0.7657646585099815,5.49
+67_NearestNeighbors,Nearest Neighbors,logloss,0.6272374655357289,1.27
+23_LightGBM,LightGBM,logloss,0.4769562258416377,2.75
+14_Xgboost,Xgboost,logloss,0.5949253562591372,3.29
+32_CatBoost,CatBoost,logloss,0.38525913477439827,25.03
+41_RandomForest,Random Forest,logloss,0.6295777124684089,7.72
+50_ExtraTrees,Extra Trees,logloss,0.6529218011845128,6.48
+59_NeuralNetwork,Neural Network,logloss,1.0931238520724902,5.37
+68_NearestNeighbors,Nearest Neighbors,logloss,0.6272374655357289,1.28
+24_LightGBM,LightGBM,logloss,0.5717432697386586,3.76
+15_Xgboost,Xgboost,logloss,0.6438648656511643,43.59

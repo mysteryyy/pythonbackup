@@ -83,7 +83,27 @@ k1['res4'] = k1.rets1.shift(4)
 k1['res5'] = k1.rets1.shift(5)
 k1=k1.dropna()
 k2 = k1[k1.Date>datetime.date(2018,1,1)]
+
 k1 = k1[k1.Date<datetime.date(2018,1,1)]
+featvals=[]
+featrate=[]
+featvals_stoch=[]
+featrate_stoch=[]
+for i in range(10):
+   ratedf = k1[(k1.rsi20>i*0.1) & (k1.rsi20<(i+1)*0.1)]
+   if(len(ratedf)==0):
+       continue
+   featvals.append("rsi20"+"("+str(0.1*(i+1))+")")
+   ratedf = k1[(k1.rsi20>i*0.1) & (k1.rsi20<(i+1)*0.1)]
+   featrate.append(len(ratedf[ratedf.rets_long==1])/(len(ratedf)))
+for i in range(10):
+   ratedf = k1[(k1.stoch20>i*0.1) & (k1.stoch20<(i+1)*0.1)]
+   if(len(ratedf)==0):
+       continue
+   featvals_stoch.append("stoch20"+"("+str(0.1*(i+1))+")")
+   ratedf = k1[(k1.stoch20>i*0.1) & (k1.stoch20<(i+1)*0.1)]
+   featrate_stoch.append(len(ratedf[ratedf.rets_long==1])/(len(ratedf)))
+
 k1 = k1.dropna()
 feats = ['close_diff','gap1','rsi5','rsi5_smoothed','gap','stoch20','stoch14','rsi14','rsi20','sine','bandpass','cci','decycle','quadlead','velacc','VIX_Close','VIX_Close_diff','h','rsi20_diff','rsi14_diff','stoch20_diff','res1','res2','res3','res4','res5']
 feats1=feats
