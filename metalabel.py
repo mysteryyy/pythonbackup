@@ -35,10 +35,14 @@ from supervised.automl import AutoML
 #k=pd.read_pickle('/home/sahil/projdir/dailydata.pkl')
 #k1=k[k.Symbol==k.Symbol.unique()[pos]].iloc[-lb:]
 automl=AutoML(mode='Compete',total_time_limit=600)
-k1=investpy.search_quotes(text='SBIN',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2015',to_date='20/03/2021')
+k1=investpy.search_quotes(text='SBIN',products=['stocks'],countries=['India'],n_results=2)[0]
+
+k1 = investpy.get_stock_historical_data(stock=k1.symbol,country='India',from_date='01/01/2010',to_date='20/03/2021')
+
 #k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2019',to_date='07/12/2020')
 
-k2=investpy.search_quotes(text='VIX',products=['indices'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2015',to_date='07/12/2020')
+k2 = investpy.get_index_historical_data(index='India VIX',country='India',from_date='01/01/2010',to_date='20/03/2021')
+
 def slret(o,h,l,c,sl):
     hp = ((h-o)/o)*100
     if -hp<sl:
