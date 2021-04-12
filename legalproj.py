@@ -3,6 +3,7 @@ import numpy as np
 from dateutil import parser
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeRegressor
+from scipy.stats import ttest_ind
 df = pd.read_csv('/home/sahil/Downloads/LegalTrackerDated1.csv')
 #df = df[df['Deal Created date'].notna()]
 df = df[df['Date of Initial Review by Legal'].notna()]
@@ -40,11 +41,32 @@ def tat_analysis_reviewers(df):
             else:
                 ttdf.loc[j,i]= "Not enough data"
     return ttdf
+def tat_analysis_stat_test(df):
+    ttdf = pd.DataFrame(columns=df.doctype.unique(),index = ['Q-Tempelate','Non-Q Tempelate','pvalue'])
+    for i in ttdf.columns:
+        tat1  = df[(df.doctype==i) & (df.qornot=='Yes')]['Turnaround Time']
+        tat2  = df[(df.doctype==i) & (df.qornot=='No')]['Turnaround Time']
+        if(len(tat1)<5 or len(tat2)<5):
+
+           ttdf.loc['pvalue',i] = "Not enough data"
+
+        p=ttest_ind(tat1,tat2,equal_var=False).pvalue
+        ttdf.loc['pvalue',i] = p
+
+        for j in ttdf.index[0:2]:
+            qornot = 'Yes' if j=='Q-Tempelate' else 'No'
+            tat  = df[(df.doctype==i) & (df.qornot==qornot)]['Turnaround Time']
+            if(len(tat)>5):
+                ttdf.loc[j,i]= tat.mean()
+            else:
+                ttdf.loc[j,i]= "Not enough data"
+    return ttdf
 
 ttdf1 = tat_analysis(df[df.pages>5])
 ttdf2 = tat_analysis(df[df.pages<5])
 ttdf3 = tat_analysis_reviewers(df)
-ttdf4 = tat_analysis(df)
+ttdf4 = tat_analysis_stat_test(df)
+
 # funtion
 def multiple_dfs(df_list, sheets, file_name, spaces):
     writer = pd.ExcelWriter(file_name,engine='xlsxwriter')   
