@@ -25,7 +25,17 @@ cats=['SOW','PSA/MSA','NDA']
 sowmed = df[df.doctype=='SOW'].tat.median()
 psamsamed = df[(df.doctype=='PSA') | (df.doctype=='MSA')].tat.median()
 ndamed = df[df.foctype=='NDA'].tat.median()
-cols = ['SOW'+'<'+str(sowmed)+'pages','SOW'+'>'+str(sowmed)+' pages','MSA/PSA'+'<'+str(psamsamed)+'pages','MSA/PSA'+'>'+str(psamsamed)+'pages','NDA'+'>'+str(ndamed)+'pages','NDA'+'<'+str(ndamed)+'pages',]]
+cols = ['SOW'+'<'+str(sowmed)+'pages','SOW'+'>'+str(sowmed)+' pages','MSA/PSA'+'<'+str(psamsamed)+'pages','MSA/PSA'+'>'+str(psamsamed)+'pages','NDA'+'>'+str(ndamed)+'pages','NDA'+'<'+str(ndamed)+'pages']
+ind = ['Q-Tempelate','Non Q-tempelate']
+dftt = pd.DataFrame()
+dftt.loc[ind[0],cols[0]] = df[(df.doctype=='SOW') & (df.qornot=='Yes') & (df.pages<sowmed)].tat.mean()
+dftt.loc[ind[1],cols[0]] = df[(df.doctype=='SOW') & (df.qornot=='No') & (df.pages<sowmed)].tat.mean()
+dftt.loc[ind[0],cols[1]] = df[(df.doctype=='SOW') & (df.qornot=='Yes') & (df.pages>sowmed)].tat.mean()
+dftt.loc[ind[1],cols[1]] = df[(df.doctype=='SOW') & (df.qornot=='No') & (df.pages>sowmed)].tat.mean()
+dftt.loc[ind[0],cols[2]] = df[(df.doctype=='MSA/PSA') & (df.qornot=='Yes') & (df.pages<sowmed)].tat.mean()
+dftt.loc[ind[1],cols[2]] = df[(df.doctype=='MSA/PSA') & (df.qornot=='No') & (df.pages<sowmed)].tat.mean()
+dftt.loc[ind[0],cols[3]] = df[(df.doctype=='MSA/PSA') & (df.qornot=='Yes') & (df.pages>sowmed)].tat.mean()
+dftt.loc[ind[1],cols[3]] = df[(df.doctype=='MSA/PSA') & (df.qornot=='No') & (df.pages>sowmed)].tat.mean()
 def tat_analysis(df):
     ttdf = pd.DataFrame(columns=df.doctype.unique(),index = ['Q-Tempelate','Non-Q Tempelate'])
     for i in ttdf.columns:
