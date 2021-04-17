@@ -32,11 +32,11 @@ dftt.loc[ind[0],cols[0]] = df[(df.doctype=='SOW') & (df.qornot=='Yes') & (df.pag
 dftt.loc[ind[1],cols[0]] = df[(df.doctype=='SOW') & (df.qornot=='No') & (df.pages<sowmed)].tat.mean()
 dftt.loc[ind[0],cols[1]] = df[(df.doctype=='SOW') & (df.qornot=='Yes') & (df.pages>sowmed)].tat.mean()
 dftt.loc[ind[1],cols[1]] = df[(df.doctype=='SOW') & (df.qornot=='No') & (df.pages>sowmed)].tat.mean()
-dftt.loc[ind[0],cols[2]] = df[(df.doctype=='MSA') & (df.doctype=='PSA') & (df.qornot=='Yes') & (df.pages<psamsamed)].tat.mean()
-dftt.loc[ind[1],cols[2]] = df[(df.doctype=='MSA') & (df.doctype=='PSA') & (df.qornot=='No') & (df.pages<psamsamed)].tat.mean()
-dftt.loc[ind[0],cols[3]] = df[(df.doctype=='MSA') & (df.doctype=='PSA') & (df.qornot=='Yes') & (df.pages>psamsamed)].tat.mean()
-dftt.loc[ind[1],cols[3]] = df[(df.doctype=='MSA') & (df.doctype=='PSA') & (df.qornot=='No') & (df.pages>psamsamed)].tat.mean()
-dftt.loc[ind[0],cols[4]] = df[(df.doctype=='NDA') & (df.qornot=='Yes') & (df.pages<ndamed)].tat.mean()
+dftt.loc[ind[0],cols[2]] = df[((df.doctype=='MSA') | (df.doctype=='PSA')) & (df.qornot=='Yes') & (df.pages<psamsamed)].tat.mean()
+dftt.loc[ind[1],cols[2]] = df[((df.doctype=='MSA') | (df.doctype=='PSA')) & (df.qornot=='No') & (df.pages<psamsamed)].tat.mean()
+dftt.loc[ind[0],cols[3]] = df[((df.doctype=='MSA') | (df.doctype=='PSA')) & (df.qornot=='Yes') & (df.pages>psamsamed)].tat.mean()
+dftt.loc[ind[1],cols[3]] = df[((df.doctype=='MSA') | (df.doctype=='PSA')) & (df.qornot=='No') & (df.pages>psamsamed)].tat.mean()
+dftt.loc[ind[0],cols[4]] = df[(df.doctype=='NDA') & (df.qornot=='yes') & (df.pages<ndamed)].tat.mean()
 dftt.loc[ind[1],cols[4]] = df[(df.doctype=='NDA') & (df.qornot=='No') & (df.pages<ndamed)].tat.mean()
 dftt.loc[ind[0],cols[5]] = df[(df.doctype=='NDA') & (df.qornot=='Yes') & (df.pages>ndamed)].tat.mean()
 dftt.loc[ind[1],cols[5]] = df[(df.doctype=='NDA') & (df.qornot=='No') & (df.pages>ndamed)].tat.mean()
@@ -91,7 +91,7 @@ def tat_analysis_stat_test_bs(df):
 
            ttdf.loc['pvalue',i] = "Not enough data"
 
-        p=ttest_ind(tat1,tat2,equal_var=False).pvalue
+        p=ttest_ind(tat1,tat2,equal_var=False,alternative='greater').pvalue
         ttdf.loc['pvalue',i] = p
 
         for j in ttdf.index[0:2]:
