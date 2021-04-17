@@ -36,7 +36,7 @@ dftt.loc[ind[0],cols[2]] = df[((df.doctype=='MSA') | (df.doctype=='PSA')) & (df.
 dftt.loc[ind[1],cols[2]] = df[((df.doctype=='MSA') | (df.doctype=='PSA')) & (df.qornot=='No') & (df.pages<psamsamed)].tat.mean()
 dftt.loc[ind[0],cols[3]] = df[((df.doctype=='MSA') | (df.doctype=='PSA')) & (df.qornot=='Yes') & (df.pages>psamsamed)].tat.mean()
 dftt.loc[ind[1],cols[3]] = df[((df.doctype=='MSA') | (df.doctype=='PSA')) & (df.qornot=='No') & (df.pages>psamsamed)].tat.mean()
-dftt.loc[ind[0],cols[4]] = df[(df.doctype=='NDA') & (df.qornot=='yes') & (df.pages<ndamed)].tat.mean()
+dftt.loc[ind[0],cols[4]] = df[(df.doctype=='NDA') & (df.qornot=='Yes') & (df.pages<ndamed)].tat.mean()
 dftt.loc[ind[1],cols[4]] = df[(df.doctype=='NDA') & (df.qornot=='No') & (df.pages<ndamed)].tat.mean()
 dftt.loc[ind[0],cols[5]] = df[(df.doctype=='NDA') & (df.qornot=='Yes') & (df.pages>ndamed)].tat.mean()
 dftt.loc[ind[1],cols[5]] = df[(df.doctype=='NDA') & (df.qornot=='No') & (df.pages>ndamed)].tat.mean()
