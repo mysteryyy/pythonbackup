@@ -26,7 +26,7 @@ sowmed = df[df.doctype=='SOW'].pages.median()
 psamsamed = df[(df.doctype=='PSA') | (df.doctype=='MSA')].pages.median()
 ndamed = df[df.doctype=='NDA'].pages.median()
 cols = ['SOW'+'<'+str(sowmed)+'pages','SOW'+'>'+str(sowmed)+' pages','MSA/PSA'+'<'+str(psamsamed)+'pages','MSA/PSA'+'>'+str(psamsamed)+'pages','NDA'+'<'+str(ndamed)+'pages','NDA'+'>'+str(ndamed)+'pages']
-ind = ['Q-Tempelate','Non Q-tempelate']
+ind = ['Q-Tempelate','Non Q-tempelate','pvalue']
 def ttest(a,b):
     return ttest_ind(a,b,equal_var=False,alternative='greater').pvalue
 dftt = pd.DataFrame()
@@ -40,12 +40,16 @@ dftt.loc[ind[2],cols[1]] =ttest(df[(df.doctype=='SOW') & (df.qornot=='Yes') & (d
 
 dftt.loc[ind[0],cols[2]] = df[((df.doctype=='MSA') | (df.doctype=='PSA')) & (df.qornot=='Yes') & (df.pages<psamsamed)].tat.mean()
 dftt.loc[ind[1],cols[2]] = df[((df.doctype=='MSA') | (df.doctype=='PSA')) & (df.qornot=='No') & (df.pages<psamsamed)].tat.mean()
+dftt.loc[ind[2],cols[2]] =ttest(df[((df.doctype=='MSA') | (df.doctype=='PSA')) & (df.qornot=='Yes') & (df.pages<psamsamed)].tat,df[((df.doctype=='MSA') | (df.doctype=='PSA')) & (df.qornot=='No') & (df.pages<psamsamed)].tat) 
 dftt.loc[ind[0],cols[3]] = df[((df.doctype=='MSA') | (df.doctype=='PSA')) & (df.qornot=='Yes') & (df.pages>psamsamed)].tat.mean()
 dftt.loc[ind[1],cols[3]] = df[((df.doctype=='MSA') | (df.doctype=='PSA')) & (df.qornot=='No') & (df.pages>psamsamed)].tat.mean()
+dftt.loc[ind[2],cols[3]]=ttest(df[((df.doctype=='MSA') | (df.doctype=='PSA')) & (df.qornot=='Yes') & (df.pages>psamsamed)].tat,df[((df.doctype=='MSA') | (df.doctype=='PSA')) & (df.qornot=='No') & (df.pages>psamsamed)].tat)  
 dftt.loc[ind[0],cols[4]] = df[(df.doctype=='NDA') & (df.qornot=='Yes') & (df.pages<ndamed)].tat.mean()
 dftt.loc[ind[1],cols[4]] = df[(df.doctype=='NDA') & (df.qornot=='No') & (df.pages<ndamed)].tat.mean()
+dftt.loc[ind[2],cols[4]]=ttest(df[(df.doctype=='NDA') & (df.qornot=='Yes') & (df.pages<ndamed)].tat,df[(df.doctype=='NDA') & (df.qornot=='No') & (df.pages<ndamed)].tat)
 dftt.loc[ind[0],cols[5]] = df[(df.doctype=='NDA') & (df.qornot=='Yes') & (df.pages>ndamed)].tat.mean()
 dftt.loc[ind[1],cols[5]] = df[(df.doctype=='NDA') & (df.qornot=='No') & (df.pages>ndamed)].tat.mean()
+dftt.loc[ind[2],cols[5]]=ttest(df[(df.doctype=='NDA') & (df.qornot=='Yes') & (df.pages>ndamed)].tat,df[(df.doctype=='NDA') & (df.qornot=='No') & (df.pages>ndamed)].tat)
 def tat_analysis(df):
     ttdf = pd.DataFrame(columns=df.doctype.unique(),index = ['Q-Tempelate','Non-Q Tempelate'])
     for i in ttdf.columns:
