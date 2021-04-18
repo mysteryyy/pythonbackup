@@ -4,6 +4,11 @@ from dateutil import parser
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeRegressor
 from scipy.stats import ttest_ind
+def doctypes(l):
+    if l=='PSA'or l=='MSA':
+        return 'PSA/MSA'
+    else:
+        return l
 df = pd.read_csv('/home/sahil/Downloads/LegalTrackerDated1.csv')
 #df = df[df['Deal Created date'].notna()]
 df = df[df['Date of Initial Review by Legal'].notna()]
@@ -21,6 +26,7 @@ df['doctype'] = df['Long Title of Document']
 df['reviewers'] = df['Reviewed By']
 df['bs'] = df['Business Segment']
 df['tat'] = df['TAT Days']
+df['doctype1'] = df.doctype.apply(lambda x:doctypes(x))
 cats=['SOW','PSA/MSA','NDA']
 sowmed = df[df.doctype=='SOW'].pages.median()
 psamsamed = df[(df.doctype=='PSA') | (df.doctype=='MSA')].pages.median()
