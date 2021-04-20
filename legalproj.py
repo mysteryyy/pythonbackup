@@ -119,13 +119,30 @@ def tat_analysis_stat_test_bs(df):
                 ttdf.loc[j,i]= "Not enough data"
     return ttdf
 
+def tat_page_cor(df):
+   corrdf = pd.DataFrame(columns=['SOW','NDA','PSA/MSA'],index = ['corr'])
+   for i in corrdf.columns:
+       if (i=='PSA/MSA'):
+           df1 = df[(df.doctype=='MSA') | (df.doctype=='PSA')]
+       else:
+           df1 = df[df.doctype==i]
+       corrdf.loc['corr',i] = df1[['pages','tat']].corr().tat.iloc[0]
+   return corrdf
+def tat_page_cor_bs(df):
+   corrdf = pd.DataFrame(columns=['AWS','GCP'],index = ['corr'])
+   for i in corrdf.columns:
+       df1 = df[df.bs==i]
+       corrdf.loc['corr',i] = df1[['pages','tat']].corr().tat.iloc[0]
+   return corrdf
+
 
 ttdf1 = tat_analysis(df[df.pages>5])
 ttdf2 = tat_analysis(df[df.pages<5])
 ttdf3 = tat_analysis_reviewers(df)
 ttdf4 = tat_analysis_stat_test(df)
 ttdf5 = tat_analysis_stat_test_bs(df)
-
+corrdf = tat_page_cor(df)
+corrdfbs=tat_page_cor_bs(df)
 # funtion
 def multiple_dfs(df_list, sheets, file_name, spaces):
     writer = pd.ExcelWriter(file_name,engine='xlsxwriter')   
