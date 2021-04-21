@@ -4,6 +4,7 @@ from dateutil import parser
 from supervised.automl import AutoML
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score,mean_absolute_percentage_error
+from sklearn.preprocessing import OneHotEncoder
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import AdaBoostClassifier,RandomForestClassifier,RandomForestRegressor
 from scipy.stats import ttest_ind
@@ -40,9 +41,10 @@ cols = ['SOW'+'<'+str(sowmed)+'pages','SOW'+'>'+str(sowmed)+' pages','MSA/PSA'+'
 ind = ['Q-Tempelate','Non Q-tempelate','pvalue']
 def ttest(a,b):
     return ttest_ind(a,b,equal_var=False,alternative='greater').pvalue
-inpvars = df[['doctype1','pages','bs','reviewers','qornot']]
+inpvars1 = df[['doctype1','bs','reviewers','qornot']]
+inpvars2 = df[['pages']]
 outvars = df[['tat']]
-x = np.array(inpvars)
+x = np.concatenate((OneHotEncoder(sparse=False).fit_transform(inpvars1),np.matrix(inpvars2)),axis=1)
 y = np.array(outvars)
 x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=.3)
 tr = RandomForestRegressor(n_estimators=50,max_depth=6,min_samples_split=10)
