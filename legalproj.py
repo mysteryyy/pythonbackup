@@ -2,7 +2,9 @@ import pandas as pd
 import numpy as np
 from dateutil import parser
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import AdaBoostClassifier,RandomForestClassifier
 from scipy.stats import ttest_ind
 def doctypes(l):
     if l=='PSA'or l=='MSA':
@@ -35,6 +37,16 @@ cols = ['SOW'+'<'+str(sowmed)+'pages','SOW'+'>'+str(sowmed)+' pages','MSA/PSA'+'
 ind = ['Q-Tempelate','Non Q-tempelate','pvalue']
 def ttest(a,b):
     return ttest_ind(a,b,equal_var=False,alternative='greater').pvalue
+inpvars = df[['doctype1','pages','bs','reviewers','tat']]
+outvars = df[['qornot']]
+x = np.array(inpvars)
+y = np.array(outvars)
+x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=.3)
+tr = RandomForestClassifier(n_estimators=50,max_depth=6,min_samples_split=10)
+clf=tr
+#clf = AdaBoostClassifier(base_estimator=tr,n_estimators=80,random_state=50,learning_rate=1.0)
+clf.fit(x_train,y_train)
+print(accuracy_score(x_test,y_test))
 dftt = pd.DataFrame()
 
 dftt.loc[ind[0],cols[0]] = df[(df.doctype=='SOW') & (df.qornot=='Yes') & (df.pages<sowmed)].tat.mean()
