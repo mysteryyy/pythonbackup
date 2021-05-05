@@ -1,4 +1,5 @@
 import pandas as pd
+from sklearn.preprocessing import StandardScaler,MinMaxScaler
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.optimizers import RMSprop
@@ -57,11 +58,13 @@ outvars = df1[['tat']]
 def nll(y_true,y_pred):
     return -y_pred.log_prob(y_true)
 x = np.concatenate((OneHotEncoder(sparse=False).fit_transform(inpvars1),np.matrix(inpvars2)),axis=1)
+x=StandardScaler().fit_transform(x)
+x=MinMaxScaler().fit_transform(x)
 y = np.array(np.float32(np.array(outvars)))
 y =y.reshape(len(y),)
 x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=.3)
 model = Sequential([
-Dense(input_shape=(x_train.shape[1],), units=1, activation='linear',kernel_initializer=tf.constant_initializer(0.001),
+Dense(input_shape=(x_train.shape[1],), units=5, activation='linear',kernel_initializer=tf.constant_initializer(.0001),
           bias_initializer=tf.constant_initializer(0)),
     tfpl.DistributionLambda(lambda t:tfd.Exponential(rate=t),
                            convert_to_tensor_fn=tfd.Distribution.sample)
