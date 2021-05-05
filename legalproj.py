@@ -2,6 +2,11 @@ import pandas as pd
 import numpy as np
 from dateutil import parser
 from supervised.automl import AutoML
+import tensorflow as tf
+import tensorflow_probability as tfp
+tfd = tfp.distributions
+tfpl = tfp.layers
+tfb = tfp.bijectors
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score,mean_absolute_percentage_error
 from sklearn.preprocessing import OneHotEncoder
@@ -46,18 +51,18 @@ inpvars1 = df[['doctype1','bs','reviewers','qornot']]
 inpvars2 = df[['pages']]
 outvars = df[['tat']]
 x = np.concatenate((OneHotEncoder(sparse=False).fit_transform(inpvars1),np.matrix(inpvars2)),axis=1)
-y = np.array(outvars)
+y = np.array(np.float32(np.array(outvars)))
 x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=.3)
 
 negloglik = lambda y, rv_y: -rv_y.log_prob(y)
 model = tf.keras.Sequential([
   tf.keras.layers.Dense(1),
-  tfp.layers.DistributionLambda(lambda t: tfd.Exponential(loc=t)),
+  tfp.layers.DistributionLambda(lambda t: tfd.Exponential(rate=t)),
 ])
 
 # Do inference.
 model.compile(optimizer=tf.optimizers.Adam(learning_rate=0.01), loss=negloglik)
-model.fit(x_train, y_train, epochs=1000, verbose=False);
+model.fit(x_train, y_train, epochs=1000, verbose=True);
 tr = RandomForestRegressor(n_estimators=50,max_depth=6,min_samples_split=10)
 clf=tr
 #clf = AdaBoostClassifier(base_estimator=tr,n_estimators=80,random_state=50,learning_rate=1.0)
