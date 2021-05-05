@@ -52,6 +52,7 @@ inpvars2 = df[['pages']]
 outvars = df[['tat']]
 x = np.concatenate((OneHotEncoder(sparse=False).fit_transform(inpvars1),np.matrix(inpvars2)),axis=1)
 y = np.array(np.float32(np.array(outvars)))
+y =y.reshape(len(y),)
 x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=.3)
 
 negloglik = lambda y, rv_y: -rv_y.log_prob(y)
