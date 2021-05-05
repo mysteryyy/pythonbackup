@@ -1,4 +1,7 @@
 import pandas as pd
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.optimizers import RMSprop
 import numpy as np
 from dateutil import parser
 from supervised.automl import AutoML
@@ -46,23 +49,24 @@ cols = ['SOW'+'<'+str(sowmed)+'pages','SOW'+'>'+str(sowmed)+' pages','MSA/PSA'+'
 ind = ['Q-Tempelate','Non Q-tempelate','pvalue']
 def ttest(a,b):
     return ttest_ind(a,b,equal_var=False,alternative='greater').pvalue
-
-inpvars1 = df[['doctype1','bs','reviewers','qornot']]
-inpvars2 = df[['pages']]
-outvars = df[['tat']]
+df1 = df[['doctype1','bs','reviewers','qornot','pages','tat']]
+df1=df1.dropna()
+inpvars1 = df1[['doctype1','bs','reviewers','qornot']]
+inpvars2 = df1[['pages']]
+outvars = df1[['tat']]
+def nll(y_true,y_pred):
+    return -y_pred.log_prob(y_true)
 x = np.concatenate((OneHotEncoder(sparse=False).fit_transform(inpvars1),np.matrix(inpvars2)),axis=1)
 y = np.array(np.float32(np.array(outvars)))
 y =y.reshape(len(y),)
 x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=.3)
-
-negloglik = lambda y, rv_y: -rv_y.log_prob(y)
-model = tf.keras.Sequential([
-  tf.keras.layers.Dense(1),
-  tfp.layers.DistributionLambda(lambda t: tfd.Exponential(rate=t)),
+model = Sequential([
+Dense(input_shape=(x_train.shape[1],), units=1, activation='linear'),
+    tfpl.DistributionLambda(lambda t:tfd.Exponential(rate=t),
+                           convert_to_tensor_fn=tfd.Distribution.sample)
 ])
-
-# Do inference.
-model.compile(optimizer=tf.optimizers.Adam(learning_rate=0.01), loss=negloglik)
+model.compile(loss=nll,
+optimizer=RMSprop(learning_rate=0.01))
 model.fit(x_train, y_train, epochs=1000, verbose=True);
 tr = RandomForestRegressor(n_estimators=50,max_depth=6,min_samples_split=10)
 clf=tr
