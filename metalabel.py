@@ -37,7 +37,7 @@ from supervised.automl import AutoML
 automl=AutoML(mode='Compete',total_time_limit=600)
 k1=investpy.search_quotes(text='Motilal Oswal Midcap 100 ETF',products=['etfs'],countries=['India'],n_results=2)[0]
 
-k1 = investpy.get_etf_historical_data(etf=k1.name,country='India',from_date='01/01/2010',to_date='20/03/2021')
+k1 = investpy.get_etf_historical_data('Motilal Oswal Midcap 100 ETF',country='India',from_date='01/01/2010',to_date='20/03/2021')
 
 #k1=investpy.search_quotes(text='AARTIIND',products=['stocks'],countries=['India'],n_results=2)[0].retrieve_historical_data(from_date='01/01/2019',to_date='07/12/2020')
 
