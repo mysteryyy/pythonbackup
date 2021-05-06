@@ -2,6 +2,7 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler,MinMaxScaler
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
+from tensorflow.keras.constraints import MinMaxNorm
 from tensorflow.keras.optimizers import RMSprop
 import numpy as np
 from dateutil import parser
@@ -64,8 +65,8 @@ y = np.array(np.float32(np.array(outvars)))
 y =y.reshape(len(y),)
 x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=.3)
 model = Sequential([
-Dense(input_shape=(x_train.shape[1],), units=15,kernel_initializer=tf.constant_initializer(50),
-          bias_initializer=tf.constant_initializer(0)),
+Dense(input_shape=(x_train.shape[1],), units=1,kernel_initializer=tf.constant_initializer(1),
+          bias_initializer=tf.constant_initializer(0),kernel_constraint=MinMaxNorm(min_value=-1,max_value=1)),
     tfpl.DistributionLambda(lambda t:tfd.Exponential(rate=t),
                            convert_to_tensor_fn=tfd.Distribution.sample)
 ])
