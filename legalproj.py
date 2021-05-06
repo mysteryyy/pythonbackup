@@ -65,8 +65,8 @@ y = np.array(np.float32(np.array(outvars)))
 y =y.reshape(len(y),)
 x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=.3)
 model = Sequential([
-Dense(input_shape=(x_train.shape[1],), units=1,kernel_initializer=tf.constant_initializer(1),
-          bias_initializer=tf.constant_initializer(0),kernel_constraint=MinMaxNorm(min_value=-1,max_value=1)),
+Dense(input_shape=(x_train.shape[1],), units=15,kernel_initializer=tf.constant_initializer(1),
+          bias_initializer=tf.constant_initializer(0),kernel_constraint=MinMaxNorm(min_value=-1,max_value=2)),
     tfpl.DistributionLambda(lambda t:tfd.Exponential(rate=t),
                            convert_to_tensor_fn=tfd.Distribution.sample)
 ])
