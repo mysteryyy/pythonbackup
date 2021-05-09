@@ -14,16 +14,15 @@ class filters:
         pass 
     
 
-    def bandpass(self,k,n):
-            #pwr = np.zeros(n)
-            k['bp']=0
+    def bandpass(self,cl,n):
+            #pwr = ..np.zeros(n)
+            bp=pd.Series(np.zeros(len(cl)))
             beta1=np.cos(2*np.pi/(0.9*n))
             gamma1=1/(np.cos(2*np.pi*.3/(0.9*n)))
             alpha1=gamma1-(gamma1**2-1)**.5
-            k['bp'] = .5*(1-alpha1)*(k.Close-k.Close.shift(2))
-            +beta1*(1+alpha1)*k.bp.shift(1)-alpha1*k.bp.shift(2)
-            k = k.dropna()
-            return k
+            bp = .5*(1-alpha1)*(cl-cl.shift(2))
+            +beta1*(1+alpha1)*bp.shift(1)-alpha1*bp.shift(2)
+            return bp
     def velacc5(self,p):
              k =p.dropna()
              k['hp'] = k.roof
@@ -38,26 +37,24 @@ class filters:
              +(.7612)*k.hp.shift(6)
              k=k.dropna()
              return k
-    def ema(self,k,l):
-        k['em']=0
+    def ema(self,cl,l):
+        em=pd.Series(np.zeros(len(cl)))
         alpha = 2/(l+1)
-        k['em']=alpha*k.Close+(1-alpha)*k.em.shift(1)
-        k=k.dropna()
-        return k
+        em=alpha*cl+(1-alpha)*em.shift(1)
+        return em
 
-    def butterworth2(self,k,period):
-        k['bw']=0
+    def butterworth2(self,cl,period):
+        bw=pd.Series(np.zeros(len(cl)))
         a = np.exp(-1.414*3.14159/period)
         b = 2*a*np.cos(1.414*(3.14159/2)/period)
         c2 =b
         c3=-a*a
         c1=1-c2-c3
-        k['bw'] = c1*(k.Close+k.Close.shift(1))/2+c2*k.bw.shift(1)+c3*k.bw.shift(2)
-        k=k.dropna()
-        return k
+        bw = c1*(cl+cl.shift(1))/2+c2*bw.shift(1)+c3*bw.shift(2)
+        return bw
     
-    def butterworth3(self,k,period):
-        k['bw'] = 0
+    def butterworth3(self,k,cl,period):
+        bw=pd.Series(np.zeros(len(cl)))
         a = np.exp(-np.pi/period)
         b=2*a*np.cos(1.738*(np.pi/2)/period)
         c=a*a
@@ -65,24 +62,23 @@ class filters:
         d3=-(c+b*c)
         d4=c*c
         d1=1-d3-d2-d4
-        k['bw'] = d1*k.Close-d2*k.bw.shift(1)-d3*k.bw.shift(2)-d4*k.bw.shift(3)
-        k=k.dropna()
-        return k 
-    def highpass2(self,k,period):
+        bw= d1*cl-d2*bw.shift(1)-d3*bw.shift(2)-d4*bw.shift(3)
+        return bw 
+    def highpass2(self,k,cl,period):
         k['hp']=0
         cos_element=np.cos(0.707*2*np.pi/period)
         sin_element=np.sin(0.707*2*np.pi/period)
         alpha = (cos_element+sin_element-1)/cos_element
         print(alpha)
-        k['hp'] = (1-alpha/2)**2*(k.Close-2*k.Close.shift(1)+k.Close.shift(2))+2*(1-alpha)*k.hp.shift(1)-(1-alpha)**2*k.hp.shift(2)
+        k['hp'] = (1-alpha/2)**2*(cl-2*cl.shift(1)+cl.shift(2))+2*(1-alpha)*k.hp.shift(1)-(1-alpha)**2*k.hp.shift(2)
         k=k.dopna()
         return k
-    def highpass1(self,k,period):
+    def highpass1(self,k,cl,period):
         k['hp']=0
         cos_element=np.cos(2*np.pi/period)
         sin_element=np.sin(2*np.pi/period)
         alpha = (1-sin_element)/cos_element
-        k['hp'] = .5*(1+alpha)*(k.Close-k.Close.shift(1))+alpha*(k.hp.shift(1))
+        k['hp'] = .5*(1+alpha)*(cl-cl.shift(1))+alpha*(k.hp.shift(1))
         k=k.dropna()
         return k
   
