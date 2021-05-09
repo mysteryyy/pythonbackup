@@ -10,7 +10,7 @@ import os
 import pdb
 class filters:
    
-    def __init__(self):
+    def __init__(self,k):
         pass 
     
 
@@ -51,9 +51,10 @@ class filters:
         c3=-a*a
         c1=1-c2-c3
         bw = c1*(cl+cl.shift(1))/2+c2*bw.shift(1)+c3*bw.shift(2)
+        bw.fillna(0)
         return bw
     
-    def butterworth3(self,k,cl,period):
+    def butterworth3(self,cl,period):
         bw=pd.Series(np.zeros(len(cl)))
         a = np.exp(-np.pi/period)
         b=2*a*np.cos(1.738*(np.pi/2)/period)
@@ -64,23 +65,21 @@ class filters:
         d1=1-d3-d2-d4
         bw= d1*cl-d2*bw.shift(1)-d3*bw.shift(2)-d4*bw.shift(3)
         return bw 
-    def highpass2(self,k,cl,period):
-        k['hp']=0
+    def highpass2(self,cl,period):
+        hp=pd.Series(np.zeros(len(cl)))
         cos_element=np.cos(0.707*2*np.pi/period)
         sin_element=np.sin(0.707*2*np.pi/period)
         alpha = (cos_element+sin_element-1)/cos_element
         print(alpha)
-        k['hp'] = (1-alpha/2)**2*(cl-2*cl.shift(1)+cl.shift(2))+2*(1-alpha)*k.hp.shift(1)-(1-alpha)**2*k.hp.shift(2)
-        k=k.dopna()
-        return k
-    def highpass1(self,k,cl,period):
-        k['hp']=0
+        hp = (1-alpha/2)**2*(cl-2*cl.shift(1)+cl.shift(2))+2*(1-alpha)*hp.shift(1)-(1-alpha)**2*hp.shift(2)
+        return hp
+    def highpass1(self,cl,period):
+        hp=pd.Series(np.zeros(len(cl)))
         cos_element=np.cos(2*np.pi/period)
         sin_element=np.sin(2*np.pi/period)
         alpha = (1-sin_element)/cos_element
-        k['hp'] = .5*(1+alpha)*(cl-cl.shift(1))+alpha*(k.hp.shift(1))
-        k=k.dropna()
-        return k
+        hp = .5*(1+alpha)*(cl-cl.shift(1))+alpha*(hp.shift(1))
+        return hp
   
     def normalize(self,filt,fac):
         peak = np.zeros(len(filt))
