@@ -41,10 +41,10 @@ def simulate_trade(pr,long_short):
            else:
                s=s+row.oc
         else:
-           if (s-row.oh>tp):
+           if (s-row.oh<sl):
                s=sl
                stopped_out=1
-           elif(s+row.ol<sl):
+           elif(s-row.ol>tp):
                s=tp
                stopped_out=1
            else:
