@@ -24,14 +24,16 @@ print(pr)
 s=0
 sl=-1
 tp=2
+stopped_out=0
 for index,row in pr.iloc[0:len(pr)-1].iterrows():
    
    if (s+row.oh>tp):
        s=tp
-       stopepd_out=1
+       stopped_out=1
    elif(s+row.ol<sl):
        s=sl
        stopped_out=1
    else:
        s=s+row.oc
+ 
 print(s)
