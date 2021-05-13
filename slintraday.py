@@ -15,7 +15,23 @@ import os
 import pdb
 from mle import *
 
-pr = pd.DataFrame(columns=["Open","High","Low","Close",],data=np.ones((20,4)))
+pr = pd.DataFrame(columns=["open","high","low","close",],data=np.ones((20,4)))
+pr.loc[17,'low']=0.97
+pr['oh']=(pr.high-pr.open)/pr.open * 100
+pr['ol']=(pr.low-pr.open)/pr.open * 100
+pr['oc']=(pr.close-pr.open)/pr.open * 100
 print(pr)
-for i in range(len(pr)):
-    print(pr.iloc[i])
+s=0
+sl=-1
+tp=2
+for index,row in pr.iloc[0:len(pr)-1].iterrows():
+   
+   if (s+row.oh>tp):
+       s=tp
+       stopepd_out=1
+   elif(s+row.ol<sl):
+       s=sl
+       stopped_out=1
+   else:
+       s=s+row.oc
+print(s)
