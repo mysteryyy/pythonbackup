@@ -25,7 +25,7 @@ def doctypes(l):
     else:
         return l
 
-automl=AutoML(mode='Explain',total_time_limit=180)
+automl=AutoML(mode='Explain',total_time_limit=680)
 df = pd.read_csv('/home/sahil/Downloads/LegalTrackerDated1.csv')
 #df = df[df['Deal Created date'].notna()]
 df = df[df['Date of Initial Review by Legal'].notna()]
@@ -64,7 +64,7 @@ x = np.concatenate((OneHotEncoder(sparse=False).fit_transform(inpvars1),np.matri
 #x=MinMaxScaler().fit_transform(x)
 y = np.array(np.float32(np.array(outvars)))
 #y=y+.1
-#y =y.reshape(len(y),)
+y =y.reshape(len(y),)
 x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=.3)
 #model = Sequential([
 #Dense(input_shape=(x_train.shape[1],), units=1,kernel_initializer=tf.constant_initializer(1),
