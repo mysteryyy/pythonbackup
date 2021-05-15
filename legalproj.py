@@ -14,6 +14,7 @@ tfpl = tfp.layers
 tfb = tfp.bijectors
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score,mean_absolute_percentage_error
+from supervised.automl import AutoML # mljar-supervised
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import AdaBoostClassifier,RandomForestClassifier,RandomForestRegressor
@@ -24,7 +25,7 @@ def doctypes(l):
     else:
         return l
 
-automl=AutoML(mode='Compete',total_time_limit=60)
+automl=AutoML(mode='Explain',total_time_limit=180)
 df = pd.read_csv('/home/sahil/Downloads/LegalTrackerDated1.csv')
 #df = df[df['Deal Created date'].notna()]
 df = df[df['Date of Initial Review by Legal'].notna()]
@@ -59,26 +60,26 @@ outvars = df1[['tat']]
 def nll(y_true,y_pred):
     return -y_pred.log_prob(y_true)
 x = np.concatenate((OneHotEncoder(sparse=False).fit_transform(inpvars1),np.matrix(inpvars2)),axis=1)
-x=StandardScaler().fit_transform(x)
-x=MinMaxScaler().fit_transform(x)
+#x=StandardScaler().fit_transform(x)
+#x=MinMaxScaler().fit_transform(x)
 y = np.array(np.float32(np.array(outvars)))
-y=y+.1
-y =y.reshape(len(y),)
+#y=y+.1
+#y =y.reshape(len(y),)
 x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=.3)
-model = Sequential([
-Dense(input_shape=(x_train.shape[1],), units=1,kernel_initializer=tf.constant_initializer(1),
-          bias_initializer=tf.constant_initializer(0),kernel_constraint=MinMaxNorm(min_value=-1,max_value=1)),
-    tfpl.DistributionLambda(lambda t:tfd.Exponential(rate=t),
-                           convert_to_tensor_fn=tfd.Distribution.sample)
-])
-model.compile(loss=nll,
-optimizer=RMSprop(learning_rate=0.01))
-model.fit(x_train, y_train, epochs=1000, verbose=True);
-tr = RandomForestRegressor(n_estimators=50,max_depth=6,min_samples_split=10)
-clf=tr
+#model = Sequential([
+#Dense(input_shape=(x_train.shape[1],), units=1,kernel_initializer=tf.constant_initializer(1),
+#          bias_initializer=tf.constant_initializer(0),kernel_constraint=MinMaxNorm(min_value=-1,max_value=1)),
+#    tfpl.DistributionLambda(lambda t:tfd.Exponential(rate=t),
+#                           convert_to_tensor_fn=tfd.Distribution.sample)
+#])
+#model.compile(loss=nll,
+#optimizer=RMSprop(learning_rate=0.01))
+#model.fit(x_train, y_train, epochs=1000, verbose=True);
+#tr = RandomForestRegressor(n_estimators=50,max_depth=6,min_samples_split=10)
+#clf=tr
 #clf = AdaBoostClassifier(base_estimator=tr,n_estimators=80,random_state=50,learning_rate=1.0)
-clf.fit(x_train,y_train)
-print(mean_absolute_percentage_error(clf.predict(x_test),y_test))
+automl.fit(x_train,y_train)
+print("MAP: ",mean_absolute_percentage_error(automl.predict(x_test),y_test))
 dftt = pd.DataFrame()
 
 dftt.loc[ind[0],cols[0]] = df[(df.doctype=='SOW') & (df.qornot=='Yes') & (df.pages<sowmed)].tat.mean()
