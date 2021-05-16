@@ -29,10 +29,10 @@ tp=2
 long_short='long'
 stopped_out=0
 def simulate_trade(pr,long_short):
-    pr['oh']=(pr.high-pr.open)/pr.open * 100
-    pr['ol']=(pr.low-pr.open)/pr.open * 100
-    pr['oc']=(pr.close-pr.close.shift(1))/pr.close.shift(1) * 100
-    pr.loc[0,'oc'] = (pr.close.loc[0]-pr.open.loc[0])/pr.open.loc[0] * 100
+    #pr['oh']=(pr.high-pr.open)/pr.open * 100
+    #pr['ol']=(pr.low-pr.open)/pr.open * 100
+    #pr['oc']=(pr.close-pr.close.shift(1))/pr.close.shift(1) * 100
+    #pr.loc[0,'oc'] = (pr.close.loc[0]-pr.open.loc[0])/pr.open.loc[0] * 100
 
     print(pr)
     s=0
@@ -58,6 +58,13 @@ def simulate_trade(pr,long_short):
 
     return s
 def extract_signal_trades(pr):
+    
+    pr['oh']=(pr.high-pr.open)/pr.open * 100
+    pr['ol']=(pr.low-pr.open)/pr.open * 100
+    pr['oc']=(pr.close-pr.close.shift(1))/pr.close.shift(1) * 100
+    pr.loc[0,'oc'] = (pr.close.loc[0]-pr.open.loc[0])/pr.open.loc[0] * 100
+
+
     k2=pr
     # Index of the signals
     rets=0
