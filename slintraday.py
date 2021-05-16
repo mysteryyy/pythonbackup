@@ -31,7 +31,9 @@ stopped_out=0
 def simulate_trade(pr,long_short):
     pr['oh']=(pr.high-pr.open)/pr.open * 100
     pr['ol']=(pr.low-pr.open)/pr.open * 100
-    pr['oc']=(pr.close-pr.open)/pr.open * 100
+    pr['oc']=(pr.close-pr.close.shift(1))/pr.close.shift(1) * 100
+    pr.loc[0,'oc'] = (pr.close.loc[0]-pr.open.loc[0])/pr.open.loc[0] * 100
+
     print(pr)
     s=0
     for index,row in pr.iloc[0:len(pr)].iterrows():
