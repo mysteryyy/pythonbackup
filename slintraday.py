@@ -15,16 +15,12 @@ import os
 import pdb
 from mle import *
 
-pr = pd.DataFrame(columns=["open","high","low","close","signal",],data=np.ones((20,4)))
-pr.loc[14,'open']=1.00
-pr.loc[14,'low']=1.00
-pr.loc[14,'close']=1.01
-pr.loc[14,'high']=1.01
-pr.loc[15,'open']=1.01
-pr.loc[15,'close']=1.021
-pr.loc[15,'low']=1.01
-pr.loc[15,'high']=1.021
-pr.loc[17,'low']=0.99
+pr = pd.DataFrame(columns=["open","high","low","close","signal",],data=np.ones((20,5)))
+pr['signal']=0
+pr.loc[10,'signal']=-1
+pr.loc[12,'high']=1.05
+pr.loc[13,'low']=0.97
+pr.loc[15,'close']=1.012
 print(pr)
 s=0
 sl=-1
@@ -37,21 +33,23 @@ def simulate_trade(pr,long_short):
     pr['oc']=(pr.close-pr.open)/pr.open * 100
     print(pr)
     s=0
-    for index,row in pr.iloc[0:len(pr)-1].iterrows():
+    for index,row in pr.iloc[0:len(pr)].iterrows():
         if(long_short=='long'): 
            if (s+row.oh>tp):
                s=tp
-               stopped_out=1
+               break
            elif(s+row.ol<sl):
                s=sl
-               stopped_out=1
+               break
            else:
                s=s+row.oc
         else:
            if (s-row.oh<sl):
                s=sl
+               break
            elif(s-row.ol>tp):
                s=tp
+               break
            else:
                s=s-row.oc
 
@@ -69,7 +67,7 @@ def extract_signal_trades(pr):
       signal_down=signal_down[0]
 
       if(signal_up<signal_down):
-
+      
         rets=simulate_trade(k2.iloc[signal_up+1:signal_down+1],'long')
 
       else: # Condition for short trade with exit within the day
