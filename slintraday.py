@@ -15,14 +15,14 @@ import os
 import pdb
 from mle import *
 
-pr = pd.DataFrame(columns=["open","high","low","close","signal",],data=np.ones((20,5)))
-pr['signal']=0
-pr.loc[10,'signal']=-1
-pr.loc[12,'high']=1.05
-pr.loc[13,'low']=0.97
-pr.loc[15,'close']=1.012
-print(pr)
-s=0
+#pr = pd.DataFrame(columns=["open","high","low","close","signal",],data=np.ones((20,5)))
+#pr['signal']=0
+#pr.loc[10,'signal']=-1
+#pr.loc[12,'high']=1.05
+#pr.loc[13,'low']=0.97
+#pr.loc[15,'close']=1.012
+#print(pr)
+#s=0
 sl=-1
 tp=2
 long_short='long'
@@ -87,4 +87,3 @@ def extract_signal_trades(pr):
 
     return rets
 
-print(extract_signal_trades(pr))
