@@ -16,19 +16,21 @@ import pdb
 from mle import *
 
 pr = pd.DataFrame(columns=["open","high","low","close",],data=np.ones((20,4)))
-pr.loc[14,'close']=0.995
-pr.loc[15,'open']=0.995
+pr.loc[14,'close']=.99
+pr.loc[15,'low']=0.996
 pr.loc[15,'close']=0.990
 pr.loc[17,'low']=0.99
 print(pr)
 s=0
 sl=-1
 tp=2
+long_short='long'
 stopped_out=0
 def simulate_trade(pr,long_short):
     pr['oh']=(pr.high-pr.open)/pr.open * 100
     pr['ol']=(pr.low-pr.open)/pr.open * 100
     pr['oc']=(pr.close-pr.open)/pr.open * 100
+    print(pr)
     s=0
     for index,row in pr.iloc[0:len(pr)-1].iterrows():
         if(long_short=='long'): 
@@ -52,4 +54,4 @@ def simulate_trade(pr,long_short):
 
     return s
  
-print(s)
+print(simulate_trade(pr,'long'))
