@@ -23,6 +23,7 @@ from mle import *
 #pr.loc[15,'close']=1.012
 #print(pr)
 #s=0
+## Assuming stop loss of 1% and take-profit of 2%
 sl=-1
 tp=2
 long_short='long'
