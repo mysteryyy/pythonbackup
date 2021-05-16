@@ -90,10 +90,13 @@ def extract_signal_trades(pr):
       
       rets=simulate_trade(k2.iloc[signal_up+1:],'long')
 
-    else:# Condition for short trade with exit at the end of the day
+
+    elif((len(signal_up)==0) & (len(signal_down)>0)):#Condition for long trade with exit at the end of the day
       signal_down=signal_down[0]
 
       rets=simulate_trade(k2.iloc[signal_down+1:],'short')
+    else:
+      rets=0
 
     return rets
 
