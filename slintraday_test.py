@@ -15,7 +15,7 @@ class TestTrades(unittest.TestCase):
         pr.loc[13,'low']=0.97
         pr.loc[15,'close']=1.012
 
-        self.assertEqual(extract_signal_trades(pr), -2, "Should be -1")
+        self.assertEqual(extract_signal_trades(pr), -1, "Should be -1")
 
 
 
@@ -27,4 +27,4 @@ class TestTrades(unittest.TestCase):
 
 
 if __name__=='__main__':
-    unittest.main()
+   unittest.main()
