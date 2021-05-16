@@ -15,7 +15,7 @@ import os
 import pdb
 from mle import *
 
-pr = pd.DataFrame(columns=["open","high","low","close",],data=np.ones((20,4)))
+pr = pd.DataFrame(columns=["open","high","low","close","signal",],data=np.ones((20,4)))
 pr.loc[14,'open']=1.00
 pr.loc[14,'low']=1.00
 pr.loc[14,'close']=1.01
@@ -50,13 +50,43 @@ def simulate_trade(pr,long_short):
         else:
            if (s-row.oh<sl):
                s=sl
-               stopped_out=1
            elif(s-row.ol>tp):
                s=tp
-               stopped_out=1
            else:
                s=s-row.oc
 
     return s
- 
-print(simulate_trade(pr,'short'))
+def extract_signal_trades(pr):
+    k2=pr
+    # Index of the signals
+    rets=0
+    signal_up=k2[k2.signal==1].index.values
+
+    signal_down=k2[k2.signal==-1].index.values
+    if((len(signal_up)!=0) & (len(signal_down)!=0)):#Condition for long trade with exit within the day
+      signal_up=signal_up[0]
+
+      signal_down=signal_down[0]
+
+      if(signal_up<signal_down):
+
+        rets=simulate_trade(k2.iloc[signal_up+1:signal_down+1],'long')
+
+      else: # Condition for short trade with exit within the day
+
+        rets=simulate_trade(k2.iloc[signal_down+1:signal_up+1],'short')
+
+    elif((len(signal_up)>0) & (len(signal_down)==0)):#Condition for long trade with exit at the end of the day
+
+      signal_up=signal_up[0]
+      
+      rets=simulate_trade(k2.iloc[signal_up+1:],'long')
+
+    else:# Condition for short trade with exit at the end of the day
+      signal_down=signal_down[0]
+
+      rets=simulate_trade(k2.iloc[signal_down+1:],'short')
+
+    return rets
+
+print(extract_signal_trades(pr))
